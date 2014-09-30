@@ -10,6 +10,7 @@ Koha project.
 * A clone of the official Koha Git repo
 * A gitified Koha instance, running off the repo
 * A remote for your own repo on e.g. GitHub
+* Git bz set up and ready to use
 
 See the TODO section for more to come.
 
