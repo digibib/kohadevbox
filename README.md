@@ -71,13 +71,6 @@ To destroy the box and all its contents:
   $ vagrant destroy
 ```
 
-## TODO
+## Code, issues etc
 
-* Make things more configurable
-* Avoid the web installer
-* Create a demo user
-* git bz
-* qa-test-tools
-* Plack
-* Memcached
-* ElasticSearch
+https://github.com/digibib/kohadevbox/
