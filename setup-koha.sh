@@ -57,3 +57,17 @@ git clone https://github.com/mkfifo/koha-gitify.git gitify
 cd gitify
 sudo ./koha-gitify "$instance_name" /home/vagrant/kohaclone
 sudo service apache2 restart
+
+# Git bz
+# http://wiki.koha-community.org/wiki/Git_bz_configuration
+cd
+git clone git://git.koha-community.org/git-bz.git gitbz
+cd gitbz/
+git checkout -b fishsoup origin/fishsoup
+sudo ln -s /home/vagrant/gitbz/git-bz /usr/local/bin/git-bz
+cd ~/kohaclone
+git config bz.default-tracker bugs.koha-community.org
+git config bz.default-product Koha
+git config --global bz-tracker.bugs.koha-community.org.path /bugzilla3
+git config --global bz-tracker.bugs.koha-community.org.bz-user $bugz_user
+git config --global bz-tracker.bugs.koha-community.org.bz-password $bugz_pass

@@ -19,5 +19,8 @@ author_name="Some Name"
 # Author email address
 author_email="some.name@example.org"
 
+# Bugzilla username
+bugz_user="some.name@example.org"
+
 # Bugzilla password
 bugz_pass="xyz"
