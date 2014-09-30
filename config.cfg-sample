@@ -1,0 +1,23 @@
+# Configuration file for kohadevbox
+# options should be on the form: variable="value"
+
+# The official Koha repo. You might need to change this if you have trouble
+# cloning over the git protocol
+koha_repo="git://git.koha-community.org/koha.git"
+# koha_repo="https://github.com/Koha-Community/Koha.git"
+
+# A Koha Git repository that you can push to
+my_repo="https://github.com/digibib/koha-work"
+my_repo_name="github"
+
+# Instance name
+instance_name="kohadev"
+
+# Author name
+author_name="Some Name"
+
+# Author email address
+author_email="some.name@example.org"
+
+# Bugzilla password
+bugz_pass="xyz"
