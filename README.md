@@ -13,6 +13,21 @@ Koha project.
 
 See the TODO section for more to come.
 
+## Getting started
+
+If you don't have them already, you need to install some prerequisites:
+
+* Install Vagrant: http://www.vagrantup.com/downloads.html
+* Install Git: http://git-scm.com/downloads
+
+Now you can clone the KohaDevBox repository to your local machine and cd into
+the directory that was created by the cloning operation:
+
+```
+  $ git clone https://github.com/digibib/kohadevbox.git
+  $ cd kohadevbox
+```
+
 ## Usage
 
 Copy the file config.cfg-sample to config.cfg:
