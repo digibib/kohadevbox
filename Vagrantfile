@@ -16,5 +16,7 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provision "shell", path: "setup-koha.sh", privileged: false
+  
+  config.vm.post_up_message = "Welcome to KohaDevBox!\nSee https://github.com/digibib/kohadevbox for details"
 
 end
