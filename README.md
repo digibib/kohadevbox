@@ -130,6 +130,33 @@ inside the VirtualBox:
   $ prove
 ```
 
+## Koha documentation for developers
+
+The [Developer Handbook](http://wiki.koha-community.org/wiki/Developer_handbook)
+is the main point of entry into the Koha wiki for new and spiring developers
+and people who want to sign off on patches. Here are some shortcuts:
+
+General stuff that everyone should know:
+
+* [Bug-enhancement-patch Workflow](http://wiki.koha-community.org/wiki/Bug-enhancement-patch_Workflow)
+* [Git bz](http://wiki.koha-community.org/wiki/Git_bz_configuration) is a handy tool to reduce typing
+
+Signing off on patches:
+
+* [Sign off on patches](http://wiki.koha-community.org/wiki/Sign_off_on_patches)
+
+Doing development:
+
+* [Coding Guidelines](http://wiki.koha-community.org/wiki/Coding_Guidelines)
+* [Version Control Using Git](http://wiki.koha-community.org/wiki/Version_Control_Using_Git)
+* [Commit messages](http://wiki.koha-community.org/wiki/Commit_messages)
+* [Unit Tests](http://wiki.koha-community.org/wiki/Unit_Tests)
+* [Database updates](http://wiki.koha-community.org/wiki/Database_updates)
+* [Adding a syspref](http://wiki.koha-community.org/wiki/System_Preferences#Adding_a_new_system_preference)
+
+The [Koha Documentation](http://koha-community.org/documentation/) is highly
+recommended for getting to know Koha in general.
+
 ## Code, issues etc
 
 https://github.com/digibib/kohadevbox/
