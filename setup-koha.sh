@@ -2,6 +2,7 @@
 
 # Get the configuration variables
 source "/vagrant/config.cfg"
+KOHACLONE="/home/vagrant/kohaclone"
 
 # Add some more sources to apt
 echo "deb http://ftp.indexdata.dk/debian wheezy main" | sudo tee /etc/apt/sources.list.d/zebra.list
@@ -44,18 +45,26 @@ git config --global alias.d difftool
 git config --global core.whitespace trailing-space,space-before-tab
 git config --global apply.whitespace fix
 
-git clone --depth=1 $koha_repo kohaclone
-cd kohaclone
-if [ $my_repo != '' ]; then
-    git remote add $my_repo_name $my_repo
-    # FIXME git fetch --all?
+# If SYNC_REPO was set during "vagrant up", there will already be a repo in 
+# $KOHACLONE and we skip the cloning and "remote add" steps
+if [ -d "$DIRECTORY" ]; then
+
+    # Clone the official Koha repo
+    git clone --depth=1 $koha_repo $KOHACLONE
+    cd $KOHACLONE
+    # Add the users repo as a remote, if it is set in the config file
+    if [ $my_repo != '' ]; then
+        git remote add $my_repo_name $my_repo
+        # FIXME git fetch --all?
+    fi
+
 fi
 
 # Gitify
 cd 
 git clone https://github.com/mkfifo/koha-gitify.git gitify
 cd gitify
-sudo ./koha-gitify "$instance_name" /home/vagrant/kohaclone
+sudo ./koha-gitify "$instance_name" $KOHACLONE
 sudo service apache2 restart
 
 # Git bz
@@ -65,7 +74,7 @@ git clone git://git.koha-community.org/git-bz.git gitbz
 cd gitbz/
 git checkout -b fishsoup origin/fishsoup
 sudo ln -s /home/vagrant/gitbz/git-bz /usr/local/bin/git-bz
-cd ~/kohaclone
+cd $KOHACLONE
 git config bz.default-tracker bugs.koha-community.org
 git config bz.default-product Koha
 git config --global bz-tracker.bugs.koha-community.org.path /bugzilla3

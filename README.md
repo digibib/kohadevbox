@@ -72,6 +72,53 @@ To destroy the box and all its contents:
   $ vagrant destroy
 ```
 
+## Environment variables
+
+Some of the behaviour of KohaDevBox can be altered through the use of environment
+variables. These can be set in a few different ways, depending on how permanent
+you want to make them:
+
+On the command line when you run "vagrant up". This will only affect one run of
+"vagrant up", and you can change it or leave it out the next time you run
+"vagrant up":
+
+```
+  $ SYNC_REPO="/home/me/kohaclone" vagrant up
+```
+
+On the command line, with export. This will remain in effect for the duration
+of your current shell session:
+
+```
+  $ export SYNC_REPO="/home/me/kohaclone"
+```
+
+In your ~/.bashrc. This will make sure the environment variable is set every
+time you start a new shell session:
+
+```
+  export SYNC_REPO="/home/me/kohaclone"
+```
+
+The available environment variables are:
+
+### SYNC_REPO
+
+Value: The path to an existing Koha Git repo.
+
+Usage:
+
+```
+  $ SYNC_REPO="/home/me/kohaclone" vagrant up
+```
+
+Sometimes you have an existing Koha Git repo, that you want to "take with you"
+into the VirtualBox created by KohaDevBox. Or you want to save some time by
+not having KohaDevBox clone lots of large repos every time you spin up a new
+box. Or you want to be able to work on the code with your usual tools, regardless
+of what is available inside the VirtualBox. Or you have some code that you want
+to test on a fresh virtual machine. Then this environment variable is for you.
+
 ## Code, issues etc
 
 https://github.com/digibib/kohadevbox/
