@@ -24,6 +24,9 @@ echo mysql-server-5.5 mysql-server/root_password_again password xyz | sudo debco
 # Install Koha (koha-common) and some other packages
 sudo apt-get install -q -y vim cpanminus git git-email mysql-server apache2 koha-common
 
+# Install some packages needed for running tests of the Vagrant setup (found in /vagrant/t/)
+sudo apt-get install -q -y libtest-file-perl
+
 # Configure Apache
 sudo a2enmod rewrite
 sudo a2dissite default

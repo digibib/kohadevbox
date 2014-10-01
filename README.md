@@ -119,6 +119,17 @@ box. Or you want to be able to work on the code with your usual tools, regardles
 of what is available inside the VirtualBox. Or you have some code that you want
 to test on a fresh virtual machine. Then this environment variable is for you.
 
+## Tests
+
+KohaDevBox comes with some tests to verify that the environment inside the
+VirtualBox is set up as intended. To run these tests, run the following commands
+inside the VirtualBox:
+
+```
+  $ cd /vagrant
+  $ prove
+```
+
 ## Code, issues etc
 
 https://github.com/digibib/kohadevbox/
