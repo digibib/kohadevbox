@@ -16,6 +16,13 @@ wget --quiet -O- "http://debian.koha-community.org/koha/gpg.asc" | sudo apt-key 
 # sudo apt-get update && apt-get upgrade 
 sudo apt-get update -q 
 
+# Do not allow ssh to pass locale environment variables into the box. If we
+# allow this, users will carry the locale settings from their host computer into
+# the box, and Debian will complain about the locale not being installed (if it
+# is something other than English, at least).
+sudo perl -pi -e 's/AcceptEnv LANG LC_\*/# AcceptEnv LANG LC_\*/g' '/etc/ssh/sshd_config'
+sudo service ssh reload
+
 # Set the root password for MySQL, so we can do a non-interactive installation 
 # From http://www.microhowto.info/howto/perform_an_unattended_installation_of_a_debian_package.html#idp36176
 echo mysql-server-5.5 mysql-server/root_password password xyz | sudo debconf-set-selections
