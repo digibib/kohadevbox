@@ -80,7 +80,7 @@ sudo service apache2 restart
 # Git bz
 # http://wiki.koha-community.org/wiki/Git_bz_configuration
 cd
-git clone git://git.koha-community.org/git-bz.git gitbz
+git clone $gitbz_repo gitbz
 cd gitbz/
 git checkout -b fishsoup origin/fishsoup
 sudo ln -s /home/vagrant/gitbz/git-bz /usr/local/bin/git-bz

@@ -10,6 +10,11 @@ koha_repo="git://git.koha-community.org/koha.git"
 my_repo="https://github.com/digibib/koha-work"
 my_repo_name="github"
 
+# Git-bz-repo You might need to change this if you have trouble
+# cloning over the git protocol
+gitbz_repo="git://git.koha-community.org/git-bz.git"
+# gitbz_repo="https://github.com/digibib/git-bz.git"
+
 # Instance name
 instance_name="kohadev"
 
