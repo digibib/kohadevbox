@@ -55,9 +55,9 @@ git config --global alias.d difftool
 git config --global core.whitespace trailing-space,space-before-tab
 git config --global apply.whitespace fix
 
-# If SYNC_REPO was set during "vagrant up", there will already be a repo in 
+# If SYNC_REPO was set during "vagrant up", there will already be a repo in
 # $KOHACLONE and we skip the cloning and "remote add" steps
-if [ -d "$DIRECTORY" ]; then
+if [ ! -d "$KOHACLONE" ]; then
 
     # Clone the official Koha repo
     git clone --depth=1 $koha_repo $KOHACLONE
