@@ -12,7 +12,7 @@ Koha project.
 * A remote for your own repo on e.g. GitHub
 * Git bz set up and ready to use
 
-See the TODO section for more to come.
+See the [open issues](https://github.com/digibib/kohadevbox/issues) for more to come.
 
 ## Getting started
 
