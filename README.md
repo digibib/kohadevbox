@@ -59,6 +59,13 @@ at these addresses:
 * http://localhost:8080/ Public interface
 * http://localhost:8081/ Staff interface
 
+Until issue #2 has been fixed, you need to log in to the Web UI with the
+database user. You will find the username and passowrd in this file:
+
+```
+/etc/koha/sites/<instance_name>/koha-conf.xml
+```
+
 To log into the newly created box:
 
 ```
@@ -125,6 +132,15 @@ not having KohaDevBox clone lots of large repos every time you spin up a new
 box. Or you want to be able to work on the code with your usual tools, regardless
 of what is available inside the VirtualBox. Or you have some code that you want
 to test on a fresh virtual machine. Then this environment variable is for you.
+
+Please note:
+
+* The repo is synced "both ways", so any changes you make to the repo while you
+are inside the box will persist in your repo once you shut down or destroy the
+box.
+* When you do "vagrant up", the Koh ainstance configured by the box will run
+off whatever branch you had checked out in your pre-existing repo when you ran
+"vagrant up".
 
 ## Tests
 
