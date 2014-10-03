@@ -41,7 +41,28 @@ echo "Listen 8080" | sudo tee --append "/etc/apache2/ports.conf"
 sudo service apache2 restart
 
 # Create a Koha instance
-sudo koha-create --create-db --configfile "/vagrant/koha-sites-default.cfg" "$instance_name"
+sudo koha-create --create-db --configfile "/vagrant/koha-sites.cfg" "$instance_name"
+
+# Check if the user wants to run the webinstaller or not
+if [ $skip_webinstaller == 1 ]; then
+
+    # Load SQL manually, so we don't have to run through the webinstaller
+    for file in $KOHACLONE/installer/data/mysql/kohastructure.sql $KOHACLONE/installer/data/mysql/sysprefs.sql $KOHACLONE/installer/data/mysql/$installer_lang/*/*.sql $KOHACLONE/installer/data/mysql/$installer_lang/marcflavour/$installer_marcflavour/*/*.sql
+    do
+	    echo "Loading $file"
+	    sudo koha-mysql "$instance_name" < $file
+    done
+    # Set the version number
+    KOHAVERSION=$( perl -e "do '$KOHACLONE/kohaversion.pl'; print kohaversion();" )
+    # Remove all periods from the version number
+    KOHAVERSION=$( echo $KOHAVERSION | tr -d . )
+    # Insert a period after the first digit
+    KOHAVERSION=$( echo $KOHAVERSION | sed 's/^\(.\{1\}\)/\1./' )
+    echo "Setting Version = $KOHAVERSION"
+    # Insert the version number into the database
+    echo "INSERT INTO systempreferences SET variable = 'Version', value = '$KOHAVERSION';" | sudo koha-mysql "$instance_name"
+
+fi
 
 # Configure Git and some repos
 git config --global user.name ""$author_name""

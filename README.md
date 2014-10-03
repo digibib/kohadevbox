@@ -39,6 +39,13 @@ Copy the file config.cfg-sample to config.cfg:
 
 Read the comments in that file and fill in the config parameters as necessary
 
+Copy koha-sites.cfg-sample to koha-sites.cfg and edit koha-sites.cfg if you
+need to:
+
+```
+$ cp koha-sites.cfg-sample koha-sites.cfg
+```
+
 To spin up a dev box:
 
 ```
