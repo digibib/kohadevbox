@@ -43,6 +43,21 @@ sudo service apache2 restart
 # Create a Koha instance
 sudo koha-create --create-db --configfile "/vagrant/koha-sites.cfg" "$instance_name"
 
+# If SYNC_REPO was set during "vagrant up", there will already be a repo in
+# $KOHACLONE and we skip the cloning and "remote add" steps
+if [ ! -d "$KOHACLONE" ]; then
+
+    # Clone the official Koha repo
+    git clone --depth=1 $koha_repo $KOHACLONE
+    cd $KOHACLONE
+    # Add the users repo as a remote, if it is set in the config file
+    if [ $my_repo != '' ]; then
+        git remote add $my_repo_name $my_repo
+        # FIXME git fetch --all?
+    fi
+
+fi
+
 # Check if the user wants to run the webinstaller or not
 if [ $skip_webinstaller == 1 ]; then
 
@@ -75,21 +90,6 @@ git config --global difftool.prompt false
 git config --global alias.d difftool
 git config --global core.whitespace trailing-space,space-before-tab
 git config --global apply.whitespace fix
-
-# If SYNC_REPO was set during "vagrant up", there will already be a repo in
-# $KOHACLONE and we skip the cloning and "remote add" steps
-if [ ! -d "$KOHACLONE" ]; then
-
-    # Clone the official Koha repo
-    git clone --depth=1 $koha_repo $KOHACLONE
-    cd $KOHACLONE
-    # Add the users repo as a remote, if it is set in the config file
-    if [ $my_repo != '' ]; then
-        git remote add $my_repo_name $my_repo
-        # FIXME git fetch --all?
-    fi
-
-fi
 
 # Gitify
 cd 
