@@ -4,6 +4,13 @@ require 'fileutils'
 
 Vagrant.configure(2) do |config|
 
+  # http://fgrehm.viewdocs.io/vagrant-cachier
+  if Vagrant.has_plugin?("vagrant-cachier")
+    config.cache.scope = :box
+  else
+    puts "Run 'vagrant plugin install vagrant-cachier' to speed up provisioning."
+  end
+
   config.vm.hostname = "kohadevbox"
   config.vm.box = "chef/debian-7.6"
 
