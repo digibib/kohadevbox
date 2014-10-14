@@ -8,7 +8,8 @@ Koha project.
 * Debian 7.6
 * Latest version of koha-common based on the master branch
 * A clone of the official Koha Git repo
-* A gitified Koha instance, running off the repo
+* A gitified Koha instance, running off the repo, under Apache
+* The same instance, running off the same repo, under Plack
 * A remote for your own repo on e.g. GitHub
 * Git bz set up and ready to use
 
@@ -31,6 +32,8 @@ the directory that was created by the cloning operation:
 
 ## Usage
 
+### config.cfg
+
 Copy the file config.cfg-sample to config.cfg:
 
 ```
@@ -39,12 +42,35 @@ Copy the file config.cfg-sample to config.cfg:
 
 Read the comments in that file and fill in the config parameters as necessary
 
+### koha-sites.cfg
+
 Copy koha-sites.cfg-sample to koha-sites.cfg and edit koha-sites.cfg if you
 need to:
 
 ```
 $ cp koha-sites.cfg-sample koha-sites.cfg
 ```
+
+### koha.psgi
+
+Copy koha.psgi-sample to koha.psgi and edit koha.psgi if necessary:
+
+```
+$ cp koha.psgi-sample koha.psgi
+```
+
+The parts of this file that you might be interested in editing are the ones
+related to the debug panels. You can comment/uncomment these, save the file and
+Plack will detect the changes. Plack will then reload itself and your selection
+will be reflected in the available debug panels in the Koha Web UI. So no need
+to restart Plack in order for these changes to take effect!
+
+Please note that output from Plack is redirected to the following log files:
+
+* /home/vagrant/logs/plack-opac.log
+* /home/vagrant/logs/plack-intra.log
+
+### Running Vagrant
 
 To spin up a dev box:
 
@@ -56,8 +82,10 @@ This will download and install a bunch of stuff, please be patient. When
 everything is done, you should be able to access your dev installation of Koha
 at these addresses:
 
-* http://localhost:8080/ Public interface
-* http://localhost:8081/ Staff interface
+* http://localhost:8080/ Public interface (Apache)
+* http://localhost:8081/ Staff interface (Apache)
+* http://localhost:5000/ Public interface (Plack)
+* http://localhost:5001/ Staff interface (Plack)
 
 Until issue #2 has been fixed, you need to log in to the Web UI with the
 database user. You will find the username and passowrd in this file:

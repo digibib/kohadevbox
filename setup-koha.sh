@@ -122,12 +122,16 @@ git config --global bz-tracker.bugs.koha-community.org.bz-password $bugz_pass
 # extra fiddling or tweaking. If it turns out to be a bad idea (e.g. because
 # the two methods are interfering with each other) we can make it configurable
 # later.
-sudo apt-get install -q -y libplack-perl libcgi-emulate-psgi-perl libcgi-compile-perl starman libdevel-size-perl
-sudo cpanm --quiet --notest CGI::Compile Module::Versions Plack::Middleware::Debug Plack::Middleware::Static::Minifier Plack::Middleware::Debug::DBIProfile Plack::Middleware::Debug::Profiler::NYTProf
-# Start Plack and send output to /home/vagrant/logs/plack-*.log
-/home/vagrant/kohaclone/misc/plack/plackup.sh kohadev >> /home/vagrant/logs/plack-opac.log 2>&1 &
-/home/vagrant/kohaclone/misc/plack/plackup.sh kohadev i >> /home/vagrant/logs/plack-intra.log 2>&1 &
-
+if [ -f '/vagrant/koha.psgi' ]; then
+    sudo apt-get install -q -y libplack-perl libcgi-emulate-psgi-perl libcgi-compile-perl starman libdevel-size-perl
+    sudo cpanm --quiet --notest CGI::Compile Module::Versions Plack::Middleware::Debug Plack::Middleware::Static::Minifier Plack::Middleware::Debug::DBIProfile Plack::Middleware::Debug::Profiler::NYTProf
+    # Start Plack and send output to /home/vagrant/logs/plack-*.log
+    echo "Starting Plack"
+    /vagrant/plackup.sh kohadev   >> /home/vagrant/logs/plack-opac.log  2>&1 &
+    /vagrant/plackup.sh kohadev i >> /home/vagrant/logs/plack-intra.log 2>&1 &
+else
+    echo "Skipping Plack because /vagrant/koha.psgi does not exist"
+fi
 # An alternative approach to implementing Plack would be to use this code:
 # git clone git://git.catalyst.net.nz/koha-plack.git
 # At the moment, this does not work on gitified Koha instances. We might want to
