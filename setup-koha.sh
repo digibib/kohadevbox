@@ -44,7 +44,12 @@ echo "Listen 8080" | sudo tee --append "/etc/apache2/ports.conf"
 sudo service apache2 restart
 
 # Create a Koha instance
-sudo koha-create --create-db --configfile "/vagrant/koha-sites.cfg" "$instance_name"
+if [ -f '/vagrant/koha-sites.cfg' ]; then
+    sudo koha-create --create-db --configfile "/vagrant/koha-sites.cfg" "$instance_name"
+else
+    echo "**** /vagrant/koha-sites.cfg does not exist! Unable to create a Koha instance without it. ****"
+    exit;
+fi
 
 # If SYNC_REPO was set during "vagrant up", there will already be a repo in
 # $KOHACLONE and we skip the cloning and "remote add" steps
