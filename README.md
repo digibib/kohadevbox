@@ -72,7 +72,14 @@ Please note that output from Plack is redirected to the following log files:
 
 ### Running Vagrant
 
-To spin up a dev box:
+Before you start using Vagrant, you will probably want to do this, to speed up
+the future installation of packages etc in your VirtualBox:
+
+```
+  $ vagrant plugin install vagrant-cachier
+```
+
+To spin up a new dev box:
 
 ```
   $ vagrant up
