@@ -10,6 +10,9 @@ wget --quiet -O- "http://ftp.indexdata.dk/debian/indexdata.asc" | sudo apt-key a
 echo "deb http://debian.koha-community.org/koha squeeze-dev main" | sudo tee /etc/apt/sources.list.d/koha.list
 wget --quiet -O- "http://debian.koha-community.org/koha/gpg.asc" | sudo apt-key add -
 
+# Create a directory for logs
+mkdir ~/logs
+
 # Make sure we are up to date
 # FIXME The upgrade part takes forever to run, uncomment when development is done
 # FIXME Or make this step configurable? 
@@ -111,3 +114,22 @@ git config bz.default-product Koha
 git config --global bz-tracker.bugs.koha-community.org.path /bugzilla3
 git config --global bz-tracker.bugs.koha-community.org.bz-user $bugz_user
 git config --global bz-tracker.bugs.koha-community.org.bz-password $bugz_pass
+
+# Plack
+# http://wiki.koha-community.org/wiki/Plack
+# We run Plack off the same code as the one Apache runs off. This way, people
+# can choose to look at Koha by way of either Apache or Plack, without any
+# extra fiddling or tweaking. If it turns out to be a bad idea (e.g. because
+# the two methods are interfering with each other) we can make it configurable
+# later.
+sudo apt-get install -q -y libplack-perl libcgi-emulate-psgi-perl libcgi-compile-perl starman libdevel-size-perl
+sudo cpanm --quiet --notest CGI::Compile Module::Versions Plack::Middleware::Debug Plack::Middleware::Static::Minifier Plack::Middleware::Debug::DBIProfile Plack::Middleware::Debug::Profiler::NYTProf
+# Start Plack and send output to /home/vagrant/logs/plack-*.log
+/home/vagrant/kohaclone/misc/plack/plackup.sh kohadev >> /home/vagrant/logs/plack-opac.log 2>&1 &
+/home/vagrant/kohaclone/misc/plack/plackup.sh kohadev i >> /home/vagrant/logs/plack-intra.log 2>&1 &
+
+# An alternative approach to implementing Plack would be to use this code:
+# git clone git://git.catalyst.net.nz/koha-plack.git
+# At the moment, this does not work on gitified Koha instances. We might want to
+# make sure it does and switch to this in the future. It does provide some nice
+# scripts for starting/stopping Starman etc.
