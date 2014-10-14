@@ -17,6 +17,13 @@ See the [open issues](https://github.com/digibib/kohadevbox/issues) for more to 
 
 ## Getting started
 
+Register with Bugzilla, Koha's bugtracker, if you have not done so already:
+
+http://bugs.koha-community.org/bugzilla3/createaccount.cgi
+
+You will need to put your username and password in config.cfg (see below), so
+do not use a password you have used on other sites.
+
 If you don't have them already, you need to install some prerequisites:
 
 * Install Vagrant: http://www.vagrantup.com/downloads.html
