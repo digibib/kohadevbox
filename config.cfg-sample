@@ -20,8 +20,6 @@ gitbz_repo="git://git.koha-community.org/git-bz.git"
 qatools_repo="git://git.koha-community.org/qa-test-tools.git"
 # qatools_repo="https://github.com/Koha-Community/qa-test-tools.git"
 
-https://github.com/Koha-Community/qa-test-tools.git
-
 # Instance name
 instance_name="kohadev"
 
