@@ -12,6 +12,7 @@ Koha project.
 * The same instance, running off the same repo, under Plack
 * A remote for your own repo on e.g. GitHub
 * Git bz set up and ready to use
+* Koha's qa-test-tools set up and ready to use
 
 See the [open issues](https://github.com/digibib/kohadevbox/issues) for more to come.
 
@@ -183,6 +184,22 @@ box.
 * When you do "vagrant up", the Koh ainstance configured by the box will run
 off whatever branch you had checked out in your pre-existing repo when you ran
 "vagrant up".
+
+## qa-test-tools
+
+An alias is set up so that you can easily run Koha's qa-test-tools when you are
+inside your Koha repository clone:
+
+```
+  $ qa -c 7 -v 2
+```
+
+However, this will problably result in complaints that koha-conf.xml can not be
+found. To avoid this, you can run qa-test-tools through koha-shell like this:
+
+```
+  $ sudo koha-shell -c "perl -I/home/vagrant/qa-test-tools/ /home/vagrant/qa-test-tools/koha-qa.pl -c 7 -v 2" kohadev
+```
 
 ## Tests
 

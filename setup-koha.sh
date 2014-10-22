@@ -127,6 +127,22 @@ git config --global bz-tracker.bugs.koha-community.org.path /bugzilla3
 git config --global bz-tracker.bugs.koha-community.org.bz-user $bugz_user
 git config --global bz-tracker.bugs.koha-community.org.bz-password $bugz_pass
 
+# Koha QA Tools
+if [ ! -d "/home/vagrant/qa-test-tools/" ]; then
+
+    cd
+    git clone $qatools_repo
+    cd qa-test-tools/
+    echo "*** qa-test-tools from packages"
+    sudo apt-get install -q -y libfile-chdir-perl libgit-repository-perl liblist-compare-perl libmoo-perl libperl-critic-perl libsmart-comments-perl
+    echo "*** qa-test-tools from CPAN"
+    cat ./perl-deps | sudo cpanm  --quiet --notest
+    ln -s /home/vagrant/qa-test-tools/perlcriticrc ~/.perlcriticrc
+    export PERL5LIB="${PERL5LIB}":/home/vagrant/qa-test-tools/
+    alias qa="/home/vagrant/qa-test-tools/koha-qa.pl"
+
+fi
+
 # Plack
 # http://wiki.koha-community.org/wiki/Plack
 # We run Plack off the same code as the one Apache runs off. This way, people

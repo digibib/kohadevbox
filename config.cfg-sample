@@ -15,6 +15,13 @@ my_repo_name="github"
 gitbz_repo="git://git.koha-community.org/git-bz.git"
 # gitbz_repo="https://github.com/digibib/git-bz.git"
 
+# qa-test-tools repo
+# You might need to change this if you have trouble cloning over the git protocol
+qatools_repo="git://git.koha-community.org/qa-test-tools.git"
+# qatools_repo="https://github.com/Koha-Community/qa-test-tools.git"
+
+https://github.com/Koha-Community/qa-test-tools.git
+
 # Instance name
 instance_name="kohadev"
 
