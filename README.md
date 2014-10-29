@@ -129,6 +129,14 @@ To destroy the box and all its contents:
   $ vagrant destroy
 ```
 
+## Aliases
+
+Some aliases are provided to help reduce typing:
+
+* koha-intra-err - tail the intranet error log
+* koha-opac-err - tail the OPAC error log
+* koha-pass - get the db/admin password from koha-conf.xml
+
 ## Environment variables
 
 Some of the behaviour of KohaDevBox can be altered through the use of environment
