@@ -1,0 +1,3 @@
+# Aliases for reading logs
+alias koha-opac-err="sudo tail -f /var/log/koha/kohadev/opac-error.log"
+alias koha-intra-err="sudo tail -f /var/log/koha/kohadev/intranet-error.log"

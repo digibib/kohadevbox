@@ -26,6 +26,9 @@ sudo apt-get update -q
 sudo perl -pi -e 's/AcceptEnv LANG LC_\*/# AcceptEnv LANG LC_\*/g' '/etc/ssh/sshd_config'
 sudo service ssh reload
 
+# Source a kohadevbox file from .bashrc, where we can put things like aliases
+echo "source /vagrant/kohadevbox-bashrc" >> "/home/vagrant/.bashrc"
+
 # Set the root password for MySQL, so we can do a non-interactive installation 
 # From http://www.microhowto.info/howto/perform_an_unattended_installation_of_a_debian_package.html#idp36176
 echo mysql-server-5.5 mysql-server/root_password password xyz | sudo debconf-set-selections
