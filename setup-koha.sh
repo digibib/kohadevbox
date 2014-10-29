@@ -171,3 +171,10 @@ fi
 # At the moment, this does not work on gitified Koha instances. We might want to
 # make sure it does and switch to this in the future. It does provide some nice
 # scripts for starting/stopping Starman etc.
+
+# Run the tests
+# (These are not Koha's tests, but the tests provided by kohadevbox, to check
+# that we managed to set things up as we should.)
+echo "Running some tests to check that we successfully set up Koha..."
+cd /vagrant
+prove
