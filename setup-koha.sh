@@ -85,6 +85,9 @@ if [ $skip_webinstaller == 1 ]; then
     # Insert the version number into the database
     echo "INSERT INTO systempreferences SET variable = 'Version', value = '$KOHAVERSION';" | sudo koha-mysql "$instance_name"
 
+    # Set the marcflavour syspref based on the installer_marcflavour config setting
+    echo "INSERT INTO systempreferences SET variable = 'marcflavour', value = '$installer_marcflavour';" | sudo koha-mysql "$instance_name"
+
     # Load our custom SQL (this should only be run after the webinstaller)
     if [ -f '/vagrant/custom.sql' ]; then
         sudo koha-mysql "$instance_name" < "/vagrant/custom.sql"
