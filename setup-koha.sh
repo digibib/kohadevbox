@@ -109,6 +109,10 @@ git config --global color.diff auto
 git config --global diff.tool vimdiff
 git config --global difftool.prompt false
 git config --global alias.d difftool
+# Allows usage like git qa <bugnumber> to set up a branch based on master and fetch patches for <bugnumber> from bugzilla
+git config --global alias.qa '!sh -c "git fetch origin master && git rebase origin/master && git checkout -b qa-$1 origin/master && git bz apply $1"' -
+# Allows usage like git qa-tidy <bugnumber> to remove a qa branch when you are through with it
+git config --global alias.qa-tidy '!sh -c "git checkout master && git branch -D qa-$1"' -
 git config --global core.whitespace trailing-space,space-before-tab
 git config --global apply.whitespace fix
 
