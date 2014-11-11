@@ -163,13 +163,11 @@ fi
 if [ -f '/vagrant/koha.psgi' ]; then
     sudo apt-get install -q -y libplack-perl libcgi-emulate-psgi-perl libcgi-compile-perl starman libdevel-size-perl
     sudo cpanm --quiet --notest CGI::Compile Module::Versions Plack::Middleware::Debug Plack::Middleware::Static::Minifier Plack::Middleware::Debug::DBIProfile Plack::Middleware::Debug::Profiler::NYTProf
-    # Start Plack and send output to /home/vagrant/logs/plack-*.log
-    echo "Starting Plack"
-    /vagrant/plackup.sh kohadev   >> /home/vagrant/logs/plack-opac.log  2>&1 &
-    /vagrant/plackup.sh kohadev i >> /home/vagrant/logs/plack-intra.log 2>&1 &
+    # Plack will be started from the run_always.sh script
 else
     echo "Skipping Plack because /vagrant/koha.psgi does not exist"
 fi
+# FIXME https://github.com/digibib/kohadevbox/issues/31
 # An alternative approach to implementing Plack would be to use this code:
 # git clone git://git.catalyst.net.nz/koha-plack.git
 # At the moment, this does not work on gitified Koha instances. We might want to
