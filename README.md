@@ -3,6 +3,8 @@
 Uses Vagrant to set up a VirtalBox ready to do development and signoffs on the
 Koha project. 
 
+##### The KohaDevBox is not suitable for running Koha in production.
+
 ## What you get
 
 * Debian 7.6
