@@ -196,6 +196,19 @@ box.
 off whatever branch you had checked out in your pre-existing repo when you ran
 "vagrant up".
 
+### KOHA_RESTFUL
+
+Value: 0 (default) or 1
+
+Usage:
+
+```
+  $ KOHA_RESTFUL=1 vagrant up
+```
+
+When set to 1, this will clone and configure the koha-restful API from
+http://git.biblibre.com/biblibre/koha-restful/
+
 ## qa-test-tools
 
 An alias is set up so that you can easily run Koha's qa-test-tools when you are
