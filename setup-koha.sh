@@ -42,6 +42,7 @@ sudo apt-get install -q -y libtest-file-perl
 
 # Configure Apache
 sudo a2enmod rewrite
+sudo a2enmod ssl
 sudo a2dissite default
 echo "Listen 8080" | sudo tee --append "/etc/apache2/ports.conf"
 sudo service apache2 restart
@@ -122,6 +123,10 @@ cd
 git clone https://github.com/mkfifo/koha-gitify.git gitify
 cd gitify
 sudo ./koha-gitify "$instance_name" $KOHACLONE
+sudo service apache2 restart
+
+# Add SSL to OPAC configuration
+sudo /vagrant/insert_https.pl
 sudo service apache2 restart
 
 # Git bz
