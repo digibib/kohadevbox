@@ -42,6 +42,7 @@ sudo apt-get install -q -y libtest-file-perl
 
 # Configure Apache
 sudo a2enmod rewrite
+sudo a2enmod ssl
 sudo a2dissite default
 echo "Listen 8080" | sudo tee --append "/etc/apache2/ports.conf"
 sudo service apache2 restart
@@ -126,6 +127,10 @@ sudo service apache2 restart
 
 # set $site_name in t/kohasite.t
 sed -i "/site_name/s/'\<kohadev\>'/'${instance_name}'/" /vagrant/t/kohasite.t
+
+# Add SSL to OPAC configuration
+sudo /vagrant/insert_https.pl
+sudo service apache2 restart
 
 # Git bz
 # http://wiki.koha-community.org/wiki/Git_bz_configuration
