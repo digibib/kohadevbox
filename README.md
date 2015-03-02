@@ -7,7 +7,7 @@ Koha project.
 
 ## What you get
 
-* Debian 7.6
+* Debian 7.8
 * Latest version of koha-common based on the master branch
 * A clone of the official Koha Git repo
 * A gitified Koha instance, running off the repo, under Apache
