@@ -1,4 +1,4 @@
-DOMAIN=""  # Any library instance will be a subdomain of this string.
+DOMAIN=""  # Any library instance will be a subdomain of this string. Include leading dot, e.g.: ".example.org"
 INTRAPORT="8080"  # TCP listening port for the administration interface
 INTRAPREFIX=""  # For administration interface URL: Prefix to be added to the instance name.
 INTRASUFFIX="-intra"  # For administration interface URL: Suffix to be added to the instance name.
