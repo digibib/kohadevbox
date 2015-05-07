@@ -124,6 +124,9 @@ cd gitify
 sudo ./koha-gitify "$instance_name" $KOHACLONE
 sudo service apache2 restart
 
+# set $site_name in t/kohasite.t
+sed -i "/site_name/s/'\<kohadev\>'/'${instance_name}'/" /vagrant/t/kohasite.t
+
 # Git bz
 # http://wiki.koha-community.org/wiki/Git_bz_configuration
 cd
