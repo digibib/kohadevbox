@@ -1,6 +1,6 @@
 # KohaDevBox
 
-Uses Vagrant to set up a VirtalBox ready to do development and signoffs on the
+Uses Vagrant to set up a VirtualBox ready to do development and signoffs on the
 Koha project. 
 
 ##### The KohaDevBox is not suitable for running Koha in production.
@@ -20,7 +20,7 @@ See the [open issues](https://github.com/digibib/kohadevbox/issues) for more to 
 
 ## Getting started
 
-Register with Bugzilla, Koha's bugtracker, if you have not done so already:
+Register with Bugzilla, Koha's bug tracker, if you have not done so already:
 
 http://bugs.koha-community.org/bugzilla3/createaccount.cgi
 
@@ -106,7 +106,7 @@ at these addresses:
 * http://localhost:5001/ Staff interface (Plack)
 
 Until issue #2 has been fixed, you need to log in to the Web UI with the
-database user. You will find the username and passowrd in this file:
+database user. You will find the username and password in this file:
 
 ```
 /etc/koha/sites/<instance_name>/koha-conf.xml
@@ -193,7 +193,7 @@ Please note:
 * The repo is synced "both ways", so any changes you make to the repo while you
 are inside the box will persist in your repo once you shut down or destroy the
 box.
-* When you do "vagrant up", the Koh ainstance configured by the box will run
+* When you do "vagrant up", the Koha instance configured by the box will run
 off whatever branch you had checked out in your pre-existing repo when you ran
 "vagrant up".
 
@@ -206,7 +206,7 @@ inside your Koha repository clone:
   $ qa -c 7 -v 2
 ```
 
-However, this will problably result in complaints that koha-conf.xml can not be
+However, this will probably result in complaints that koha-conf.xml can not be
 found. To avoid this, you can run qa-test-tools through koha-shell like this:
 
 ```
@@ -227,7 +227,7 @@ inside the VirtualBox:
 ## Koha documentation for developers
 
 The [Developer Handbook](http://wiki.koha-community.org/wiki/Developer_handbook)
-is the main point of entry into the Koha wiki for new and spiring developers
+is the main point of entry into the Koha wiki for new and aspiring developers
 and people who want to sign off on patches. Here are some shortcuts:
 
 General stuff that everyone should know:
