@@ -1,0 +1,18 @@
+# file: roles/kohadevbox/meta/main.yml
+---
+galaxy_info:
+  author: Magnus Enger and Tomás Cohen Arazi
+  license: GPLv3
+  min_ansible_version: 1.6
+  platforms:
+    - name: Ubuntu
+      versions:
+        - trusty
+    - name: Debian
+      versions:
+        - wheezy
+        - jessie
+  categories:
+     - web
+dependencies: []
+version: 0.1.0

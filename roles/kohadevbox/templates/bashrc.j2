@@ -1,0 +1,24 @@
+#!/usr/bin/bash
+
+export LANGUAGE='en_US.UTF-8'
+export LC_ALL='en_US.UTF-8'
+
+shopt -s histappend
+
+# executable -> green
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
+
+# Aliases :-D
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+# Load profile
+if [ -f ~/.bash_profile ]; then
+    . ~/.bash_profile
+fi
+
+export KOHA_CONF=/etc/koha/sites/kohadev/koha-conf.xml
+export PERL5LIB="~/kohaclone:{{ koha_qa_dir }}"
+
+PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]$(__git_ps1 "\[\e[1;33m\](%s)\[\e[0m\]")$ '

@@ -1,0 +1,18 @@
+# Tasks required to have Koha QA Tools working for the vagrant user
+- name: Install Koha QA tools (dependencies)
+  sudo_user: root
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - libfile-chdir-perl
+    - libgit-repository-perl
+    - liblist-compare-perl
+    - libmoo-perl
+    - libperl-critic-perl
+    - libsmart-comments-perl
+
+- name: Clone Koha QA tools
+  sudo_user: vagrant
+  git: repo={{ koha_qa_repo }}  dest={{ koha_qa_dir }} version={{ koha_qa_version }} accept_hostkey=yes
+
+- name: Set perlcritic for the vagrant user
+  file: src={{ koha_qa_dir }}/perlcriticrc dest={{ vagrant_home_dir }}/.perlcriticrc state=link

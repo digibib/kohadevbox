@@ -7,11 +7,15 @@ Koha project.
 
 ## What you get
 
-* Debian 7.8
-* Latest version of koha-common based on the master branch
+* A virtual machine running either:
+
+  - Debian 7 (wheezy)
+  - Debian 8 (jessie)
+  - Ubuntu 14.04 (trusty)
+
+* Latest version of koha-common from the unstable repository (based on the master branch)
 * A clone of the official Koha Git repo
 * A gitified Koha instance, running off the repo, under Apache
-* The same instance, running off the same repo, under Plack
 * A remote for your own repo on e.g. GitHub
 * Git bz set up and ready to use
 * Koha's qa-test-tools set up and ready to use
@@ -30,7 +34,9 @@ do not use a password you have used on other sites.
 If you don't have them already, you need to install some prerequisites:
 
 * Install Vagrant: http://www.vagrantup.com/downloads.html
-Note: do not "apt-get install vagrant" on Ubuntu or Wheezy - the required version is not yet in the official repositories. Download the latest version from the above URL.
+
+  Note: Ubuntu and Debian ship their own vagrant package, but don't use it. Download the latest version from the above URL.
+
 * Install Git: http://git-scm.com/downloads
 
 Now you can clone the KohaDevBox repository to your local machine and cd into
@@ -90,10 +96,10 @@ the future installation of packages etc in your VirtualBox:
   $ vagrant plugin install vagrant-cachier
 ```
 
-To spin up a new dev box:
+To spin up a new dev box. You need to specify either wheezy, trusty or jessie:
 
 ```
-  $ vagrant up
+  $ vagrant up <desired os>
 ```
 
 This will download and install a bunch of stuff, please be patient. When
@@ -102,8 +108,6 @@ at these addresses:
 
 * http://localhost:8080/ Public interface (Apache)
 * http://localhost:8081/ Staff interface (Apache)
-* http://localhost:5000/ Public interface (Plack)
-* http://localhost:5001/ Staff interface (Plack)
 
 Until issue #2 has been fixed, you need to log in to the Web UI with the
 database user. You will find the username and password in this file:

@@ -1,0 +1,30 @@
+[user]
+    name = {{ git_email }}
+    email = {{ git_full_name }}
+
+[bz]
+    default-tracker = bugs.koha-community.org
+    default-product = Koha
+
+[bz-tracker "bugs.koha-community.org"]
+    path = /bugzilla3
+    bz-user = {{ bz_user }}
+    bz-password = {{ bz_password }}
+
+[core]
+    whitespace = trailing-space,space-before-tab
+
+[apply]
+    whitespace = fix
+
+[diff]
+    tool = vimdiff
+
+[difftool]
+    prompt = false
+
+[color]
+    status = auto
+    branch = auto
+    diff   = auto
+    ui     = auto
