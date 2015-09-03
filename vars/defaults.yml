@@ -24,8 +24,8 @@ koha_qa_repo: git://git.koha-community.org/qa-test-tools.git
 koha_qa_version: master
 koha_qa_dir: /home/vagrant/qa-test-tools
 
-git_email: tomascohen@theke.io
-git_full_name: "Tomás Cohen Arazi"
+git_email: your_email
+git_full_name: "Your Full Name"
 
-bz_user: yourbzusesr
-bz_password: putyourpasswordhere
+bz_user: your_email
+bz_password: your_bz_password

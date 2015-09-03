@@ -1,0 +1,31 @@
+# Default configuration values
+---
+
+# vagrant_home_dir: /home/vagrant
+
+# koha_repo: http://debian.koha-community.org/koha
+# koha_repo_distribution: unstable
+
+# koha_instance_name: kohadev
+# koha_domain: .myDNSname.org
+# koha_marc_flavour: marc21
+# koha_zebra_language: en
+
+# #gitify_repo: https://github.com/mkfifo/koha-gitify.git
+# gitify_repo: https://github.com/tomascohen/koha-gitify.git
+# gitify_version: master
+# gitify_dir: /home/vagrant/gitify
+
+# gitbz_repo: http://git.koha-community.org/git-bz.git
+# gitbz_version: fishsoup
+# gitbz_dir: /home/vagrant/gitbz
+
+# koha_qa_repo: git://git.koha-community.org/qa-test-tools.git
+# koha_qa_version: master
+# koha_qa_dir: /home/vagrant/qa-test-tools
+
+# git_email: your_email
+# git_full_name: "Your full name"
+
+# bz_user: your_email
+# bz_password: your_bz_password

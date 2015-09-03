@@ -1,7 +1,7 @@
 # KohaDevBox
 
 Uses Vagrant to set up a VirtualBox ready to do development and signoffs on the
-Koha project. 
+Koha project.
 
 ##### The KohaDevBox is not suitable for running Koha in production.
 
@@ -49,43 +49,10 @@ the directory that was created by the cloning operation:
 
 ## Usage
 
-### config.cfg
+### vars/user.yml
 
-Copy the file config.cfg-sample to config.cfg:
-
-```
-  $ cp config.cfg-sample config.cfg
-```
-
-Read the comments in that file and fill in the config parameters as necessary
-
-### koha-sites.cfg
-
-Copy koha-sites.cfg-sample to koha-sites.cfg and edit koha-sites.cfg if you
-need to:
-
-```
-$ cp koha-sites.cfg-sample koha-sites.cfg
-```
-
-### koha.psgi
-
-Copy koha.psgi-sample to koha.psgi and edit koha.psgi if necessary:
-
-```
-$ cp koha.psgi-sample koha.psgi
-```
-
-The parts of this file that you might be interested in editing are the ones
-related to the debug panels. You can comment/uncomment these, save the file and
-Plack will detect the changes. Plack will then reload itself and your selection
-will be reflected in the available debug panels in the Koha Web UI. So no need
-to restart Plack in order for these changes to take effect!
-
-Please note that output from Plack is redirected to the following log files:
-
-* /home/vagrant/logs/plack-opac.log
-* /home/vagrant/logs/plack-intra.log
+Uncomment the lines you would like to change. Usually your personal information,
+including your email and bugzilla password.
 
 ### Running Vagrant
 
@@ -99,7 +66,7 @@ the future installation of packages etc in your VirtualBox:
 To spin up a new dev box. You need to specify either wheezy, trusty or jessie:
 
 ```
-  $ vagrant up <desired os>
+  $ vagrant up <distribution>
 ```
 
 This will download and install a bunch of stuff, please be patient. When
@@ -119,7 +86,7 @@ database user. You will find the username and password in this file:
 To log into the newly created box:
 
 ```
-  $ vagrant ssh
+  $ vagrant ssh <distribution>
 ```
 
 To exit the box, just type "exit".
