@@ -11,7 +11,8 @@ koha_domain: .myDNSname.org
 koha_marc_flavour: marc21
 koha_zebra_language: en
 
-gitify_repo: https://github.com/mkfifo/koha-gitify.git
+#gitify_repo: https://github.com/mkfifo/koha-gitify.git
+gitify_repo: https://github.com/tomascohen/koha-gitify.git
 gitify_version: master
 gitify_dir: /home/vagrant/gitify
 

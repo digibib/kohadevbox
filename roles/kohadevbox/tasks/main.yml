@@ -35,17 +35,27 @@
       - byobu
       - htop
 
-  - name: Apache MPM fix (Trusty only)
+  - name: SSH tweak
+    shell: perl -pi -e 's/AcceptEnv LANG LC_\*/# AcceptEnv LANG LC_\*/g' '/etc/ssh/sshd_config'
+    notify: reload ssh
+
+    # This needs to be done before trying to enable the cgi module
+  - name: Apache MPM fix
     apache2_module: state=absent name=mpm_event
-    when: ansible_distribution_release == 'trusty'
+    notify: restart apache
+
+  - name: Disable Apache default vhost
+    shell: a2dissite 000-default
+    sudo_user: root
+    notify: restart apache
 
   - name: Apache modules
     apache2_module: name={{ item }} state=present
     with_items:
       - rewrite
-      - cgi
       - headers
       - proxy_http
+      - cgi
     notify: restart apache
 
   - name: Set git user configuration
