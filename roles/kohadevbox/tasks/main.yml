@@ -49,6 +49,9 @@
     sudo_user: root
     notify: restart apache
 
+  - name: Set Apache ports
+    template: src=ports.conf.j2 dest=/etc/apache2/ports.conf owner=root mode=0644
+
   - name: Apache modules
     apache2_module: name={{ item }} state=present
     with_items:
