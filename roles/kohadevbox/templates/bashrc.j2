@@ -9,6 +9,11 @@ shopt -s histappend
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 
+# Completion!
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
+
 # Aliases :-D
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
