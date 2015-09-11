@@ -1,0 +1,15 @@
+- name: Install Koha
+  apt: pkg=koha-common state=latest force=yes
+
+- name: Use our koha-sites.conf file
+  template: src=koha-sites.conf.j2 dest=/etc/koha/koha-sites.conf mode=0644 owner=root
+
+- name: Check for instance existence # we want the provisioning to be idempotent if already ran
+  command: koha-list | grep {{ koha_instance_name }}
+  register: result
+  ignore_errors: True
+
+- name: Create Koha instance
+  shell:  koha-create --create-db {{ koha_instance_name }}
+  when: result.stdout == ""
+  notify: restart apache

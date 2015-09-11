@@ -1,0 +1,83 @@
+  # file: roles/kohadevbox/tasks/main.yml
+---
+  - name: Add Koha repository (key)
+    apt_key: url='http://debian.koha-community.org/koha/gpg.asc' state=present
+
+  - name: Add Koha repository (repo)
+    apt_repository: repo='deb {{ koha_repo }} {{ koha_repo_distribution }} main' state=present
+    #'
+
+  - name: Add Apache 2.4 backports (Trusty)
+    apt_repository: repo='ppa:lvillani/apache2'
+    when: ansible_distribution_release == 'trusty'
+
+  - name: Add Apache 2.4 backports (Wheezy)
+    apt_repository: repo='deb http://www.d7031.de/debian wheezy-experimental main' state=present
+    when: ansible_distribution_release == 'wheezy'
+
+  - name: Update Apt cache and system packages
+    apt: update_cache=yes upgrade=dist
+
+  - name: Install Wheezy backport repo keyring
+    apt: pkg=d7031-archive-keyring state=latest force=yes
+    when: ansible_distribution_release == 'wheezy'
+
+  - name: Install needed utils
+    apt: pkg={{ item }} state=latest force=yes
+    with_items:
+      - bash-completion
+      - vim
+      - cpanminus
+      - git
+      - git-email
+      - mysql-server
+      - apache2
+      - byobu
+      - htop
+
+  - name: SSH tweak
+    shell: perl -pi -e 's/AcceptEnv LANG LC_\*/# AcceptEnv LANG LC_\*/g' '/etc/ssh/sshd_config'
+    notify: reload ssh
+
+    # This needs to be done before trying to enable the cgi module
+  - name: Apache MPM fix
+    apache2_module: state=absent name=mpm_event
+    notify: restart apache
+
+  - name: Disable Apache default vhost
+    shell: a2dissite 000-default
+    sudo_user: root
+    notify: restart apache
+
+  - name: Set Apache ports
+    template: src=ports.conf.j2 dest=/etc/apache2/ports.conf owner=root mode=0644
+
+  - name: Apache modules
+    apache2_module: name={{ item }} state=present
+    with_items:
+      - rewrite
+      - headers
+      - proxy_http
+      - cgi
+    notify: restart apache
+
+  - name: Set git user configuration
+    template: src=gitconfig.j2 dest=/home/vagrant/.gitconfig owner=vagrant mode=0644
+
+  - name: Set Bash configuration
+    template: src=bashrc.j2 dest=/home/vagrant/.bashrc owner=vagrant mode=0644
+
+  - name: Set some Bash aliases
+    template: src=bash_aliases.j2 dest=/home/vagrant/.bash_aliases owner=vagrant mode=0644
+
+  - include: koha.yml tags=koha
+    sudo_user: root
+
+  - include: qatools.yml tags=qatools
+    sudo_user: vagrant
+
+  - include: gitbz.yml tags=gitbz
+    sudo_user: vagrant
+
+  - include: gitify.yml tags=gitify
+    sudo_user: vagrant
