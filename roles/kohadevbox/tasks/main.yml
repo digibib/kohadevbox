@@ -28,6 +28,7 @@
       - bash-completion
       - vim
       - cpanminus
+      - dh-make-perl
       - git
       - git-email
       - mysql-server
