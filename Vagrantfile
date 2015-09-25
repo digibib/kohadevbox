@@ -39,9 +39,18 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provision :ansible do |ansible|
+    ansible.extra_vars = { ansible_ssh_user: "vagrant", testing: true }
+
+    if ENV['SKIP_WEBINSTALLER']
+      ansible.extra_vars.merge!({ skip_webinstaller: true })
+    end
+
+    if ENV['SYNC_REPO']
+      ansible.extra_vars.merge!({ sync_repo: true });
+    end
+
     ansible.playbook = "site.yml"
     ansible.host_key_checking = false
-    ansible.extra_vars = { ansible_ssh_user: "vagrant", testing: true }
   end
   
   config.vm.post_up_message = "Welcome to KohaDevBox!\nSee https://github.com/digibib/kohadevbox for details"
