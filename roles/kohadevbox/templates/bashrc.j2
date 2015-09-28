@@ -23,6 +23,7 @@ if [ -f ~/.bash_profile ]; then
     . ~/.bash_profile
 fi
 
+export EDITOR="{{ editor }}"
 export KOHA_CONF=/etc/koha/sites/{{ koha_instance_name }}/koha-conf.xml
 export PERL5LIB="~/kohaclone:{{ koha_qa_dir }}"
 
