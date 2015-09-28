@@ -33,3 +33,5 @@ git_full_name: "Your Full Name"
 
 bz_user: your_email
 bz_password: your_bz_password
+
+editor: vim
