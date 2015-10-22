@@ -12,6 +12,9 @@
 - name: Use our koha-sites.conf file
   template: src=koha-sites.conf.j2 dest=/etc/koha/koha-sites.conf mode=0644 owner=root
 
+- name: Use our Koha's passwd file
+  template: src=koha_passwd.j2 dest=/etc/koha/passwd mode=0644 owner=root
+
 - name: Check for instance existence # we want the provisioning to be idempotent if already ran
   command: koha-list | grep {{ koha_instance_name }}
   register: result

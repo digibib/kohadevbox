@@ -15,6 +15,7 @@
 # koha_domain: .myDNSname.org
 # koha_marc_flavour: marc21
 # koha_zebra_language: en
+# koha_db_password: password
 
 # gitify_repo: https://github.com/mkfifo/koha-gitify.git
 # gitify_version: master
