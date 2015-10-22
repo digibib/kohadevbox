@@ -6,5 +6,5 @@ alias koha-opac-err="sudo tail -f /var/log/koha/{{ koha_instance_name }}/opac-e
 alias koha-intra-err="sudo tail -f /var/log/koha/{{ koha_instance_name }}/intranet-error.log"
 
 # Aliases for getting the db/admin user and password for our instance
-alias koha-user="sudo xmlstarlet sel -t -v 'yazgfs/config/user' '/etc/koha/sites/{{ koha_instance_name }}/koha-conf.xml'"
-alias koha-pass="sudo xmlstarlet sel -t -v 'yazgfs/config/pass' '/etc/koha/sites/{{ koha_instance_name }}/koha-conf.xml'"
+alias koha-user="sudo xmlstarlet sel -t -v 'yazgfs/config/user' -n '/etc/koha/sites/{{ koha_instance_name }}/koha-conf.xml'"
+alias koha-pass="sudo xmlstarlet sel -t -v 'yazgfs/config/pass' -n '/etc/koha/sites/{{ koha_instance_name }}/koha-conf.xml'"
