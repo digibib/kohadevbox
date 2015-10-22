@@ -24,3 +24,6 @@
   shell:  koha-create --create-db {{ koha_instance_name }}
   when: result.stdout == ""
   notify: restart apache
+
+- name: Set instance's env variables needed for testing
+  template: src=instance_bashrc.j2 dest=/var/lib/koha/{{ koha_instance_name }}/.bashrc mode=0644 owner={{ koha_instance_name }}-koha
