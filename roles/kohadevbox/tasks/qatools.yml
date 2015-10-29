@@ -8,6 +8,7 @@
     - liblist-compare-perl
     - libmoo-perl
     - libperl-critic-perl
+    - libtest-perl-critic-perl
     - libsmart-comments-perl
 
 - name: Clone Koha QA tools
