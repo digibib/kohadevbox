@@ -35,6 +35,7 @@
       - apache2
       - byobu
       - htop
+      - libdata-printer-perl
 
   - name: SSH tweak
     shell: perl -pi -e 's/AcceptEnv LANG LC_\*/# AcceptEnv LANG LC_\*/g' '/etc/ssh/sshd_config'
