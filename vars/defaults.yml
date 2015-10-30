@@ -25,6 +25,10 @@ gitbz_repo: http://git.koha-community.org/git-bz.git
 gitbz_version: fishsoup
 gitbz_dir: /home/vagrant/gitbz
 
+release_tools_repo: git://git.koha-community.org/release-tools.git
+release_tools_version: master
+release_tools_dir: /home/vagrant/release-tools
+
 koha_qa_repo: git://git.koha-community.org/qa-test-tools.git
 koha_qa_version: master
 koha_qa_dir: /home/vagrant/qa-test-tools

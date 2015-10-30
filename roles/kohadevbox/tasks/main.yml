@@ -84,6 +84,9 @@
   - include: gitify.yml tags=gitify
     sudo_user: vagrant
 
+  - include: releasetools.yml tags=releasetools
+    sudo_user: vagrant
+
   - name: Init database for mlocate
     shell: updatedb
     sudo_user: root

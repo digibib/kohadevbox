@@ -1,0 +1,3 @@
+# Tasks required to have git-bz working for the vagrant user
+- name: Clone the release-tools repo
+  git: repo={{ release_tools_repo }}  dest={{ release_tools_dir }} version={{ release_tools_version }}
