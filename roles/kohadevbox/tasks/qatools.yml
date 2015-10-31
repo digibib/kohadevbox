@@ -9,7 +9,9 @@
     - libmoo-perl
     - libperl-critic-perl
     - libtest-perl-critic-perl
+    - libtest-perl-critic-progressive-perl
     - libsmart-comments-perl
+    - codespell
 
 - name: Clone Koha QA tools
   sudo_user: vagrant
