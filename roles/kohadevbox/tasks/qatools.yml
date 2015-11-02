@@ -13,6 +13,13 @@
     - libsmart-comments-perl
     - codespell
 
+- name: Install testing dependencies (cpanm)
+  sudo_user: root
+  cpanm: name={{ item }}
+  with_items:
+    - HTTPD::Bench::ApacheBench
+    - Test::DBIx::Class
+
 - name: Clone Koha QA tools
   sudo_user: vagrant
   git: repo={{ koha_qa_repo }}  dest={{ koha_qa_dir }} version={{ koha_qa_version }} accept_hostkey=yes
