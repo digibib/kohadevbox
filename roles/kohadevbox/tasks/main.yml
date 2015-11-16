@@ -36,6 +36,7 @@
       - byobu
       - htop
       - libdata-printer-perl
+      - perltidy
       - memcached
 
   - name: start memcached
@@ -80,6 +81,9 @@
 
   - name: Set some Bash aliases
     template: src=bash_aliases.j2 dest=/home/vagrant/.bash_aliases owner=vagrant mode=0644
+
+  - name: Set up vimrc
+    template: src=vimrc.local.j2 dest=/etc/vim/vimrc.local owner=root mode=0644
 
   - include: koha.yml tags=koha
     sudo_user: root

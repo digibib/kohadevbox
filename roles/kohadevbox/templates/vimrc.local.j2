@@ -1,0 +1,77 @@
+"set syntax highlighting on by default
+syntax on
+
+"Add line numbers along the left-hand side of the screen
+set number
+
+" size of a hard tabstop
+set tabstop=4
+
+" size of an "indent"
+set shiftwidth=4
+
+" a combination of spaces and tabs are used to simulate tab stops at a width
+" other than the (hard)tabstop
+set softtabstop=4
+
+" make "tab" insert indents instead of tabs at the beginning of a line
+set smarttab
+
+" always uses spaces instead of tab characters
+set expandtab
+
+" always show filename at the bottom of the screen
+set modeline
+set ls=2
+
+"define :Tidy command to run perltidy on visual selection || entire buffer"
+command -range=% -nargs=* Tidy <line1>,<line2>!perltidy
+
+"run :Tidy on entire buffer and return cursor to (approximate) original position"
+fun DoTidy()
+    let Pos = line2byte( line( "." ) )
+     :Tidy
+    exe "goto " . Pos
+endfun
+
+"shortcut for normal mode to run on entire buffer then return to current line"
+au Filetype perl nmap <F3> :call DoTidy()<CR>
+
+"shortcut for visual mode to run on the the current visual selection"
+au Filetype perl vmap <F3> :Tidy<CR>
+
+" Enable HTML syntax highlighting for Template Toolkit files
+au BufRead,BufNewFile *.tt set filetype=html
+
+"Assuming autoindent and smartindent are set correctly, typing Ctrl + Return between braces will put your cursor where you want it to be.
+set autoindent
+set cindent
+
+
+" Uncomment the following to have Vim jump to the last position when reopening a file
+if has("autocmd")
+  au BufReadPost * if line("'\"") < 0 && line("'\"") >= line("$")
+  \| exe "normal! g'\"" | endif
+endif
+
+" If vim-perl is installed, this will allow F2 to comment/uncomment selected
+" blocks of code
+filetype plugin on
+map <F2> \cc
+
+set pastetoggle=<F4>
+
+" Removes trailing spaces
+ function TrimWhiteSpace()
+    %s/\s*$//
+    ''
+:endfunction
+
+set list listchars=trail:.,extends:>
+"autocmd FileWritePre * :call TrimWhiteSpace()
+"autocmd FileAppendPre * :call TrimWhiteSpace()
+"autocmd FilterWritePre * :call TrimWhiteSpace()
+"autocmd BufWritePre * :call TrimWhiteSpace()
+
+map <F1> :call TrimWhiteSpace()<CR>
+map! <F1> :call TrimWhiteSpace()<CR>
