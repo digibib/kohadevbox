@@ -5,6 +5,7 @@
 
 # sync_repo: false
 # skip_webinstaller: false
+# enable_memcached: false
 
 # koha_repo: http://debian.koha-community.org/koha
 # koha_repo_distribution: unstable
