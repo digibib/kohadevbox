@@ -36,6 +36,15 @@
       - byobu
       - htop
       - libdata-printer-perl
+      - memcached
+
+  - name: start memcached
+    service: name=memcached state=restarted enabled=yes
+    when: enable_memcached
+
+  - name: stop memcached
+    service: name=memcached state=stopped enabled=no
+    when: not enable_memcached
 
   - name: SSH tweak
     shell: perl -pi -e 's/AcceptEnv LANG LC_\*/# AcceptEnv LANG LC_\*/g' '/etc/ssh/sshd_config'
