@@ -27,3 +27,14 @@
 
 - name: Set instance's env variables needed for testing
   template: src=instance_bashrc.j2 dest=/var/lib/koha/{{ koha_instance_name }}/.bashrc mode=0644 owner={{ koha_instance_name }}-koha
+
+- name: Create .ssh directory for kohadev
+  file: path=/var/lib/koha/kohadev/.ssh owner=kohadev-koha mode=0700 state=directory
+
+- name: Copy public ssh key from host to kohadev
+  copy: src=~/.ssh/id_rsa.pub dest=/var/lib/koha/kohadev/.ssh/id_rsa.pub owner=kohadev-koha group=kohadev-koha mode=0600
+  when: ssh_key_from_host
+
+- name: Copy private ssh key from host to kohadev
+  copy: src=~/.ssh/id_rsa dest=/var/lib/koha/kohadev/.ssh/id_rsa owner=kohadev-koha group=kohadev-koha mode=0600
+  when: ssh_key_from_host
