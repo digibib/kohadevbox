@@ -36,6 +36,7 @@
       - byobu
       - htop
       - libdata-printer-perl
+      - perltidy
       - memcached
 
   - name: start memcached
@@ -81,6 +82,9 @@
   - name: Set some Bash aliases
     template: src=bash_aliases.j2 dest=/home/vagrant/.bash_aliases owner=vagrant mode=0644
 
+  - name: Set up vimrc
+    template: src=vimrc.local.j2 dest=/etc/vim/vimrc.local owner=root mode=0644
+
   - include: koha.yml tags=koha
     sudo_user: root
 
@@ -99,3 +103,11 @@
   - name: Init database for mlocate
     shell: updatedb
     sudo_user: root
+
+  - name: Copy public ssh key from host to vagrant
+    copy: src=~/.ssh/id_rsa.pub dest=/home/vagrant/.ssh/id_rsa.pub owner=vagrant group=vagrant mode=0600
+    when: ssh_key_from_host
+
+  - name: Copy private ssh key from host to vagrant
+    copy: src=~/.ssh/id_rsa dest=/home/vagrant/.ssh/id_rsa owner=vagrant group=vagrant mode=0600
+    when: ssh_key_from_host
