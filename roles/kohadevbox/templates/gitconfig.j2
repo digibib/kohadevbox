@@ -31,9 +31,9 @@
     ui     = auto
 
 [alias]
-      so = "!f() { c=`expr $1 - 1`; git filter-branch -f --msg-filter \"echo -n \\\"[SIGNED-OFF] \\\" && cat && echo \\\"\nSigned-off-by: {{git_full_name}} <{{git_email}}>\\\"\" HEAD~$c^..; }; f"
+      so = "!f() { c=`expr $1 - 1`; git filter-branch -f --msg-filter \"echo -n \\\"[SIGNED-OFF] \\\" && cat && echo \\\"\nSigned-off-by: {{ git_full_name }} <{{ git_email }}>\\\"\" HEAD~$c^..; }; f"
       qa = !sh -c 'git fetch origin && git checkout origin/master && ( git checkout -b bug$1-qa origin/master || ( git branch -D bug$1-qa && git checkout -b bug$1-qa origin/master ) ) && git bz apply $1' -
-      qa2 = "!f() { c=`expr $1 - 1`; git filter-branch -f --msg-filter \"echo -n \\\"[PASSED QA] \\\" && cat && echo \\\"\nSigned-off-by: {{git_fullname}} <{{git_email}}>\\\"\" HEAD~$c^..; }; f"
+      qa2 = "!f() { c=`expr $1 - 1`; git filter-branch -f --msg-filter \"echo -n \\\"[PASSED QA] \\\" && cat && echo \\\"\nSigned-off-by: {{ git_full_name }} <{{ git_email }}>\\\"\" HEAD~$c^..; }; f"
       gr = log --graph --full-history --all --color --pretty=tformat:"%x1b[31m%h%x09%x1b[32m%x1b[0m%x20%d%s%x20%x1b[33m(%an)%x1b[0m"
       bza = !sh -c 'git bz attach -e $2 HEAD~$(($1 - 1)) && git bz attach $2 HEAD~$(($1 - 1))...HEAD' -
       dqa = !sh -c 'git branch | cut -c3- | egrep "^bug.*-qa" | xargs git branch -D' -
