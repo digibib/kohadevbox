@@ -38,4 +38,4 @@
       bza = !sh -c 'git bz attach -e $2 HEAD~$(($1 - 1)) && git bz attach $2 HEAD~$(($1 - 1))...HEAD' -
       dqa = !sh -c 'git branch | cut -c3- | egrep "^bug.*-qa" | xargs git branch -D' -
       sob = "!f() { c=`expr $1 - 1`; git filter-branch -f --msg-filter \"echo -n \\\"[SIGNED-OFF] \\\" && cat && echo \\\"\nSigned-off-by: $2\\\"\" HEAD~$c^..; }; f"
-
+      s = "!f() { c=`expr $1 - 1`; git filter-branch -f --msg-filter \"cat && echo \\\"\nSigned-off-by: {{ git_full_name }} <{{ git_email }}>\\\"\" HEAD~$c^..; }; f"
