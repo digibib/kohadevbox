@@ -1,7 +1,12 @@
 # KohaDevBox
 
-Uses Vagrant to set up a VirtualBox ready to do development and signoffs on the
-Koha project.
+Create a development environment for the Koha ILS project. It uses Vagrant and Ansible
+to set up a VirtualBox. It targets the following tasks:
+
+ * Run all t/ and t/db_dependent tests
+ * Sign off patches
+ * QA patches
+ * Release
 
 ##### The KohaDevBox is not suitable for running Koha in production.
 
@@ -36,6 +41,8 @@ If you don't have them already, you need to install some prerequisites:
 * Install Vagrant: http://www.vagrantup.com/downloads.html
 
   Note: Ubuntu and Debian ship their own vagrant package, but don't use it. Download the latest version from the above URL.
+
+* Install Ansible: http://docs.ansible.com/ansible/intro_installation.html
 
 * Install Git: http://git-scm.com/downloads
 
