@@ -12,7 +12,7 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.hostname = "kohadevbox"
-  config.vm.box = "chef/debian-7.6"
+  config.vm.box = "bento/debian-7.6"
 
   config.vm.network :forwarded_port, guest: 6001, host: 6001, auto_correct: true  # SIP2
   config.vm.network :forwarded_port, guest: 80,   host: 8080, auto_correct: true  # OPAC
