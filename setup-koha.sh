@@ -74,7 +74,7 @@ fi
 if [ $skip_webinstaller == 1 ]; then
 
     # Load SQL manually, so we don't have to run through the webinstaller
-    for file in $KOHACLONE/installer/data/mysql/kohastructure.sql $KOHACLONE/installer/data/mysql/sysprefs.sql $KOHACLONE/installer/data/mysql/$installer_lang/*/*.sql $KOHACLONE/installer/data/mysql/$installer_lang/marcflavour/$installer_marcflavour/*/*.sql
+    for file in $KOHACLONE/installer/data/mysql/kohastructure.sql $KOHACLONE/installer/data/mysql/user*.sql $KOHACLONE/installer/data/mysql/sysprefs.sql $KOHACLONE/installer/data/mysql/$installer_lang/*/*.sql $KOHACLONE/installer/data/mysql/$installer_lang/marcflavour/$installer_marcflavour/*/*.sql
     do
 	    echo "Loading $file"
 	    sudo koha-mysql "$instance_name" < $file
