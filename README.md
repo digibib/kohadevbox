@@ -34,7 +34,7 @@ Now you can clone the KohaDevBox repository to your local machine and cd into
 the directory that was created by the cloning operation:
 
 ```
-  $ git clone https://github.com/digibib/kohadevbox.git
+  $ git clone https://github.com/wizzyrea/kohadevbox.git
   $ cd kohadevbox
 ```
 
