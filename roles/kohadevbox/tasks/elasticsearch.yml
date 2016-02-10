@@ -1,0 +1,19 @@
+# file: roles/kohadevbox/tasks/elasticsearch.yml
+---
+  - name: Add ElasticSearch dependencies
+    apt: pkg={{ item }} state=latest
+    with_items:
+      - openjdk-7-jre
+
+  - name: Add ElasticSearch repository (key)
+    apt_key: url='https://packages.elastic.co/GPG-KEY-elasticsearch' state=present
+
+  - name: Add ElasticSearch repository (repo)
+    apt_repository: repo='deb http://packages.elastic.co/elasticsearch/2.x/debian stable main' state=present
+    #'
+
+  - name: Install ElasticSearch
+    apt: pkg=elasticsearch state=latest force=yes
+
+  - name: Run ElasticSearch on startup
+    service: name=elasticsearch enabled=yes state=started

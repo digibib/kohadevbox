@@ -8,6 +8,7 @@ ssh_key_from_host: false
 sync_repo: false
 skip_webinstaller: false
 enable_memcached: false
+elasticsearch: false
 
 koha_repo: http://debian.koha-community.org/koha
 koha_repo_distribution: unstable

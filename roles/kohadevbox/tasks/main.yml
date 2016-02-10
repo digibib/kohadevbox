@@ -85,20 +85,24 @@
   - name: Set up vimrc
     template: src=vimrc.local.j2 dest=/etc/vim/vimrc.local owner=root mode=0644
 
-  - include: koha.yml tags=koha
+  - include: koha.yml
     sudo_user: root
 
-  - include: qatools.yml tags=qatools
+  - include: qatools.yml
     sudo_user: vagrant
 
-  - include: gitbz.yml tags=gitbz
+  - include: gitbz.yml
     sudo_user: vagrant
 
-  - include: gitify.yml tags=gitify
+  - include: gitify.yml
     sudo_user: vagrant
 
-  - include: releasetools.yml tags=releasetools
+  - include: releasetools.yml
     sudo_user: vagrant
+
+  - include: elasticsearch.yml
+    sudo_user: root
+    when: elasticsearch
 
   - name: Init database for mlocate
     shell: updatedb

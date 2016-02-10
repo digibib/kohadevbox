@@ -21,16 +21,16 @@ Vagrant.configure(2) do |config|
 
   config.vm.hostname = "kohadevbox"
 
-  config.vm.define "trusty", autostart: false do |trusty|
-    trusty.vm.box = "ubuntu/trusty64"
-  end
-
   config.vm.define "jessie", autostart: false do |jessie|
     jessie.vm.box = "debian/jessie64"
   end
 
   config.vm.define "wheezy", autostart: false do |wheezy|
     wheezy.vm.box = "debian/wheezy64"
+  end
+
+  config.vm.define "trusty", autostart: false do |trusty|
+    trusty.vm.box = "ubuntu/trusty64"
   end
 
   config.vm.network :forwarded_port, guest: 6001, host: 6001, auto_correct: true  # SIP2
@@ -55,6 +55,10 @@ Vagrant.configure(2) do |config|
 
     if ENV['SYNC_REPO']
       ansible.extra_vars.merge!({ sync_repo: true });
+    end
+
+    if ENV['KOHA_ELASTICSEARCH']
+      ansible.extra_vars.merge!({ elasticsearch: true });
     end
 
     ansible.playbook = "site.yml"
