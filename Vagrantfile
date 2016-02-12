@@ -21,7 +21,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.hostname = "kohadevbox"
 
-  config.vm.define "jessie", autostart: false do |jessie|
+  config.vm.define "jessie", primary: true do |jessie|
     jessie.vm.box = "debian/jessie64"
   end
 
