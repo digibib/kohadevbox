@@ -109,6 +109,7 @@ git config --global color.status auto
 git config --global color.branch auto
 git config --global color.diff auto
 git config --global diff.tool vimdiff
+git config --global bz-tracker.bugs.koha-community.org.https true
 git config --global difftool.prompt false
 git config --global alias.d difftool
 # Allows usage like git qa <bugnumber> to set up a branch based on master and fetch patches for <bugnumber> from bugzilla
