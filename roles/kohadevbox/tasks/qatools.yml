@@ -12,6 +12,7 @@
     - libtest-perl-critic-progressive-perl
     - libsmart-comments-perl
     - libdatetimex-easy-perl
+    - libtest-differences-perl
 
 - name: Install Koha QA tools (not in wheezy)
   sudo_user: root
