@@ -22,3 +22,22 @@
     apt: pkg={{ item }} state=latest
     with_items:
       - libcatmandu-marc-perl
+
+  - name: Koha's ES integration dependencies (create download dir)
+    file: path=elasticsearch_deps state=directory mode=0755
+
+  - name: Koha's ES integration dependencies (download)
+    get_url: url={{ item }} dest=elasticsearch_deps
+    with_items:
+      - http://debian.koha-community.org/koha/otherthings/liblog-any-adapter-perl_0.11-2_all.deb
+      - http://debian.koha-community.org/koha/otherthings/liblog-any-perl_1.03-1_all.deb
+      - http://debian.koha-community.org/koha/otherthings/libsearch-elasticsearch-perl_1.19-1_all.deb
+      - http://debian.koha-community.org/koha/otherthings/libcatmandu-store-elasticsearch-perl_0.0304-1_all.deb
+
+  - name: Koha's ES integration dependencies (install)
+    apt: deb=elasticsearch_deps/{{ item }} state=present
+    with_items:
+      - liblog-any-adapter-perl_0.11-2_all.deb
+      - liblog-any-perl_1.03-1_all.deb
+      - libsearch-elasticsearch-perl_1.19-1_all.deb
+      - libcatmandu-store-elasticsearch-perl_0.0304-1_all.deb
