@@ -15,6 +15,10 @@
 - name: Use our Koha's passwd file
   template: src=koha_passwd.j2 dest=/etc/koha/passwd mode=0644 owner=root
 
+- name: Use ES-specific koha-conf-site.xml.in file
+  template: src=koha-conf-site.xml.in.j2 dest=/etc/koha/koha-conf-site.xml.in mode=0644 owner=root
+  when: elasticsearch
+
 - name: Check for instance existence # we want the provisioning to be idempotent if already ran
   command: koha-list | grep {{ koha_instance_name }}
   register: result
