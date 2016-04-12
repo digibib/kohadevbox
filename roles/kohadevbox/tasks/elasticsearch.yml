@@ -9,7 +9,7 @@
     apt_key: url='https://packages.elastic.co/GPG-KEY-elasticsearch' state=present
 
   - name: Add ElasticSearch repository (repo)
-    apt_repository: repo='deb http://packages.elastic.co/elasticsearch/2.x/debian stable main' state=present
+    apt_repository: repo='deb http://packages.elastic.co/elasticsearch/1.7/debian stable main' state=present
     #'
 
   - name: Install ElasticSearch
@@ -17,3 +17,8 @@
 
   - name: Run ElasticSearch on startup
     service: name=elasticsearch enabled=yes state=started
+
+  - name: Install Koha's ES integration dependencies
+    apt: pkg={{ item }} state=latest
+    with_items:
+      - libcatmandu-marc-perl
