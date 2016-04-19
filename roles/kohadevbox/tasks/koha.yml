@@ -1,3 +1,23 @@
+
+- name: Add official Koha repository (key)
+  apt_key: url={{ koha_official_repo_key }} state=present
+
+- name: Add official Koha repository (repo)
+  apt_repository: repo='deb {{ koha_official_repo }} {{ koha_official_repo_distribution }} main' state=present
+  #'
+
+- name: Add custom Koha repository (key)
+  apt_key: url={{ koha_custom_repo_key }} state=present
+  when: koha_use_custom_repo
+
+- name: Add custom Koha repository (repo)
+  apt_repository: repo='deb {{ koha_custom_repo }} {{ koha_custom_repo_distribution }} main' state=present
+  when: koha_use_custom_repo
+
+- name: Pin custom Koha repository (repo)
+  template: src=apt_conf_koha.j2 dest=/etc/apt/preferences.d/koha mode=0644 owner=root
+  when: koha_use_custom_repo and koha_pin_custom_repo
+
 - name: Dependencies fix for Jessie (deps)
   apt:  pkg={{ item }} state=latest
   with_items:
