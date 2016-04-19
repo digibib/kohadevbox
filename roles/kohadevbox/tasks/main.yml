@@ -58,7 +58,7 @@
 
   - name: Disable Apache default vhost
     shell: a2dissite 000-default
-    sudo_user: root
+    become_user: root
     notify: restart apache
 
   - name: Set Apache ports
@@ -86,27 +86,27 @@
     template: src=vimrc.local.j2 dest=/etc/vim/vimrc.local owner=root mode=0644
 
   - include: koha.yml
-    sudo_user: root
+    become_user: root
 
   - include: qatools.yml
-    sudo_user: vagrant
+    become_user: vagrant
 
   - include: gitbz.yml
-    sudo_user: vagrant
+    become_user: vagrant
 
   - include: gitify.yml
-    sudo_user: vagrant
+    become_user: vagrant
 
   - include: releasetools.yml
-    sudo_user: vagrant
+    become_user: vagrant
 
   - include: elasticsearch.yml
-    sudo_user: root
+    become_user: root
     when: elasticsearch
 
   - name: Init database for mlocate
     shell: updatedb
-    sudo_user: root
+    become_user: root
 
   - name: Copy public ssh key from host to vagrant
     copy: src=~/.ssh/id_rsa.pub dest=/home/vagrant/.ssh/id_rsa.pub owner=vagrant group=vagrant mode=0600

@@ -2,8 +2,8 @@
 
 - hosts: all
   user: vagrant
-  sudo: True
-  sudo_user: root
+  become: True
+  become_user: root
   gather_facts: True
   vars_files:
       - vars/defaults.yml

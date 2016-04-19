@@ -1,6 +1,6 @@
 # Tasks required to have Koha QA Tools working for the vagrant user
 - name: Install Koha QA tools (dependencies)
-  sudo_user: root
+  become_user: root
   apt: pkg={{ item }} state=latest
   with_items:
     - libfile-chdir-perl
@@ -15,21 +15,21 @@
     - libtest-differences-perl
 
 - name: Install Koha QA tools (not in wheezy)
-  sudo_user: root
+  become_user: root
   apt: pkg={{ item }} state=latest
   with_items:
     - codespell
   when: ansible_distribution_release != 'wheezy'
 
 - name: Install testing dependencies (cpanm)
-  sudo_user: root
+  become_user: root
   cpanm: name={{ item }}
   with_items:
     - HTTPD::Bench::ApacheBench
     - Test::DBIx::Class
 
 - name: Clone Koha QA tools
-  sudo_user: vagrant
+  become_user: vagrant
   git: repo={{ koha_qa_repo }}  dest={{ koha_qa_dir }} version={{ koha_qa_version }} accept_hostkey=yes
 
 - name: Set perlcritic for the vagrant user

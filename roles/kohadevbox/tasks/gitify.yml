@@ -8,4 +8,4 @@
 
 - name: Gitify the Koha instance
   shell:  ./koha-gitify {{ koha_instance_name }} /home/vagrant/kohaclone chdir={{ gitify_dir }}
-  sudo_user: root
+  become_user: root

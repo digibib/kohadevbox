@@ -4,4 +4,4 @@
 
 - name: Make git-bz globally available
   file: src={{ gitbz_dir }}/git-bz dest=/usr/local/bin/git-bz state=link
-  sudo_user: root
+  become_user: root
