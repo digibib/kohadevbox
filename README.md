@@ -181,6 +181,7 @@ An alias is set up so that you can easily run Koha's qa-test-tools when you are
 inside your Koha repository clone:
 
 ```
+  $ sudo koha-shell kohadev ; cd kohaclone
   $ qa -c 7 -v 2
 ```
 
@@ -190,18 +191,6 @@ found. To avoid this, you can run qa-test-tools through koha-shell like this:
 ```
   $ sudo koha-shell -c "perl -I/home/vagrant/qa-test-tools/ /home/vagrant/qa-test-tools/koha-qa.pl -c 7 -v 2" kohadev
 ```
-
-## Tests
-
-KohaDevBox comes with some tests to verify that the environment inside the
-VirtualBox is set up as intended. To run these tests, run the following commands
-inside the VirtualBox:
-
-```
-  $ cd /vagrant
-  $ prove
-```
-
 ## Koha documentation for developers
 
 The [Developer Handbook](http://wiki.koha-community.org/wiki/Developer_handbook)
