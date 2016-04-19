@@ -33,6 +33,10 @@ Vagrant.configure(2) do |config|
     trusty.vm.box = "ubuntu/trusty64"
   end
 
+  config.vm.define "xenial", autostart: false do |xenial|
+    xenial.vm.box = "ubuntu/xenial64"
+  end
+
   config.vm.network :forwarded_port, guest: 6001, host: 6001, auto_correct: true  # SIP2
   config.vm.network :forwarded_port, guest: 80,   host: 8080, auto_correct: true  # OPAC
   config.vm.network :forwarded_port, guest: 8080, host: 8081, auto_correct: true  # INTRA

@@ -16,6 +16,7 @@ to set up a VirtualBox. It targets the following tasks:
 
   - Debian 8 (jessie / DEFAULT)
   - Debian 7 (wheezy)
+  - Ubuntu 16.04 (xenial)
   - Ubuntu 14.04 (trusty)
 
 
