@@ -14,27 +14,25 @@ to set up a VirtualBox. It targets the following tasks:
 
 * A virtual machine running either:
 
+  - Debian 8 (jessie / DEFAULT)
   - Debian 7 (wheezy)
-  - Debian 8 (jessie)
   - Ubuntu 14.04 (trusty)
 
-* Latest version of koha-common from the unstable repository (based on the master branch)
-* A clone of the official Koha Git repo
-* A gitified Koha instance, running off the repo, under Apache
-* A remote for your own repo on e.g. GitHub
-* Git bz set up and ready to use
-* Koha's qa-test-tools set up and ready to use
+
+* Latest version of koha-common from the unstable repository (master branch)
+  or your custom repository if specified.
+* A clone of the official Koha Git repo, or a NFS-mounted git repository from
+  your host machine.
+* A gitified Koha instance, running off the repo.
+* Git-bz set up and ready to use.
+* Koha's qa-test-tools set up and ready to use.
+* Koha's release-tools set up and ready to use.
 
 See the [open issues](https://github.com/digibib/kohadevbox/issues) for more to come.
 
 ## Getting started
 
-Register with Bugzilla, Koha's bug tracker, if you have not done so already:
-
-http://bugs.koha-community.org/bugzilla3/createaccount.cgi
-
-You will need to put your username and password in config.cfg (see below), so
-do not use a password you have used on other sites.
+## Dependencies
 
 If you don't have them already, you need to install some prerequisites:
 
@@ -52,6 +50,7 @@ the directory that was created by the cloning operation:
 ```
   $ git clone https://github.com/digibib/kohadevbox.git
   $ cd kohadevbox
+  $ git checkout origin/ansible
 ```
 
 ## Usage
@@ -59,7 +58,7 @@ the directory that was created by the cloning operation:
 ### vars/user.yml
 
 Uncomment the lines you would like to change. Usually your personal information,
-including your email and bugzilla password.
+including your email and bugzilla password (see below for instructions).
 
 ### Running Vagrant
 
@@ -70,11 +69,13 @@ the future installation of packages etc in your VirtualBox:
   $ vagrant plugin install vagrant-cachier
 ```
 
-To spin up a new dev box. You need to specify either wheezy, trusty or jessie:
+To spin up a new dev box. You need to specify either jessie, wheezy or trusty:
 
 ```
   $ vagrant up <distribution>
 ```
+
+Note: ommiting the distribution will default to jessie for all the vagrant * commands.
 
 This will download and install a bunch of stuff, please be patient. When
 everything is done, you should be able to access your dev installation of Koha
@@ -84,11 +85,9 @@ at these addresses:
 * http://localhost:8081/ Staff interface (Apache)
 
 Until issue #2 has been fixed, you need to log in to the Web UI with the
-database user. You will find the username and password in this file:
+database user. It defaults to login: koha_kohadev and password: password
 
-```
-/etc/koha/sites/<instance_name>/koha-conf.xml
-```
+This can be changed before spinning the new box in user.yml.
 
 To log into the newly created box:
 
@@ -175,6 +174,20 @@ box.
 off whatever branch you had checked out in your pre-existing repo when you ran
 "vagrant up".
 
+### KOHA_ELASTICSEARCH
+
+Value: 1
+
+Usage:
+
+```
+  $ KOHA_ELASTICSEARCH=1 vagrant up
+```
+
+This makes the provisioning scripts install Elasticsearch-related stuff, which is
+still in heavy development. This is required for testing ES patches, and is not
+enabled by default because it takes more time to complete and not everyone is interested yet.
+
 ## qa-test-tools
 
 An alias is set up so that you can easily run Koha's qa-test-tools when you are
@@ -191,6 +204,17 @@ found. To avoid this, you can run qa-test-tools through koha-shell like this:
 ```
   $ sudo koha-shell -c "perl -I/home/vagrant/qa-test-tools/ /home/vagrant/qa-test-tools/koha-qa.pl -c 7 -v 2" kohadev
 ```
+
+## Register with Bugzilla
+
+Register with Bugzilla, Koha's bug tracker, if you have not done so already:
+
+http://bugs.koha-community.org/bugzilla3/createaccount.cgi
+
+You will need to put your username and password in vars/user.yml (see below), so
+do not use a password you have used on other sites.
+
+
 ## Koha documentation for developers
 
 The [Developer Handbook](http://wiki.koha-community.org/wiki/Developer_handbook)
