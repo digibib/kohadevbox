@@ -5,3 +5,5 @@ alias koha-intra-err="sudo tail -f /var/log/koha/kohadev/intranet-error.log"
 # Aliases for getting the db/admin user and password for our instance
 alias koha-user="sudo xmlstarlet sel -t -v 'yazgfs/config/user' '/etc/koha/sites/kohadev/koha-conf.xml'"
 alias koha-pass="sudo xmlstarlet sel -t -v 'yazgfs/config/pass' '/etc/koha/sites/kohadev/koha-conf.xml'"
+
+export PERL5LIB=/home/vagrant/kohaclone

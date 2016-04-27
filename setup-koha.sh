@@ -50,6 +50,9 @@ sudo service apache2 restart
 # Create a Koha instance
 if [ -f '/vagrant/koha-sites.cfg' ]; then
     sudo koha-create --create-db --configfile "/vagrant/koha-sites.cfg" "$instance_name"
+    # Set instance's user bashrc
+    echo "source /vagrant/kohadevbox-bashrc" >> /var/lib/koha/"$instance_name"/.bashrc
+    chown "$instance_name"-koha /var/lib/koha/"$instance_name"/.bashrc
 else
     echo "**** /vagrant/koha-sites.cfg does not exist! Unable to create a Koha instance without it. ****"
     exit;
