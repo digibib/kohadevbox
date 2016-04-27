@@ -29,6 +29,7 @@ do not use a password you have used on other sites.
 
 If you don't have them already, you need to install some prerequisites:
 
+* Install Virtualbox (or another VM provider)
 * Install Vagrant: http://www.vagrantup.com/downloads.html
 Note: do not "apt-get install vagrant" on Ubuntu or Wheezy - the required version is not yet in the official repositories. Download the latest version from the above URL.
 * Install Git: http://git-scm.com/downloads
