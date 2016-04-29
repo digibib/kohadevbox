@@ -14,11 +14,12 @@ to set up a VirtualBox. It targets the following tasks:
 
 * A virtual machine running either:
 
-  - Debian 8 (jessie / DEFAULT)
+  - Debian 8 (jessie) [*]
   - Debian 7 (wheezy)
   - Ubuntu 16.04 (xenial)
   - Ubuntu 14.04 (trusty)
 
+[*] Default if none specified.
 
 * Latest version of koha-common from the unstable repository (master branch)
   or your custom repository if specified.
@@ -37,13 +38,15 @@ See the [open issues](https://github.com/digibib/kohadevbox/issues) for more to 
 
 If you don't have them already, you need to install some prerequisites:
 
-* Install Vagrant: http://www.vagrantup.com/downloads.html
+* Virtualbox
+
+* Vagrant (version 1.8+): http://www.vagrantup.com/downloads.html
 
   Note: Ubuntu and Debian ship their own vagrant package, but don't use it. Download the latest version from the above URL.
 
-* Install Ansible: http://docs.ansible.com/ansible/intro_installation.html
+* Ansible (version 1.9+): http://docs.ansible.com/ansible/intro_installation.html
 
-* Install Git: http://git-scm.com/downloads
+* Git: http://git-scm.com/downloads
 
 Now you can clone the KohaDevBox repository to your local machine and cd into
 the directory that was created by the cloning operation:
