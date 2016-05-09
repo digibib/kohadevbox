@@ -1,0 +1,9 @@
+# Tasks required to have the release-tools working for the vagrant user
+- name: Install deps
+  become_user: root
+  apt: name={{ item }} state=latest
+  with_items:
+    - libhtml-tableextract-perl
+
+- name: Clone the release-tools repo
+  git: repo={{ release_tools_repo }}  dest={{ release_tools_dir }} version={{ release_tools_version }}

@@ -1,0 +1,11 @@
+# Tasks required to have gitify working
+- name: Clone Gitify
+  git: repo={{ gitify_repo }} dest={{ gitify_dir }} version={{ gitify_version }}
+
+- name: Clone Koha repository
+  git: repo={{ koha_git_repo }} dest=/home/vagrant/kohaclone version={{ koha_git_branch }}
+  when: not sync_repo
+
+- name: Gitify the Koha instance
+  shell:  ./koha-gitify {{ koha_instance_name }} /home/vagrant/kohaclone chdir={{ gitify_dir }}
+  become_user: root

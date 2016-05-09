@@ -1,0 +1,64 @@
+
+- name: Add official Koha repository (key)
+  apt_key: url={{ koha_official_repo_key }} state=present
+
+- name: Add official Koha repository (repo)
+  apt_repository: repo='deb {{ koha_official_repo }} {{ koha_official_repo_distribution }} main' state=present
+  #'
+
+- name: Add custom Koha repository (key)
+  apt_key: url={{ koha_custom_repo_key }} state=present
+  when: koha_use_custom_repo
+
+- name: Add custom Koha repository (repo)
+  apt_repository: repo='deb {{ koha_custom_repo }} {{ koha_custom_repo_distribution }} main' state=present
+  when: koha_use_custom_repo
+
+- name: Pin custom Koha repository (repo)
+  template: src=apt_conf_koha.j2 dest=/etc/apt/preferences.d/koha mode=0644 owner=root
+  when: koha_use_custom_repo and koha_pin_custom_repo
+
+- name: Dependencies fix for Jessie (deps)
+  apt:  pkg={{ item }} state=latest
+  with_items:
+    - libmime-tools-perl
+    - libuniversal-require-perl
+    - libreadonly-perl
+    - libparams-validate-perl
+
+- name: Install Koha
+  apt: pkg=koha-common state=latest force=yes
+
+- name: Use our koha-sites.conf file
+  template: src=koha-sites.conf.j2 dest=/etc/koha/koha-sites.conf mode=0644 owner=root
+
+- name: Use our Koha's passwd file
+  template: src=koha_passwd.j2 dest=/etc/koha/passwd mode=0644 owner=root
+
+- name: Use ES-specific koha-conf-site.xml.in file
+  template: src=koha-conf-site.xml.in.j2 dest=/etc/koha/koha-conf-site.xml.in mode=0644 owner=root
+  when: elasticsearch
+
+- name: Check for instance existence # we want the provisioning to be idempotent if already ran
+  command: koha-list | grep {{ koha_instance_name }}
+  register: result
+  ignore_errors: True
+
+- name: Create Koha instance
+  shell:  koha-create --create-db {{ koha_instance_name }}
+  when: result.stdout == ""
+  notify: restart apache
+
+- name: Set instance's env variables needed for testing
+  template: src=instance_bashrc.j2 dest=/var/lib/koha/{{ koha_instance_name }}/.bashrc mode=0644 owner={{ koha_instance_name }}-koha
+
+- name: Create .ssh directory for kohadev
+  file: path=/var/lib/koha/kohadev/.ssh owner=kohadev-koha mode=0700 state=directory
+
+- name: Copy public ssh key from host to kohadev
+  copy: src=~/.ssh/id_rsa.pub dest=/var/lib/koha/kohadev/.ssh/id_rsa.pub owner=kohadev-koha group=kohadev-koha mode=0600
+  when: ssh_key_from_host
+
+- name: Copy private ssh key from host to kohadev
+  copy: src=~/.ssh/id_rsa dest=/var/lib/koha/kohadev/.ssh/id_rsa owner=kohadev-koha group=kohadev-koha mode=0600
+  when: ssh_key_from_host

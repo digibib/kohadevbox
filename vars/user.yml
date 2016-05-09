@@ -1,0 +1,57 @@
+# Default configuration values
+---
+
+# vagrant_home_dir: /home/vagrant
+
+# ssh_key_from_host: false
+
+# sync_repo: false
+# skip_webinstaller: false
+# enable_memcached: false
+# elasticsearch: false
+
+# koha_official_repo_origin: debian.koha-community.org
+# koha_official_repo: http://{{ koha_official_repo_origin }}/koha
+# koha_official_repo_key: http://debian.koha-community.org/koha/gpg.asc
+# koha_official_repo_distribution: unstable
+
+# koha_custom_repo_origin: theke.io
+# koha_custom_repo: http://{{ koha_custom_repo_origin }}/repo/koha
+# koha_custom_repo_key: http://theke.io/repo/koha/pubkey.asc
+# koha_custom_repo_distribution: master
+
+# koha_use_custom_repo: yes
+# koha_pin_custom_repo: yes
+
+# koha_git_repo: http://git.koha-community.org/koha.git
+# koha_git_branch: master
+
+# koha_instance_name: kohadev
+# koha_domain: .myDNSname.org
+# koha_marc_flavour: marc21
+# koha_zebra_language: en
+# koha_db_password: password
+
+# gitify_repo: https://github.com/mkfifo/koha-gitify.git
+# gitify_version: master
+# gitify_dir: /home/vagrant/gitify
+
+# gitbz_repo: http://git.koha-community.org/git-bz.git
+# gitbz_version: fishsoup
+# gitbz_dir: /home/vagrant/gitbz
+
+# release_tools_repo: git://git.koha-community.org/release-tools.git
+# release_tools_version: master
+# release_tools_dir: /home/vagrant/release-tools
+
+# koha_qa_repo: git://git.koha-community.org/qa-test-tools.git
+# koha_qa_version: master
+# koha_qa_dir: /home/vagrant/qa-test-tools
+
+# git_email: your_email
+# git_full_name: "Your Full Name"
+
+# bz_user: your_email
+# bz_password: your_bz_password
+
+# editor: vim
