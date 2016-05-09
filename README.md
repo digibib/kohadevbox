@@ -54,7 +54,7 @@ the directory that was created by the cloning operation:
 ```
   $ git clone https://github.com/digibib/kohadevbox.git
   $ cd kohadevbox
-  $ git checkout origin/ansible
+  $ git checkout origin/master
 ```
 
 ## Usage
