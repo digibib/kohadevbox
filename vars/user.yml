@@ -10,6 +10,9 @@
 # enable_memcached: false
 # elasticsearch: false
 
+# Set to "*" to listen on all interfaces
+# mysql_bind_address: "127.0.0.1"
+
 # koha_official_repo_origin: debian.koha-community.org
 # koha_official_repo: http://{{ koha_official_repo_origin }}/koha
 # koha_official_repo_key: http://debian.koha-community.org/koha/gpg.asc

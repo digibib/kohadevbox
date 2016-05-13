@@ -78,6 +78,9 @@
   - name: Set up vimrc
     template: src=vimrc.local.j2 dest=/etc/vim/vimrc.local owner=root mode=0644
 
+  - name: Set up mysql
+    template: src=my.cnf.j2 dest=/etc/mysql/my.cnf owner=root mode=0644
+
   - include: koha.yml
     become_user: root
 
