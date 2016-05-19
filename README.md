@@ -61,7 +61,14 @@ the directory that was created by the cloning operation:
 
 ### vars/user.yml
 
-Uncomment the lines you would like to change. Usually your personal information,
+Before you start, you need to create a *vars/user.yml* file. KohaDevBox ships a sample
+one. You should run:
+
+```
+cp vars/user.yml.sample vars/user.yml
+```
+
+And then uncomment the lines you would like to change. Usually your personal information,
 including your email and bugzilla password (see below for instructions).
 
 ### Running Vagrant
