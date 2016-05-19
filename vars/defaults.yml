@@ -57,4 +57,9 @@ git_full_name: "Your Full Name"
 bz_user: your_email
 bz_password: your_bz_password
 
+extra_tools:
+ - vim
+ - byobu
+ - htop
+
 editor: vim

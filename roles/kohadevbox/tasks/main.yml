@@ -19,18 +19,18 @@
     apt: pkg={{ item }} state=latest force=yes
     with_items:
       - bash-completion
-      - vim
       - cpanminus
       - dh-make-perl
       - git
       - git-email
       - mysql-server
       - apache2
-      - byobu
-      - htop
       - libdata-printer-perl
       - perltidy
       - memcached
+
+  - name: Install extra tools
+    apt: pkg={{ extra_tools }} state=latest
 
   - name: start memcached
     service: name=memcached state=restarted enabled=yes
