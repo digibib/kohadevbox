@@ -83,7 +83,7 @@ the future installation of packages etc in your VirtualBox:
 To spin up a new dev box. You need to specify either jessie, wheezy or trusty:
 
 ```
-  $ vagrant up <distribution>
+  $ vagrant up [<distribution>]
 ```
 
 Note: ommiting the distribution will default to jessie for all the vagrant * commands.
@@ -103,7 +103,7 @@ This can be changed before spinning the new box in user.yml.
 To log into the newly created box:
 
 ```
-  $ vagrant ssh <distribution>
+  $ vagrant ssh [<distribution>]
 ```
 
 To exit the box, just type "exit".
@@ -111,13 +111,13 @@ To exit the box, just type "exit".
 To save the state of the box, so you can return to it later:
 
 ```
-  $ vagrant halt
+  $ vagrant halt [<distribution>]
 ```
 
 To destroy the box and all its contents:
 
 ```
-  $ vagrant destroy
+  $ vagrant destroy [<distribution>]
 ```
 
 ## Aliases
@@ -199,7 +199,18 @@ This makes the provisioning scripts install Elasticsearch-related stuff, which i
 still in heavy development. This is required for testing ES patches, and is not
 enabled by default because it takes more time to complete and not everyone is interested yet.
 
-## qa-test-tools
+## Run tests
+
+On a packages environment, you need to use koha-shell to get the proper environment for
+running tests. Also, we have set all variables needed for QA tasks on that environment.
+To run tests:
+
+```
+  $ sudo koha-shell kohadev ; cd kohaclone
+  $ prove t/<paste your favourite test>
+```
+
+## Run qa-test-tools
 
 An alias is set up so that you can easily run Koha's qa-test-tools when you are
 inside your Koha repository clone:
@@ -209,12 +220,6 @@ inside your Koha repository clone:
   $ qa -c 7 -v 2
 ```
 
-However, this will probably result in complaints that koha-conf.xml can not be
-found. To avoid this, you can run qa-test-tools through koha-shell like this:
-
-```
-  $ sudo koha-shell -c "perl -I/home/vagrant/qa-test-tools/ /home/vagrant/qa-test-tools/koha-qa.pl -c 7 -v 2" kohadev
-```
 
 ## Register with Bugzilla
 
