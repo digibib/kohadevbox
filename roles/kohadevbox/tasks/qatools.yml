@@ -34,3 +34,7 @@
 
 - name: Set perlcritic for the vagrant user
   file: src={{ koha_qa_dir }}/perlcriticrc dest={{ vagrant_home_dir }}/.perlcriticrc state=link
+
+- name: Set perlcritic for the instance user
+  become_user: root
+  file: src={{ koha_qa_dir }}/perlcriticrc dest=/var/lib/koha/{{ koha_instance_name }}/.perlcriticrc mode=0644 owner={{ koha_instance_name }}-koha state=link
