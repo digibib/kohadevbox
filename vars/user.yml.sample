@@ -10,6 +10,8 @@
 # enable_memcached: false
 # elasticsearch: false
 
+# Set mysql_engine: mysql | mariadb
+# mysql_engine: mysql
 # Set to "*" to listen on all interfaces
 # mysql_bind_address: "127.0.0.1"
 

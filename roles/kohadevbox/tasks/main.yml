@@ -15,7 +15,7 @@
     apt: pkg=d7031-archive-keyring state=latest force=yes
     when: ansible_distribution_release == 'wheezy'
 
-  - name: Install needed utils
+  - name: Install default tools
     apt: pkg={{ item }} state=latest force=yes
     with_items:
       - bash-completion
@@ -23,7 +23,6 @@
       - dh-make-perl
       - git
       - git-email
-      - mysql-server
       - apache2
       - libdata-printer-perl
       - perltidy
@@ -77,6 +76,9 @@
 
   - name: Set up vimrc
     template: src=vimrc.local.j2 dest=/etc/vim/vimrc.local owner=root mode=0644
+
+  - name: Install DB server
+    apt: pkg={{ mysql_engine }}-server state=latest force=yes
 
   - name: Set up mysql
     template: src=my.cnf.j2 dest=/etc/mysql/my.cnf owner=root mode=0644
