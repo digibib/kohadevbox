@@ -39,7 +39,6 @@ Vagrant.configure(2) do |config|
 
   config.vm.network :forwarded_port, guest: 6001, host: 6001, auto_correct: true  # SIP2
   config.vm.network :forwarded_port, guest: 80,   host: 8080, auto_correct: true  # OPAC
-  config.vm.network :forwarded_port, guest: 443,  host: 443,  auto_correct: true  # OPAC https
   config.vm.network :forwarded_port, guest: 8080, host: 8081, auto_correct: true  # INTRA
   config.vm.network "private_network", ip: "192.168.50.10"
 
