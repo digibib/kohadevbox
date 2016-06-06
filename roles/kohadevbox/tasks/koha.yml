@@ -26,6 +26,12 @@
     - libreadonly-perl
     - libparams-validate-perl
 
+- name: Install (temporarily) unpackaged dependencies (cpanm)
+  become_user: root
+  cpanm: name={{ item }}
+  with_items:
+    - DBIx::RunSQL
+
 - name: Install Koha
   apt: pkg=koha-common state=latest force=yes
 
