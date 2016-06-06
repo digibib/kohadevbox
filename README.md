@@ -88,8 +88,17 @@ To spin up a new dev box. You need to specify either jessie, wheezy or trusty:
 
 Note: ommiting the distribution will default to jessie for all the vagrant * commands.
 
-This will download and install a bunch of stuff, please be patient. When
-everything is done, you should be able to access your dev installation of Koha
+This will download and install a bunch of stuff, please be patient 
+(The full Koha repo alone is already over 2GiB). 
+If the process somehow gets interrupted, hangs, or otherwise does not get completed, 
+you may need to force a re-build of the dev box to make sure everything is installed:
+
+```
+  $ vagrant halt [<distribution>]
+  $ vagrant up --provision [<distribution>]
+```
+
+When everything is done, you should be able to access your dev installation of Koha
 at these addresses:
 
 * http://localhost:8080/ Public interface (Apache)
