@@ -25,6 +25,7 @@
     - libuniversal-require-perl
     - libreadonly-perl
     - libparams-validate-perl
+    - koha-perldeps
 
 - name: Install (temporarily) unpackaged dependencies (cpanm)
   become_user: root
