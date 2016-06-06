@@ -25,6 +25,7 @@
       - git-email
       - apache2
       - libdata-printer-perl
+      - libmodern-perl-perl
       - perltidy
       - memcached
 
