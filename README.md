@@ -88,8 +88,10 @@ To spin up a new dev box. You need to specify either jessie, wheezy or trusty:
 
 Note: ommiting the distribution will default to jessie for all the vagrant * commands.
 
-This will download and install a bunch of stuff, please be patient 
-(The full Koha repo alone is already over 2GiB). 
+This will download and install a bunch of stuff, please be patient - especially when 
+you are not using `SYNC_REPO` (see below), since then the full Koha repo (which is over 
+2GiB) will be cloned too.
+
 If the process somehow gets interrupted, hangs, or otherwise does not get completed, 
 you may need to force a re-build of the dev box to make sure everything is installed:
 
@@ -105,7 +107,7 @@ at these addresses:
 * http://localhost:8081/ Staff interface (Apache)
 
 Until issue #2 has been fixed, you need to log in to the Web UI with the
-database user. It defaults to login: koha_kohadev and password: password
+database user. It defaults to login: `koha_kohadev` and password: `password`
 
 This can be changed before spinning the new box in user.yml.
 
