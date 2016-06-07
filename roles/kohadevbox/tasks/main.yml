@@ -1,5 +1,5 @@
-  # file: roles/kohadevbox/tasks/main.yml
 ---
+# file: roles/kohadevbox/tasks/main.yml
   - name: Add Apache 2.4 backports (Trusty)
     apt_repository: repo='ppa:lvillani/apache2'
     when: ansible_distribution_release == 'trusty'
@@ -37,7 +37,7 @@
 
   - name: stop memcached
     service: name=memcached state=stopped enabled=no
-    when: not enable_memcached
+    when: "{{ enable_memcached }} is not defined"
 
   - name: SSH tweak
     shell: perl -pi -e 's/AcceptEnv LANG LC_\*/# AcceptEnv LANG LC_\*/g' '/etc/ssh/sshd_config'
