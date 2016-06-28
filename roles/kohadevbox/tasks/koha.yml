@@ -25,13 +25,12 @@
     - libuniversal-require-perl
     - libreadonly-perl
     - libparams-validate-perl
-    - koha-perldeps
 
 - name: Install (temporarily) unpackaged dependencies (cpanm)
   become_user: root
   cpanm: name={{ item }}
   with_items:
-    - DBIx::RunSQL
+    - WWW::CSRF
 
 - name: Install Koha
   apt: pkg=koha-common state=latest force=yes
