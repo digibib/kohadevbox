@@ -18,19 +18,17 @@
   template: src=apt_conf_koha.j2 dest=/etc/apt/preferences.d/koha mode=0644 owner=root
   when: koha_use_custom_repo and koha_pin_custom_repo
 
-- name: Dependencies fix for Jessie (deps)
-  apt:  pkg={{ item }} state=latest
-  with_items:
-    - libmime-tools-perl
-    - libuniversal-require-perl
-    - libreadonly-perl
-    - libparams-validate-perl
-
 - name: Install (temporarily) unpackaged dependencies (cpanm)
   become_user: root
   cpanm: name={{ item }}
   with_items:
     - WWW::CSRF
+    - Sereal
+
+- name: Install (temporarily) not pulled dependencies (deb)
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - libcache-memcached-perl
 
 - name: Install Koha
   apt: pkg=koha-common state=latest force=yes
