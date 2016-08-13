@@ -210,6 +210,25 @@ This makes the provisioning scripts install Elasticsearch-related stuff, which i
 still in heavy development. This is required for testing ES patches, and is not
 enabled by default because it takes more time to complete and not everyone is interested yet.
 
+### PUBLIC_NETWORK
+
+Value: 1
+
+Usage:
+
+```
+  $ PUBLIC_NETWORK=1 vagrant up
+```
+
+By default, Kohadevbox has two network interfaces set up: one host only adapter, which
+allows connections on http://localhost:8080 and http://localhost:8081, and a NAT adapter
+which is assigned a network address by the host operating system, and allows connections
+on ports 80 and 8080. If you want to connect to kohadevbox from a remote machine,
+you will need to set the PUBLIC\_NETWORK environment variable; this will set up a
+bridged network and get its IP address via the DHCP server on your local network. Note
+that Vagrant is [not secure on public networks](https://www.vagrantup.com/docs/networking/public_network.html),
+so use your own judgement when enabling this.
+
 ## Run tests
 
 On a packages environment, you need to use koha-shell to get the proper environment for
