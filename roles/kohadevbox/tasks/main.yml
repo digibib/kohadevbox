@@ -1,0 +1,115 @@
+---
+# file: roles/kohadevbox/tasks/main.yml
+  - name: Add Apache 2.4 backports (Trusty)
+    apt_repository: repo='ppa:lvillani/apache2'
+    when: ansible_distribution_release == 'trusty'
+
+  - name: Add Apache 2.4 backports (Wheezy)
+    apt_repository: repo='deb http://www.d7031.de/debian wheezy-experimental main' state=present
+    when: ansible_distribution_release == 'wheezy'
+
+  - name: Update Apt cache and system packages
+    apt: update_cache=yes upgrade=dist
+
+  - name: Install Wheezy backport repo keyring
+    apt: pkg=d7031-archive-keyring state=latest force=yes
+    when: ansible_distribution_release == 'wheezy'
+
+  - name: Install default tools
+    apt: pkg={{ item }} state=latest force=yes
+    with_items:
+      - bash-completion
+      - cpanminus
+      - dh-make-perl
+      - git
+      - git-email
+      - apache2
+      - libdata-printer-perl
+      - perltidy
+      - memcached
+
+  - name: Install extra tools
+    apt: pkg={{ extra_tools }} state=latest
+
+  - name: start memcached
+    service: name=memcached state=restarted enabled=yes
+    when: enable_memcached
+
+  - name: stop memcached
+    service: name=memcached state=stopped enabled=no
+    when: "{{ enable_memcached }} is not defined"
+
+  - name: SSH tweak
+    shell: perl -pi -e 's/AcceptEnv LANG LC_\*/# AcceptEnv LANG LC_\*/g' '/etc/ssh/sshd_config'
+    notify: reload ssh
+
+    # This needs to be done before trying to enable the cgi module
+  - name: Apache MPM fix
+    apache2_module: state=absent name=mpm_event
+    notify: restart apache
+
+  - name: Disable Apache default vhost
+    shell: a2dissite 000-default
+    become_user: root
+    notify: restart apache
+
+  - name: Set Apache ports
+    template: src=ports.conf.j2 dest=/etc/apache2/ports.conf owner=root mode=0644
+
+  - name: Apache modules
+    apache2_module: name={{ item }} state=present
+    with_items:
+      - rewrite
+      - headers
+      - proxy_http
+      - cgi
+    notify: restart apache
+
+  - name: Set git user configuration
+    template: src=gitconfig.j2 dest=/home/vagrant/.gitconfig owner=vagrant mode=0644
+
+  - name: Set Bash configuration
+    template: src=bashrc.j2 dest=/home/vagrant/.bashrc owner=vagrant mode=0644
+
+  - name: Set some Bash aliases
+    template: src=bash_aliases.j2 dest=/home/vagrant/.bash_aliases owner=vagrant mode=0644
+
+  - name: Set up vimrc
+    template: src=vimrc.local.j2 dest=/etc/vim/vimrc.local owner=root mode=0644
+
+  - name: Install DB server
+    apt: pkg={{ mysql_engine }}-server state=latest force=yes
+
+  - name: Set up mysql
+    template: src=my.cnf.j2 dest=/etc/mysql/my.cnf owner=root mode=0644
+
+  - include: koha.yml
+    become_user: root
+
+  - include: qatools.yml
+    become_user: vagrant
+
+  - include: gitbz.yml
+    become_user: vagrant
+
+  - include: gitify.yml
+    become_user: vagrant
+
+  - include: releasetools.yml
+    become_user: vagrant
+
+  - include: elasticsearch.yml
+    become_user: root
+    when: elasticsearch
+
+  - name: Init database for mlocate
+    shell: updatedb
+    become_user: root
+
+  - name: Copy public ssh key from host to vagrant
+    copy: src=~/.ssh/id_rsa.pub dest=/home/vagrant/.ssh/id_rsa.pub owner=vagrant group=vagrant mode=0600
+    when: ssh_key_from_host
+
+  - name: Copy private ssh key from host to vagrant
+    copy: src=~/.ssh/id_rsa dest=/home/vagrant/.ssh/id_rsa owner=vagrant group=vagrant mode=0600
+    when: ssh_key_from_host

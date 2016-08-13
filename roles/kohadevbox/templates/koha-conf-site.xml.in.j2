@@ -1,0 +1,314 @@
+<yazgfs>
+
+<listen id="biblioserver" >unix:/var/run/koha/__KOHASITE__/bibliosocket</listen>
+<listen id="authorityserver" >unix:/var/run/koha/__KOHASITE__/authoritysocket</listen>
+
+<!-- Uncomment the following entry if you want to run the public Z39.50 server.
+    Also uncomment the <server> and <serverinfo> sections for id 'publicserver'
+    under PUBLICSERVER'S BIBLIOGRAPHIC RECORDS title-->
+__START_SRU_PUBLICSERVER__
+<listen id="publicserver" >tcp:@:__SRU_BIBLIOS_PORT__</listen>
+__END_SRU_PUBLICSERVER__
+
+<!-- Settings for special biblio server instance for PazPar2.
+     Because PazPar2 only connects to a Z39.50 server using TCP/IP,
+     it cannot use the Unix-domain socket that biblioserver uses.
+     Therefore, a custom server is defined. -->
+<!--
+<listen id="mergeserver">tcp:@:__MERGE_SERVER_PORT__</listen>
+<server id="mergeserver"  listenref="mergeserver">
+    <directory>/var/lib/koha/__KOHASITE__/biblios</directory>
+    <config>/etc/koha/sites/__KOHASITE__/__ZEBRA_BIBLIOS_CFG__</config>
+    <cql2rpn>/var/lib/koha/__KOHASITE__/pqf.properties</cql2rpn>
+</server>
+-->
+
+<!-- BIBLIOGRAPHIC RECORDS -->
+<server id="biblioserver"  listenref="biblioserver">
+    <directory>/var/lib/koha/__KOHASITE__/biblios</directory>
+    <config>/etc/koha/sites/__KOHASITE__/__ZEBRA_BIBLIOS_CFG__</config>
+    <cql2rpn>/etc/koha/zebradb/pqf.properties</cql2rpn>
+
+    __START_BIBLIOS_RETRIEVAL_INFO__
+       <retrieval syntax="__ZEBRA_MARC_FORMAT__" name="F"/>
+       <retrieval syntax="__ZEBRA_MARC_FORMAT__" name="B"/>
+       <retrieval syntax="xml" name="F"/>
+       <retrieval syntax="xml" name="B"/>
+       <retrieval syntax="xml" name="marcxml"
+                  identifier="info:srw/schema/1/marcxml-v1.1">
+         <backend syntax="__ZEBRA_MARC_FORMAT__" name="F">
+           <marc inputformat="marc" outputformat="marcxml"
+                 inputcharset="utf-8"/>
+         </backend>
+       </retrieval>
+       <retrieval syntax="xml" name="dc">
+         <backend syntax="__ZEBRA_MARC_FORMAT__" name="F">
+           <marc inputformat="marc" outputformat="marcxml"
+                 inputcharset="utf-8"/>
+           <xslt stylesheet="/usr/share/koha/intranet/htdocs/intranet-tmpl/prog/en/xslt/MARC21slim2DC.xsl"/>
+         </backend>
+       </retrieval>
+       <retrieval syntax="xml" name="mods">
+         <backend syntax="__ZEBRA_MARC_FORMAT__" name="F">
+           <marc inputformat="marc" outputformat="marcxml"
+                 inputcharset="utf-8"/>
+           <xslt stylesheet="/usr/share/koha/intranet/htdocs/intranet-tmpl/prog/en/xslt/MARC21slim2MODS.xsl"/>
+         </backend>
+       </retrieval>
+       <retrieval syntax="xml" name="rdfdc">
+         <backend syntax="__ZEBRA_MARC_FORMAT__" name="F">
+           <marc inputformat="marc" outputformat="marcxml"
+                 inputcharset="utf-8"/>
+           <xslt stylesheet="/usr/share/koha/intranet/htdocs/intranet-tmpl/prog/en/xslt/MARC21slim2RDFDC.xsl"/>
+         </backend>
+       </retrieval>
+       <retrieval syntax="xml" name="rss2">
+         <backend syntax="__ZEBRA_MARC_FORMAT__" name="F">
+           <marc inputformat="marc" outputformat="marcxml"
+                 inputcharset="utf-8"/>
+           <xslt stylesheet="/usr/share/koha/intranet/htdocs/intranet-tmpl/prog/en/xslt/MARC21slim2RSS2.xsl"/>
+         </backend>
+       </retrieval>
+       <retrieval syntax="xml" name="utils">
+         <backend syntax="__ZEBRA_MARC_FORMAT__" name="F">
+           <marc inputformat="marc" outputformat="marcxml"
+                 inputcharset="utf-8"/>
+           <xslt stylesheet="/usr/share/koha/intranet/htdocs/intranet-tmpl/prog/en/xslt/MARC21slimUtils.xsl"/>
+         </backend>
+       </retrieval>
+    __END_BIBLIOS_RETRIEVAL_INFO__
+
+    <!-- The stuff below is used to enable SRU. It's currently disabled
+         until we come up with a good way to make it get magically set up by
+         the packaging system. If you need it, uncomment and set it up
+         manually.
+    <xi:include href="/etc/koha/zebradb/explain-biblios.xml"
+                xmlns:xi="http://www.w3.org/2001/XInclude">
+      <xi:fallback>
+      <explain xmlns="http://explain.z3950.org/dtd/2.0/">
+          <serverInfo>
+            <host>__ZEBRA_SRU_HOST__</host>
+            <port>__ZEBRA_SRU_BIBLIOS_PORT__</port>
+            <database>biblios</database>
+          </serverInfo>
+        </explain>
+      </xi:fallback>
+    </xi:include> -->
+</server>
+<serverinfo id="biblioserver">
+        <ccl2rpn>/etc/koha/zebradb/ccl.properties</ccl2rpn>
+        <user>kohauser</user>
+        <password>__ZEBRA_PASS__</password>
+</serverinfo>
+
+<!-- AUTHORITY RECORDS -->
+<server id="authorityserver"  listenref="authorityserver" >
+    <directory>/var/lib/koha/__KOHASITE__/authorities</directory>
+    <config>/etc/koha/sites/__KOHASITE__/__ZEBRA_AUTHORITIES_CFG__</config>
+    <cql2rpn>/etc/koha/zebradb/pqf.properties</cql2rpn>
+
+    __START_AUTHORITIES_RETRIEVAL_INFO__
+       <retrieval syntax="__ZEBRA_MARC_FORMAT__" name="F"/>
+       <retrieval syntax="__ZEBRA_MARC_FORMAT__" name="B"/>
+       <retrieval syntax="xml" name="marcxml"
+                  identifier="info:srw/schema/1/marcxml-v1.1">
+         <backend syntax="__ZEBRA_MARC_FORMAT__" name="F">
+           <marc inputformat="marc" outputformat="marcxml"
+                 inputcharset="utf-8"/>
+         </backend>
+       </retrieval>
+       <retrieval syntax="xml" name="dc">
+         <backend syntax="__ZEBRA_MARC_FORMAT__" name="F">
+           <marc inputformat="marc" outputformat="marcxml"
+                 inputcharset="utf-8"/>
+           <xslt stylesheet="/usr/share/koha/intranet/htdocs/intranet-tmpl/prog/en/xslt/MARC21slim2DC.xsl"/>
+         </backend>
+       </retrieval>
+       <retrieval syntax="xml" name="mods">
+         <backend syntax="__ZEBRA_MARC_FORMAT__" name="F">
+           <marc inputformat="marc" outputformat="marcxml"
+                 inputcharset="utf-8"/>
+           <xslt stylesheet="/usr/share/koha/intranet/htdocs/intranet-tmpl/prog/en/xslt/MARC21slim2MODS.xsl"/>
+         </backend>
+       </retrieval>
+       <retrieval syntax="xml" name="rdfdc">
+         <backend syntax="__ZEBRA_MARC_FORMAT__" name="F">
+           <marc inputformat="marc" outputformat="marcxml"
+                 inputcharset="utf-8"/>
+           <xslt stylesheet="/usr/share/koha/intranet/htdocs/intranet-tmpl/prog/en/xslt/MARC21slim2RDFDC.xsl"/>
+         </backend>
+       </retrieval>
+       <retrieval syntax="xml" name="utils">
+         <backend syntax="__ZEBRA_MARC_FORMAT__" name="F">
+           <marc inputformat="marc" outputformat="marcxml"
+                 inputcharset="utf-8"/>
+           <xslt stylesheet="/usr/share/koha/intranet/htdocs/intranet-tmpl/prog/en/xslt/MARC21slimUtils.xsl"/>
+         </backend>
+       </retrieval>
+    __END_AUTHORITIES_RETRIEVAL_INFO__
+
+    <!-- The stuff below is used to enable SRU. It's currently disabled
+         until we come up with a good way to make it get magically set up by
+         the packaging system. If you need it, uncomment and set it up
+         manually.
+    <xi:include href="/etc/koha/zebradb/explain-authorities.xml"
+                xmlns:xi="http://www.w3.org/2001/XInclude">
+    <xi:fallback>
+      <explain xmlns="http://explain.z3950.org/dtd/2.0/">
+          <serverInfo>
+            <host>__ZEBRA_SRU_HOST__</host>
+            <port>__ZEBRA_SRU_AUTHORITIES_PORT__</port>
+            <database>authorities</database>
+          </serverInfo>
+        </explain>
+      </xi:fallback>
+  </xi:include> -->
+</server>
+<serverinfo id="authorityserver">
+    <ccl2rpn>/etc/koha/zebradb/ccl.properties</ccl2rpn>
+    <user>kohauser</user>
+    <password>__ZEBRA_PASS__</password>
+</serverinfo>
+
+<!-- PUBLICSERVER'S BIBLIOGRAPHIC RECORDS -->
+<!-- This can be used to set up a public Z39.50/SRU server. -->
+__START_SRU_PUBLICSERVER__
+<server id="publicserver"  listenref="publicserver">
+    <directory>/var/lib/koha/__KOHASITE__/biblios</directory>
+    <config>/etc/koha/sites/__KOHASITE__/__ZEBRA_BIBLIOS_CFG__</config>
+    <cql2rpn>/etc/koha/zebradb/pqf.properties</cql2rpn>
+
+    __START_BIBLIOS_RETRIEVAL_INFO__
+       <retrieval syntax="__ZEBRA_MARC_FORMAT__" name="F"/>
+       <retrieval syntax="__ZEBRA_MARC_FORMAT__" name="B"/>
+       <retrieval syntax="xml" name="F"/>
+       <retrieval syntax="xml" name="B"/>
+       <retrieval syntax="xml" name="marcxml"
+                  identifier="info:srw/schema/1/marcxml-v1.1">
+         <backend syntax="__ZEBRA_MARC_FORMAT__" name="F">
+           <marc inputformat="marc" outputformat="marcxml"
+                 inputcharset="utf-8"/>
+         </backend>
+       </retrieval>
+       <retrieval syntax="xml" name="dc">
+         <backend syntax="__ZEBRA_MARC_FORMAT__" name="F">
+           <marc inputformat="marc" outputformat="marcxml"
+                 inputcharset="utf-8"/>
+           <xslt stylesheet="/usr/share/koha/intranet/htdocs/intranet-tmpl/prog/en/xslt/MARC21slim2DC.xsl"/>
+         </backend>
+       </retrieval>
+       <retrieval syntax="xml" name="mods">
+         <backend syntax="__ZEBRA_MARC_FORMAT__" name="F">
+           <marc inputformat="marc" outputformat="marcxml"
+                 inputcharset="utf-8"/>
+           <xslt stylesheet="/usr/share/koha/intranet/htdocs/intranet-tmpl/prog/en/xslt/MARC21slim2MODS.xsl"/>
+         </backend>
+       </retrieval>
+       <retrieval syntax="xml" name="rdfdc">
+         <backend syntax="__ZEBRA_MARC_FORMAT__" name="F">
+           <marc inputformat="marc" outputformat="marcxml"
+                 inputcharset="utf-8"/>
+           <xslt stylesheet="/usr/share/koha/intranet/htdocs/intranet-tmpl/prog/en/xslt/MARC21slim2RDFDC.xsl"/>
+         </backend>
+       </retrieval>
+       <retrieval syntax="xml" name="rss2">
+         <backend syntax="__ZEBRA_MARC_FORMAT__" name="F">
+           <marc inputformat="marc" outputformat="marcxml"
+                 inputcharset="utf-8"/>
+           <xslt stylesheet="/usr/share/koha/intranet/htdocs/intranet-tmpl/prog/en/xslt/MARC21slim2RSS2.xsl"/>
+         </backend>
+       </retrieval>
+       <retrieval syntax="xml" name="utils">
+         <backend syntax="__ZEBRA_MARC_FORMAT__" name="F">
+           <marc inputformat="marc" outputformat="marcxml"
+                 inputcharset="utf-8"/>
+           <xslt stylesheet="/usr/share/koha/intranet/htdocs/intranet-tmpl/prog/en/xslt/MARC21slimUtils.xsl"/>
+         </backend>
+       </retrieval>
+    __END_BIBLIOS_RETRIEVAL_INFO__
+
+    <xi:include href="/etc/koha/zebradb/explain-biblios.xml"
+                xmlns:xi="http://www.w3.org/2001/XInclude">
+      <xi:fallback>
+      <explain xmlns="http://explain.z3950.org/dtd/2.0/">
+          <serverInfo>
+            <host>__ZEBRA_SRU_HOST__</host>
+            <port>__ZEBRA_SRU_BIBLIOS_PORT__</port>
+            <database>biblios</database>
+          </serverInfo>
+        </explain>
+      </xi:fallback>
+    </xi:include>
+</server>
+<serverinfo id="publicserver">
+        <ccl2rpn>/etc/koha/zebradb/ccl.properties</ccl2rpn>
+        <user>kohauser</user>
+        <password>__ZEBRA_PASS__</password>
+</serverinfo>
+__END_SRU_PUBLICSERVER__
+
+<config>
+ <db_scheme>mysql</db_scheme>
+ <database>__DB_NAME__</database>
+ <hostname>__DB_HOST__</hostname>
+ <port>3306</port>
+ <user>__DB_USER__</user>
+ <pass>__DB_PASS__</pass>
+ <biblioserver>biblios</biblioserver>
+ <biblioservershadow>1</biblioservershadow>
+ <authorityserver>authorities</authorityserver>
+ <authorityservershadow>1</authorityservershadow>
+ <elasticsearch>
+     <server>localhost:9200</server>
+     <index_name>koha_{{ koha_instance_name }}</index_name>
+ </elasticsearch>
+ <pluginsdir>__PLUGINS_DIR__</pluginsdir>
+ <enable_plugins>0</enable_plugins>
+ <upload_path>__UPLOAD_PATH__</upload_path>
+ <intranetdir>/usr/share/koha/intranet/cgi-bin</intranetdir>
+ <opacdir>/usr/share/koha/opac/cgi-bin/opac</opacdir>
+ <opachtdocs>/usr/share/koha/opac/htdocs/opac-tmpl</opachtdocs>
+ <intrahtdocs>/usr/share/koha/intranet/htdocs/intranet-tmpl</intrahtdocs>
+ <includes>/usr/share/koha/intranet/htdocs/intranet-tmpl/prog/en/includes/</includes>
+ <logdir>__LOG_DIR__</logdir>
+ <docdir>/usr/share/doc/koha-common</docdir>
+ <backupdir>/var/spool/koha/__KOHASITE__</backupdir>
+ <!-- Enable the two following to allow superlibrarians to download
+      database and configuration dumps (respectively) from the Export
+      tool -->
+ <backup_db_via_tools>0</backup_db_via_tools>
+ <backup_conf_via_tools>0</backup_conf_via_tools>
+ <!-- <pazpar2url>http://__PAZPAR2_HOST__:__PAZPAR2_PORT__/search.pz2</pazpar2url> -->
+ <install_log>/usr/share/koha/misc/koha-install-log</install_log>
+ <useldapserver>0</useldapserver><!-- see C4::Auth_with_ldap for extra configs you must add if you want to turn this on -->
+ <useshibboleth>0</useshibboleth><!-- see C4::Auth_with_shibboleth for extra configs you must do to turn this on -->
+ <zebra_bib_index_mode>__BIBLIOS_INDEXING_MODE__</zebra_bib_index_mode>
+ <zebra_auth_index_mode>__AUTHORITIES_INDEXING_MODE__</zebra_auth_index_mode>
+ <zebra_lockdir>/var/lock/koha/__KOHASITE__</zebra_lockdir>
+ <use_zebra_facets>1</use_zebra_facets>
+ <queryparser_config>/etc/koha/searchengine/queryparser.yaml</queryparser_config>
+ <log4perl_conf>__KOHA_CONF_DIR__/log4perl.conf</log4perl_conf>
+ <!-- Uncomment/edit next setting if you want to adjust zebra log levels.
+      Default is: none,fatal,warn.
+      You can also include: debug,log,malloc,all,request.
+      Use a comma-separated list of levels to include. -->
+ <!-- <zebra_loglevels>none,fatal,warn</zebra_loglevels> -->
+
+<!-- true type font mapping accoding to type from $font_types in C4/Creators/Lib.pm -->
+ <ttf>
+    <font type="TR" >/usr/share/fonts/truetype/ttf-dejavu/DejaVuSerif.ttf</font>
+    <font type="TB" >/usr/share/fonts/truetype/ttf-dejavu/DejaVuSerif-Bold.ttf</font>
+    <font type="TI" >/usr/share/fonts/truetype/ttf-dejavu/DejaVuSerif-Italic.ttf</font>
+    <font type="TBI">/usr/share/fonts/truetype/ttf-dejavu/DejaVuSerif-BoldItalic.ttf</font>
+    <font type="C"  >/usr/share/fonts/truetype/ttf-dejavu/DejaVuSansMono.ttf</font>
+    <font type="CB" >/usr/share/fonts/truetype/ttf-dejavu/DejaVuSansMono-Bold.ttf</font>
+    <font type="CO" >/usr/share/fonts/truetype/ttf-dejavu/DejaVuSansMono-Oblique.ttf</font>
+    <font type="CBO">/usr/share/fonts/truetype/ttf-dejavu/DejaVuSansMono-BoldOblique.ttf</font>
+    <font type="H"  >/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans.ttf</font>
+    <font type="HO" >/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans-Oblique.ttf</font>
+    <font type="HB" >/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans-Bold.ttf</font>
+    <font type="HBO">/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans-BoldOblique.ttf</font>
+ </ttf>
+
+</config>
+</yazgfs>

@@ -1,0 +1,14 @@
+# Alias for the Koha QA tool
+alias qa="/home/vagrant/qa-test-tools/koha-qa.pl"
+
+# Aliases for reading logs
+alias koha-opac-err="sudo tail -f /var/log/koha/{{ koha_instance_name }}/opac-error.log"
+alias koha-intra-err="sudo tail -f /var/log/koha/{{ koha_instance_name }}/intranet-error.log"
+
+# Aliases for getting the db/admin user and password for our instance
+alias koha-user="sudo xmlstarlet sel -t -v 'yazgfs/config/user' -n '/etc/koha/sites/{{ koha_instance_name }}/koha-conf.xml'"
+alias koha-pass="sudo xmlstarlet sel -t -v 'yazgfs/config/pass' -n '/etc/koha/sites/{{ koha_instance_name }}/koha-conf.xml'"
+alias dbic="mysql -uroot -e 'DROP DATABASE IF EXISTS dbic; CREATE DATABASE dbic' ; \
+            cd /home/vagrant/kohaclone ; \
+            mysql -uroot dbic < installer/data/mysql/kohastructure.sql ;\
+            misc/devel/update_dbix_class_files.pl --db_name dbic --db_user root"

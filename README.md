@@ -1,37 +1,52 @@
 # KohaDevBox
 
-Uses Vagrant to set up a VirtualBox ready to do development and signoffs on the
-Koha project. 
+Create a development environment for the Koha ILS project. It uses Vagrant and Ansible
+to set up a VirtualBox. It targets the following tasks:
+
+ * Run all t/ and t/db_dependent tests
+ * Sign off patches
+ * QA patches
+ * Release
 
 ##### The KohaDevBox is not suitable for running Koha in production.
 
 ## What you get
 
-* Debian 7.8
-* Latest version of koha-common based on the master branch
-* A clone of the official Koha Git repo
-* A gitified Koha instance, running off the repo, under Apache
-* The same instance, running off the same repo, under Plack
-* A remote for your own repo on e.g. GitHub
-* Git bz set up and ready to use
-* Koha's qa-test-tools set up and ready to use
+* A virtual machine running either:
+
+  - Debian 8 (jessie) [*]
+  - Debian 7 (wheezy)
+  - Ubuntu 16.04 (xenial)
+  - Ubuntu 14.04 (trusty)
+
+[*] Default if none specified.
+
+* Latest version of koha-common from the unstable repository (master branch)
+  or your custom repository if specified.
+* A clone of the official Koha Git repo, or a NFS-mounted git repository from
+  your host machine.
+* A gitified Koha instance, running off the repo.
+* Git-bz set up and ready to use.
+* Koha's qa-test-tools set up and ready to use.
+* Koha's release-tools set up and ready to use.
 
 See the [open issues](https://github.com/digibib/kohadevbox/issues) for more to come.
 
 ## Getting started
 
-Register with Bugzilla, Koha's bug tracker, if you have not done so already:
-
-http://bugs.koha-community.org/bugzilla3/createaccount.cgi
-
-You will need to put your username and password in config.cfg (see below), so
-do not use a password you have used on other sites.
+## Dependencies
 
 If you don't have them already, you need to install some prerequisites:
 
-* Install Vagrant: http://www.vagrantup.com/downloads.html
-Note: do not "apt-get install vagrant" on Ubuntu or Wheezy - the required version is not yet in the official repositories. Download the latest version from the above URL.
-* Install Git: http://git-scm.com/downloads
+* Virtualbox
+
+* Vagrant (version 1.8+): http://www.vagrantup.com/downloads.html
+
+  Note: Ubuntu and Debian ship their own vagrant package, but don't use it. Download the latest version from the above URL.
+
+* Ansible (version 1.9+): http://docs.ansible.com/ansible/intro_installation.html
+
+* Git: http://git-scm.com/downloads
 
 Now you can clone the KohaDevBox repository to your local machine and cd into
 the directory that was created by the cloning operation:
@@ -39,47 +54,22 @@ the directory that was created by the cloning operation:
 ```
   $ git clone https://github.com/digibib/kohadevbox.git
   $ cd kohadevbox
+  $ git checkout origin/master
 ```
 
 ## Usage
 
-### config.cfg
+### vars/user.yml
 
-Copy the file config.cfg-sample to config.cfg:
-
-```
-  $ cp config.cfg-sample config.cfg
-```
-
-Read the comments in that file and fill in the config parameters as necessary
-
-### koha-sites.cfg
-
-Copy koha-sites.cfg-sample to koha-sites.cfg and edit koha-sites.cfg if you
-need to:
+Before you start, you need to create a *vars/user.yml* file. KohaDevBox ships a sample
+one. You should run:
 
 ```
-$ cp koha-sites.cfg-sample koha-sites.cfg
+cp vars/user.yml.sample vars/user.yml
 ```
 
-### koha.psgi
-
-Copy koha.psgi-sample to koha.psgi and edit koha.psgi if necessary:
-
-```
-$ cp koha.psgi-sample koha.psgi
-```
-
-The parts of this file that you might be interested in editing are the ones
-related to the debug panels. You can comment/uncomment these, save the file and
-Plack will detect the changes. Plack will then reload itself and your selection
-will be reflected in the available debug panels in the Koha Web UI. So no need
-to restart Plack in order for these changes to take effect!
-
-Please note that output from Plack is redirected to the following log files:
-
-* /home/vagrant/logs/plack-opac.log
-* /home/vagrant/logs/plack-intra.log
+And then uncomment the lines you would like to change. Usually your personal information,
+including your email and bugzilla password (see below for instructions).
 
 ### Running Vagrant
 
@@ -90,32 +80,41 @@ the future installation of packages etc in your VirtualBox:
   $ vagrant plugin install vagrant-cachier
 ```
 
-To spin up a new dev box:
+To spin up a new dev box. You need to specify either jessie, wheezy or trusty:
 
 ```
-  $ vagrant up
+  $ vagrant up [<distribution>]
 ```
 
-This will download and install a bunch of stuff, please be patient. When
-everything is done, you should be able to access your dev installation of Koha
+Note: ommiting the distribution will default to jessie for all the vagrant * commands.
+
+This will download and install a bunch of stuff, please be patient - especially when 
+you are not using `SYNC_REPO` (see below), since then the full Koha repo (which is over 
+2GiB) will be cloned too.
+
+If the process somehow gets interrupted, hangs, or otherwise does not get completed, 
+you may need to force a re-build of the dev box to make sure everything is installed:
+
+```
+  $ vagrant halt [<distribution>]
+  $ vagrant up --provision [<distribution>]
+```
+
+When everything is done, you should be able to access your dev installation of Koha
 at these addresses:
 
 * http://localhost:8080/ Public interface (Apache)
 * http://localhost:8081/ Staff interface (Apache)
-* http://localhost:5000/ Public interface (Plack)
-* http://localhost:5001/ Staff interface (Plack)
 
 Until issue #2 has been fixed, you need to log in to the Web UI with the
-database user. You will find the username and password in this file:
+database user. It defaults to login: `koha_kohadev` and password: `password`
 
-```
-/etc/koha/sites/<instance_name>/koha-conf.xml
-```
+This can be changed before spinning the new box in user.yml.
 
 To log into the newly created box:
 
 ```
-  $ vagrant ssh
+  $ vagrant ssh [<distribution>]
 ```
 
 To exit the box, just type "exit".
@@ -123,13 +122,13 @@ To exit the box, just type "exit".
 To save the state of the box, so you can return to it later:
 
 ```
-  $ vagrant halt
+  $ vagrant halt [<distribution>]
 ```
 
 To destroy the box and all its contents:
 
 ```
-  $ vagrant destroy
+  $ vagrant destroy [<distribution>]
 ```
 
 ## Aliases
@@ -197,32 +196,51 @@ box.
 off whatever branch you had checked out in your pre-existing repo when you ran
 "vagrant up".
 
-## qa-test-tools
+### KOHA_ELASTICSEARCH
+
+Value: 1
+
+Usage:
+
+```
+  $ KOHA_ELASTICSEARCH=1 vagrant up
+```
+
+This makes the provisioning scripts install Elasticsearch-related stuff, which is
+still in heavy development. This is required for testing ES patches, and is not
+enabled by default because it takes more time to complete and not everyone is interested yet.
+
+## Run tests
+
+On a packages environment, you need to use koha-shell to get the proper environment for
+running tests. Also, we have set all variables needed for QA tasks on that environment.
+To run tests:
+
+```
+  $ sudo koha-shell kohadev ; cd kohaclone
+  $ prove t/<paste your favourite test>
+```
+
+## Run qa-test-tools
 
 An alias is set up so that you can easily run Koha's qa-test-tools when you are
 inside your Koha repository clone:
 
 ```
+  $ sudo koha-shell kohadev ; cd kohaclone
   $ qa -c 7 -v 2
 ```
 
-However, this will probably result in complaints that koha-conf.xml can not be
-found. To avoid this, you can run qa-test-tools through koha-shell like this:
 
-```
-  $ sudo koha-shell -c "perl -I/home/vagrant/qa-test-tools/ /home/vagrant/qa-test-tools/koha-qa.pl -c 7 -v 2" kohadev
-```
+## Register with Bugzilla
 
-## Tests
+Register with Bugzilla, Koha's bug tracker, if you have not done so already:
 
-KohaDevBox comes with some tests to verify that the environment inside the
-VirtualBox is set up as intended. To run these tests, run the following commands
-inside the VirtualBox:
+http://bugs.koha-community.org/bugzilla3/createaccount.cgi
 
-```
-  $ cd /vagrant
-  $ prove
-```
+You will need to put your username and password in vars/user.yml (see below), so
+do not use a password you have used on other sites.
+
 
 ## Koha documentation for developers
 
