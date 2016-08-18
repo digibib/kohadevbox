@@ -20,10 +20,11 @@
 # koha_official_repo_key: http://debian.koha-community.org/koha/gpg.asc
 # koha_official_repo_distribution: unstable
 
-# koha_custom_repo_origin: theke.io
-# koha_custom_repo: http://{{ koha_custom_repo_origin }}/repo/koha
-# koha_custom_repo_key: http://theke.io/repo/koha/pubkey.asc
-# koha_custom_repo_distribution: master
+# koha_custom_repo_origin: apt.abunchofthings.net
+# koha_custom_repo: '[trusted=yes] https://{{ koha_custom_repo_origin }}/koha-nightly'
+# koha_custom_repo_has_key: no
+# koha_custom_repo_key:
+# koha_custom_repo_distribution: unstable
 
 # koha_use_custom_repo: yes
 # koha_pin_custom_repo: yes

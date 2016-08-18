@@ -8,7 +8,7 @@
 
 - name: Add custom Koha repository (key)
   apt_key: url={{ koha_custom_repo_key }} state=present
-  when: koha_use_custom_repo
+  when: koha_use_custom_repo and koha_custom_repo_has_key
 
 - name: Add custom Koha repository (repo)
   apt_repository: repo='deb {{ koha_custom_repo }} {{ koha_custom_repo_distribution }} main' state=present

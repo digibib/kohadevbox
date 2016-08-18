@@ -18,6 +18,7 @@
   - name: Install default tools
     apt: pkg={{ item }} state=latest force=yes
     with_items:
+      - apt-transport-https
       - bash-completion
       - cpanminus
       - dh-make-perl
