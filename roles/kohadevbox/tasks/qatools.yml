@@ -13,6 +13,7 @@
     - libsmart-comments-perl
     - libdatetimex-easy-perl
     - libtest-differences-perl
+    - libdbd-sqlite2-perl
 
 - name: Install Koha QA tools (not in wheezy)
   become_user: root
