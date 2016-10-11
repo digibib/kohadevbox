@@ -275,6 +275,8 @@ https://github.com/digibib/kohadevbox/
 
 ## Gotchas
 
+### hosts.allow on Debian Jessie
+
 Kohadevbox uses NFS to share the SYNC_REPO with the virtual machine.
 
 On Debian Jessie, NFS exports seem to be tied down by default, and
@@ -288,3 +290,10 @@ this sharing won't work out of the box.  To make it work:
   `sudo service nfs-kernel-server restart`
 - start the virtualmachine with the SYNC_REPO variable set
 - nfs sharing, and the SYNC_REPO should now work
+
+### Firewall may be blocking nfs export
+
+To test this, turn off the firewall while setting up the devbox.
+
+Don't forget to correctly configure your firewall after successful
+testing.
