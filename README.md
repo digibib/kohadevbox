@@ -272,3 +272,19 @@ recommended for getting to know Koha in general.
 ## Code, issues etc
 
 https://github.com/digibib/kohadevbox/
+
+## Gotchas
+
+Kohadevbox uses NFS to share the SYNC_REPO with the virtual machine.
+
+On Debian Jessie, NFS exports seem to be tied down by default, and
+this sharing won't work out of the box.  To make it work:
+- edit '/etc/hosts.allow'
+- add the virtualmachine's IP address (normally 192.168.50.10)
+- stop the virtualmachine
+- restart the "networking" service with
+  `sudo service networking restart`
+- restart the "nfs" services with
+  `sudo service nfs-kernel-server restart`
+- start the virtualmachine with the SYNC_REPO variable set
+- nfs sharing, and the SYNC_REPO should now work
