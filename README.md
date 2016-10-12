@@ -210,15 +210,46 @@ This makes the provisioning scripts install Elasticsearch-related stuff, which i
 still in heavy development. This is required for testing ES patches, and is not
 enabled by default because it takes more time to complete and not everyone is interested yet.
 
-## Run tests
+# Working on patches
+
+When you are working on the code, you need to make sure you run each command on the right context.
+
+Tasks that involve touching the code are run on the `vagrant` user, while instance specific ones
+(like running db-dependent tests against the instance's DB) are run on the instance's user. We use
+`k$` to denote we are on the instance's user.
 
 On a packages environment, you need to use koha-shell to get the proper environment for
-running tests. Also, we have set all variables needed for QA tasks on that environment.
-To run tests:
+running tests.
+
+## Get into the instance's user session
 
 ```
-  $ sudo koha-shell kohadev ; cd kohaclone
-  $ prove t/<paste your favourite test>
+  $ sudo koha-shell kohadev
+  k$
+```
+
+## Apply (and signing) patches from a bug
+
+```
+  $ cd kohaclone
+  $ git bz apply -s <bug number>
+```
+
+## Update the DBIx schema files
+
+```
+  $ dbic
+```
+
+Note: this alias creates a whole new database in which it loads the kohastructure.sql file, it won't
+touch your instance's DB.
+
+## Run tests
+
+```
+  $ sudo koha-shell kohadev
+  k$ cd kohaclone
+  k$ prove t/<paste your favourite test>
 ```
 
 ## Run qa-test-tools
@@ -227,8 +258,9 @@ An alias is set up so that you can easily run Koha's qa-test-tools when you are
 inside your Koha repository clone:
 
 ```
-  $ sudo koha-shell kohadev ; cd kohaclone
-  $ qa -c 7 -v 2
+  $ sudo koha-shell kohadev
+  k$ cd kohaclone
+  k$ qa -c 7 -v 2
 ```
 
 
