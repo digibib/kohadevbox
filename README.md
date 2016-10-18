@@ -38,14 +38,14 @@ See the [open issues](https://github.com/digibib/kohadevbox/issues) for more to 
 
 If you don't have them already, you need to install some prerequisites:
 
-* Virtualbox
+* Virtualbox OR LXC
 
 * Vagrant (version 1.8+): http://www.vagrantup.com/downloads.html
 
   Note: Ubuntu and Debian ship their own vagrant package, but don't use it. Download the latest version from the above URL.
 
 * Ansible (version 1.9+): http://docs.ansible.com/ansible/intro_installation.html
-
+ 
 * Git: http://git-scm.com/downloads
 
 Now you can clone the KohaDevBox repository to your local machine and cd into
@@ -57,6 +57,42 @@ the directory that was created by the cloning operation:
   $ git checkout origin/master
 ```
 
+### Using LXC as an alternative to Virtualbox
+
+Before you start using Vagrant, you will want to install the lxc provider
+
+```
+  $ vagrant plugin install vagrant-lxc
+```
+
+If your host machine is Ubuntu you will find that aparmour forbids nfs to lxc containers so you will want to change that.
+Add the following snippet to `/etc/apparmor.d/abstractions/lxc/container-base` and restart apparmor
+
+```
+  # allow NFS
+  mount fstype=nfs,
+  mount fstype=nfs4,
+  mount fstype=rpc_pipefs,
+```
+
+You will need to alter the Vagrantfile as follows:
+
+replace: `config.vm.network "private_network", ip: "192.168.50.10"` with: `config.vm.network "private_network", ip: "192.168.50.10", lxc__bridge_name: 'vlxcbr1'
+`
+
+replace:
+```
+config.vm.provider :virtualbox do |vb|
+  vb.customize ["modifyvm", :id, "--memory", "1024"]
+end
+```
+
+with:
+```
+config.vm.provider :lxc do |lxc|
+  lxc.customize 'cgroup.memory.limit_in_bytes', '1024M'
+end
+```
 ## Usage
 
 ### vars/user.yml
