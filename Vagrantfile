@@ -23,6 +23,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.define "jessie", primary: true do |jessie|
     jessie.vm.box = "debian/jessie64"
+    #jessie.vm.box = "glenux/jessie64-lxc"
   end
 
   config.vm.define "wheezy", autostart: false do |wheezy|
@@ -47,7 +48,8 @@ Vagrant.configure(2) do |config|
     vb.customize ["modifyvm", :id, "--memory", "1024"]
   end
 
-  #config.vm.provider :lxc do |lxc|
+  #config.vm.provider :lxc do |lxc, override|
+  #  lxc.container_name = "kohadevbox-lxc"
   #  lxc.customize 'cgroup.memory.limit_in_bytes', '1024M'
   #end
 
