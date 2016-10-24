@@ -103,6 +103,10 @@
     become_user: root
     when: elasticsearch
 
+  - name: Load sample data
+    shell: koha-shell {{ koha_instance_name }} -c "/home/vagrant/kohaclone/misc/devel/populate_db.pl --marcflavour {{ koha_marc_flavour }}"
+    when: skip_webinstaller
+
   - name: Init database for mlocate
     shell: updatedb
     become_user: root
