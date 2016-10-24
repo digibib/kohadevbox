@@ -196,6 +196,17 @@ box.
 off whatever branch you had checked out in your pre-existing repo when you ran
 "vagrant up".
 
+### SKIP_WEBINSTALLER
+
+Value: 1
+
+Usage:
+```
+  $ SKIP_WEBINSTALLER=1 vagrant up
+```
+
+This makes the provisioning script populate the DB with the sample data.
+
 ### KOHA_ELASTICSEARCH
 
 Value: 1
