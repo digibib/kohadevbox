@@ -10,7 +10,7 @@
 # environment variable.
 # sync_repo: false
 # skip_webinstaller: false
-# enable_memcached: false
+# enable_memcached: true
 # elasticsearch: false
 # plack: true
 
