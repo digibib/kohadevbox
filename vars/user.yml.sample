@@ -12,6 +12,7 @@
 # skip_webinstaller: false
 # enable_memcached: false
 # elasticsearch: false
+# plack: true
 
 # Set mysql_engine: mysql | mariadb
 # mysql_engine: mysql

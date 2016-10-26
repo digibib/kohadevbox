@@ -1,0 +1,7 @@
+# Tasks required for setting Plack
+- name: Enable Plack
+  command: koha-plack --enable {{ koha_instance_name }}
+
+- name: Start Plack
+  shell:  koha-plack --start {{ koha_instance_name }}
+  notify: restart apache
