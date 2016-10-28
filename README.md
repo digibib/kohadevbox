@@ -221,6 +221,18 @@ This makes the provisioning scripts install Elasticsearch-related stuff, which i
 still in heavy development. This is required for testing ES patches, and is not
 enabled by default because it takes more time to complete and not everyone is interested yet.
 
+### LOCAL_ANSIBLE
+
+Value: 1
+
+Usage:
+```
+  $ LOCAL_ANSIBLE=1 vagrant up
+```
+
+This makes the provisioning script run within the VM. For the task, it installs Ansible inside of
+it before running the playbook. This is the default behaviour on Windows OS.
+
 # Working on patches
 
 When you are working on the code, you need to make sure you run each command on the right context.
