@@ -6,12 +6,12 @@
 # OPAC:  http://<OPACPREFIX><INSTANCE NAME><OPACSUFFIX><DOMAIN>:<OPACPORT>
 # STAFF: http://<INTRAPREFIX><INSTANCE NAME><INTRASUFFIX><DOMAIN>:<INTRAPORT>
 DOMAIN="{{ koha_domain }}"
-INTRAPORT="8080"
-INTRAPREFIX=""
-INTRASUFFIX="-intra"
-OPACPORT="80"
-OPACPREFIX=""
-OPACSUFFIX=""
+INTRAPORT="{{ koha_intra_port }}"
+INTRAPREFIX="{{ koha_intra_prefix }}"
+INTRASUFFIX="{{ koha_intra_suffix }}"
+OPACPORT="{{ koha_opac_port }}"
+OPACPREFIX="{{ koha_opac_prefix }}"
+OPACSUFFIX="{{ koha_opac_suffix }}"
 
 ## Default data to be loaded
 #
