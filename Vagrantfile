@@ -2,6 +2,13 @@
 # vi: set ft=ruby :
 require 'fileutils' 
 
+module OS
+    # Try detecting Windows
+    def OS.windows?
+        (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
+    end
+end
+
 Vagrant.configure(2) do |config|
 
   # http://fgrehm.viewdocs.io/vagrant-cachier
@@ -51,7 +58,17 @@ Vagrant.configure(2) do |config|
     config.vm.synced_folder ENV['SYNC_REPO'], "/home/vagrant/kohaclone", type: "nfs"
   end
 
-  config.vm.provision :ansible do |ansible|
+  # Default to host's ansible
+  provisioner = :ansible
+  local_ansible = false
+
+  if OS.windows? or ENV['LOCAL_ANSIBLE']
+    provisioner = :ansible_local
+    config.vm.provision :shell, path: "tools/install-ansible.sh"
+    local_ansible = true
+  end
+
+  config.vm.provision provisioner do |ansible|
     ansible.extra_vars = { ansible_ssh_user: "vagrant", testing: true }
 
     if ENV['SKIP_WEBINSTALLER']
@@ -67,7 +84,11 @@ Vagrant.configure(2) do |config|
     end
 
     ansible.playbook = "site.yml"
-    ansible.host_key_checking = false
+    if local_ansible
+      ## Special variables needed for :ansible_local go here
+      # We install our own ansible, which is newer
+      ansible.install  = false
+    end
   end
   
   config.vm.post_up_message = "Welcome to KohaDevBox!\nSee https://github.com/digibib/kohadevbox for details"
