@@ -45,7 +45,7 @@
 - name: Check for instance existence # we want the provisioning to be idempotent if already ran
   command: koha-list | grep {{ koha_instance_name }}
   register: result
-  ignore_errors: True
+  ignore_errors: yes
 
 - name: Create Koha instance
   shell:  koha-create --create-db {{ koha_instance_name }}
