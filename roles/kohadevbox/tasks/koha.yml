@@ -22,7 +22,6 @@
   become_user: root
   cpanm: name={{ item }}
   with_items:
-    - WWW::CSRF
     - Sereal
 
 - name: Install (temporarily) not pulled dependencies (deb)
