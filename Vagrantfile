@@ -12,7 +12,7 @@ end
 Vagrant.configure(2) do |config|
 
   # http://fgrehm.viewdocs.io/vagrant-cachier
-  if Vagrant.has_plugin?("vagrant-cachier")
+  if Vagrant.has_plugin?("vagrant-cachier") and not OS.windows?
     config.cache.scope = :box
     config.cache.synced_folder_opts = {
       type: :nfs,
@@ -55,7 +55,17 @@ Vagrant.configure(2) do |config|
   end
 
   if ENV['SYNC_REPO']
-    config.vm.synced_folder ENV['SYNC_REPO'], "/home/vagrant/kohaclone", type: "nfs"
+    if OS.windows?
+      unless Vagrant.has_plugin?("vagrant-vbguest")
+        raise 'The vagrant-vbguest plugin is not present, and is mandatory for SYNC_REPO on Windows! See README.md'
+      end
+
+      config.vm.synced_folder ENV['SYNC_REPO'], "/home/vagrant/kohaclone", type: "virtualbox"
+
+    else
+      # We should safely rely on NFS
+      config.vm.synced_folder ENV['SYNC_REPO'], "/home/vagrant/kohaclone", type: "nfs"
+    end
   end
 
   # Default to host's ansible
