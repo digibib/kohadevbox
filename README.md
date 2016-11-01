@@ -195,6 +195,8 @@ box.
 * When you do "vagrant up", the Koha instance configured by the box will run
 off whatever branch you had checked out in your pre-existing repo when you ran
 "vagrant up".
+* Windows users need to have the *vagrant-vbguest* in order to use this feature. If
+the plugin is not present and SYNC_REPO is set, it will fail with an error.
 
 ### SKIP_WEBINSTALLER
 
