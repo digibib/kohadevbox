@@ -108,6 +108,7 @@
     when: plack
 
   - name: Load sample data
+    become_user: root
     shell: koha-shell {{ koha_instance_name }} -c "/home/vagrant/kohaclone/misc/devel/populate_db.pl --marcflavour {{ koha_marc_flavour }}"
     when: skip_webinstaller
 
