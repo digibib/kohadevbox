@@ -1,6 +1,6 @@
 # Tasks required for setting Plack
 - name: Enable Plack
-  command: koha-plack --enable {{ koha_instance_name }} > /dev/null 2>&1 || /bin/true
+  shell: koha-plack --enable {{ koha_instance_name }} > /dev/null 2>&1 || /bin/true
   ignore_errors: yes
 
 - name: Start Plack
