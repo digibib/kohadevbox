@@ -137,6 +137,8 @@ Some aliases are provided to help reduce typing:
 
 * koha-intra-err - tail the intranet error log
 * koha-opac-err - tail the OPAC error log
+* koha-plack-log - tail the Plack access log
+* koha-plack-err - tail de Plack error log
 * koha-user - get the db/admin username from koha-conf.xml
 * koha-pass - get the db/admin password from koha-conf.xml
 
