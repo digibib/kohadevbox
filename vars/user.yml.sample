@@ -10,6 +10,7 @@
 # environment variable.
 # sync_repo: false
 # skip_webinstaller: false
+# create_admin_user: false
 # enable_memcached: true
 # elasticsearch: false
 # elasticsearch_version: 1.7
@@ -48,6 +49,8 @@
 # koha_marc_flavour: marc21
 # koha_zebra_language: en
 # koha_db_password: password
+# koha_admin_user: admin
+# koha_admin_pass: admin
 
 # gitify_repo: https://github.com/mkfifo/koha-gitify.git
 # gitify_version: master

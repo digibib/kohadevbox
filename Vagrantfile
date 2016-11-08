@@ -93,6 +93,10 @@ Vagrant.configure(2) do |config|
       ansible.extra_vars.merge!({ elasticsearch: true });
     end
 
+    if ENV['CREATE_ADMIN_USER']
+      ansible.extra_vars.merge!({ create_admin_user: true });
+    end
+
     ansible.playbook = "site.yml"
     if local_ansible
       ## Special variables needed for :ansible_local go here
