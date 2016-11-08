@@ -209,6 +209,19 @@ Usage:
 
 This makes the provisioning script populate the DB with the sample data.
 
+### CREATE_ADMIN_USER
+
+Value: 1
+
+Usage:
+```
+  $ CREATE_ADMIN_USER=1 vagrant up
+```
+
+This makes the provisioning script create a superlibrarian user, suitable for testing.
+
+NOTE: The user is only created if SKIP_WEBINSTALLER was chosen too.
+
 ### KOHA_ELASTICSEARCH
 
 Value: 1
