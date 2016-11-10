@@ -26,6 +26,14 @@ Vagrant.configure(2) do |config|
     puts "Run 'vagrant plugin install vagrant-cachier' to speed up provisioning."
   end
 
+  # Default to host's ansible
+  provisioner = :ansible
+  local_ansible = false
+
+  if ENV['LOCAL_ANSIBLE'] or OS.windows?
+    local_ansible = true
+  end
+
   config.vm.hostname = "kohadevbox"
 
   config.vm.define "jessie", primary: true do |jessie|
@@ -68,14 +76,9 @@ Vagrant.configure(2) do |config|
     end
   end
 
-  # Default to host's ansible
-  provisioner = :ansible
-  local_ansible = false
-
-  if OS.windows? or ENV['LOCAL_ANSIBLE']
+  if local_ansible
     provisioner = :ansible_local
     config.vm.provision :shell, path: "tools/install-ansible.sh"
-    local_ansible = true
   end
 
   config.vm.provision provisioner do |ansible|
