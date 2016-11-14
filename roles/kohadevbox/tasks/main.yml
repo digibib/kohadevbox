@@ -16,6 +16,7 @@
       - libapache2-mpm-itk
       - libdata-printer-perl
       - perltidy
+      - pmtools
       - memcached
 
   - name: Install extra tools
