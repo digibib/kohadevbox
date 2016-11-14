@@ -33,7 +33,7 @@
 # koha_custom_repo_distribution: unstable
 
 # koha_use_custom_repo: yes
-# koha_pin_custom_repo: yes
+# koha_pin_custom_repo: no
 
 # koha_git_repo: http://git.koha-community.org/koha.git
 # koha_git_branch: master
