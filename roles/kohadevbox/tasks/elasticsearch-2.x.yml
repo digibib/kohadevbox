@@ -1,9 +1,9 @@
 # file: roles/kohadevbox/tasks/elasticsearch.yml
 ---
-  - name: Elasticsearch 2.x | Add Oracle Java 8 repository Key
-    apt_key: keyserver=keyserver.ubuntu.com id=7B2C3B0889BF5709A105D03AC2518248EEA14886
+  # - name: Elasticsearch 2.x | Add Oracle Java 8 repository (key)
+  #   apt_key: keyserver=keyserver.ubuntu.com id=7B2C3B0889BF5709A105D03AC2518248EEA14886
 
-  - name: Elasticsearch 2.x | Add Oracle Java 8 repository
+  - name: Elasticsearch 2.x | Add Oracle Java 8 repository (repo)
     apt_repository: repo='deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main' state=present update_cache=yes
 
   - name: Elasticsearch 2.x | Accept Oracle license
@@ -14,15 +14,48 @@
     with_items:
       - oracle-java8-installer
 
-  - name: Elasticsearch 2.x | Add ElasticSearch repository (key)
+  - name: Elasticsearch 2.x | Add Elasticsearch repository (key)
     apt_key: url='https://packages.elastic.co/GPG-KEY-elasticsearch' state=present
 
-  - name: Elasticsearch 2.x | Add ElasticSearch repository (repo)
+  - name: Elasticsearch 2.x | Add Elasticsearch repository (repo)
     apt_repository: repo='deb http://packages.elastic.co/elasticsearch/2.x/debian stable main' state=present
     #'
 
-  - name: Elasticsearch 2.x | Install ElasticSearch
+  - name: Elasticsearch 2.x | Install Elasticsearch
     apt: pkg=elasticsearch state=latest force=yes
 
-  - name: Elasticsearch 2.x | Run ElasticSearch on startup
+  - name: Elasticsearch 2.x | Run Elasticsearch on startup
     service: name=elasticsearch enabled=yes state=started
+
+  - name: Elasticsearch 2.x | Add Catmandu 1.x repository (key)
+    apt_key: url='https://apt.abunchofthings.net/abunchofthings.gpg' state=present
+
+  - name: Elasticsearch 2.x | Add Catmandu 1.x repository (repo)
+    apt_repository: repo='deb https://apt.abunchofthings.net/debian jessie main' state=present update_cache=yes
+
+  - name: Elasticsearch 2.x | Add Catmandu 1.x packages
+    apt: pkg={{ item }}
+    with_items:
+      - libdata-uuid-perl
+      - libcatmandu-perl
+      - libcatmandu-store-elasticsearch-perl
+
+  - name: Elasticsearch 2.x | Pin distro's libmarc-xml-perl
+    apt:
+      name: libmarc-xml-perl
+      state: latest
+      default_release: jessie
+      update_cache: yes
+    when: ansible_distribution_release == 'jessie'
+
+  - name: Elasticsearch 2.x | Pin distro's libmarc-xml-perl
+    apt:
+      name: libmarc-xml-perl
+      state: latest
+      default_release: xenial
+      update_cache: yes
+    when: ansible_distribution_release == 'xenial'
+
+  - name: Elasticsearch 2.x | Add Catmandu 1.x packages
+    apt:
+      name: libcatmandu-marc-perl
