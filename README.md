@@ -238,6 +238,10 @@ This makes the provisioning scripts install Elasticsearch-related stuff, which i
 still in heavy development. This is required for testing ES patches, and is not
 enabled by default because it takes more time to complete and not everyone is interested yet.
 
+NOTE: It defaults to Elasticsearch 1.7, but development has moved towards Elasticsearch 2.4 (the
+2.x branch). If you want to work on 2.x support, set _elasticsearch_version_ to _2.x_ in your
+_vars/user.yml_ file.
+
 ### LOCAL_ANSIBLE
 
 Value: 1
