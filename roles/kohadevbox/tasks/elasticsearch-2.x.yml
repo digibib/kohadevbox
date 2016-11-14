@@ -1,7 +1,7 @@
 # file: roles/kohadevbox/tasks/elasticsearch.yml
 ---
-  # - name: Elasticsearch 2.x | Add Oracle Java 8 repository (key)
-  #   apt_key: keyserver=keyserver.ubuntu.com id=7B2C3B0889BF5709A105D03AC2518248EEA14886
+  - name: Elasticsearch 2.x | Add Oracle Java 8 repository (key)
+    apt_key: keyserver=keyserver.ubuntu.com id=7B2C3B0889BF5709A105D03AC2518248EEA14886
 
   - name: Elasticsearch 2.x | Add Oracle Java 8 repository (repo)
     apt_repository: repo='deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main' state=present update_cache=yes
