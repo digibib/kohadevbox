@@ -102,7 +102,11 @@
 
   - include: elasticsearch.yml
     become_user: root
-    when: elasticsearch
+    when: elasticsearch and elasticsearch_version == '1.7'
+
+  - include: elasticsearch-2.x.yml
+    become_user: root
+    when: elasticsearch and elasticsearch_version == '2.x'
 
   - include: plack.yml
     become_user: root

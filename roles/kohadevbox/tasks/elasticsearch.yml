@@ -1,32 +1,32 @@
 # file: roles/kohadevbox/tasks/elasticsearch.yml
 ---
-  - name: Add ElasticSearch dependencies
+  - name: Elasticsearch 1.7 | Add Elasticsearch dependencies
     apt: pkg={{ item }} state=latest
     with_items:
       - openjdk-7-jre
 
-  - name: Add ElasticSearch repository (key)
+  - name: Elasticsearch 1.7 | Add Elasticsearch repository (key)
     apt_key: url='https://packages.elastic.co/GPG-KEY-elasticsearch' state=present
 
-  - name: Add ElasticSearch repository (repo)
+  - name: Elasticsearch 1.7 | Add Elasticsearch repository (repo)
     apt_repository: repo='deb http://packages.elastic.co/elasticsearch/{{ elasticsearch_version }}/debian stable main' state=present
     #'
 
-  - name: Install ElasticSearch
+  - name: Elasticsearch 1.7 | Install Elasticsearch
     apt: pkg=elasticsearch state=latest force=yes
 
-  - name: Run ElasticSearch on startup
+  - name: Elasticsearch 1.7 | Run Elasticsearch on startup
     service: name=elasticsearch enabled=yes state=started
 
-  - name: Install Koha's ES integration dependencies
+  - name: Elasticsearch 1.7 | Install Koha's ES integration dependencies
     apt: pkg={{ item }} state=latest
     with_items:
       - libcatmandu-marc-perl
 
-  - name: Koha's ES integration dependencies (create download dir)
+  - name: Elasticsearch 1.7 | Koha's ES integration dependencies (create download dir)
     file: path=elasticsearch_deps state=directory mode=0755
 
-  - name: Koha's ES integration dependencies (download)
+  - name: Elasticsearch 1.7 | Koha's ES integration dependencies (download)
     get_url: url={{ item }} dest=elasticsearch_deps
     with_items:
       - http://debian.koha-community.org/koha/otherthings/liblog-any-adapter-perl_0.11-2_all.deb
@@ -34,7 +34,7 @@
       - http://debian.koha-community.org/koha/otherthings/libsearch-elasticsearch-perl_1.19-1_all.deb
       - http://debian.koha-community.org/koha/otherthings/libcatmandu-store-elasticsearch-perl_0.0304-1_all.deb
 
-  - name: Koha's ES integration dependencies (install)
+  - name: Elasticsearch 1.7 | Koha's ES integration dependencies (install)
     apt: deb=elasticsearch_deps/{{ item }} state=present
     with_items:
       - liblog-any-adapter-perl_0.11-2_all.deb

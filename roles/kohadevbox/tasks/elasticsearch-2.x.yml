@@ -1,0 +1,28 @@
+# file: roles/kohadevbox/tasks/elasticsearch.yml
+---
+  - name: Elasticsearch 2.x | Add Oracle Java 8 repository Key
+    apt_key: keyserver=keyserver.ubuntu.com id=7B2C3B0889BF5709A105D03AC2518248EEA14886
+
+  - name: Elasticsearch 2.x | Add Oracle Java 8 repository
+    apt_repository: repo='deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main' state=present update_cache=yes
+
+  - name: Elasticsearch 2.x | Accept Oracle license
+    shell: echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+
+  - name: Elasticsearch 2.x | Install Oracle Java 8
+    apt: pkg={{ item }} state=latest
+    with_items:
+      - oracle-java8-installer
+
+  - name: Elasticsearch 2.x | Add ElasticSearch repository (key)
+    apt_key: url='https://packages.elastic.co/GPG-KEY-elasticsearch' state=present
+
+  - name: Elasticsearch 2.x | Add ElasticSearch repository (repo)
+    apt_repository: repo='deb http://packages.elastic.co/elasticsearch/2.x/debian stable main' state=present
+    #'
+
+  - name: Elasticsearch 2.x | Install ElasticSearch
+    apt: pkg=elasticsearch state=latest force=yes
+
+  - name: Elasticsearch 2.x | Run ElasticSearch on startup
+    service: name=elasticsearch enabled=yes state=started
