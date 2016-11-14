@@ -96,10 +96,6 @@
     become_user: root
     when: elasticsearch and elasticsearch_version == '2.x'
 
-  - include: plack.yml
-    become_user: root
-    when: plack
-
   - name: Load sample data
     become_user: root
     shell: koha-shell {{ koha_instance_name }} -c "/home/vagrant/kohaclone/misc/devel/populate_db.pl --marcflavour {{ koha_marc_flavour }}"
@@ -109,6 +105,13 @@
     become_user: root
     shell: koha-shell {{ koha_instance_name }} -c "/home/vagrant/kohaclone/misc/devel/create_superlibrarian.pl --userid {{ koha_admin_user }} --password {{ koha_admin_pass }}"
     when: skip_webinstaller and create_admin_user
+
+  - include: plack.yml
+    become_user: root
+    when:
+      - plack
+      - ansible_distribution_release != 'wheezy' # plack not supported on wheezy
+      - ansible_distribution_release != 'trusty' # plack not supported on trusty
 
   - name: Init database for mlocate
     shell: updatedb
