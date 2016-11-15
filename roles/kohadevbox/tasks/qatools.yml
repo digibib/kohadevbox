@@ -24,7 +24,7 @@
 
 - name: Install testing dependencies (cpanm)
   become_user: root
-  cpanm: name={{ item }}
+  cpanm: name={{ item }} mirror={{ cpan_mirror }}
   with_items:
     - HTTPD::Bench::ApacheBench
     - Test::DBIx::Class

@@ -74,6 +74,8 @@
 # bz_user: your_email
 # bz_password: your_bz_password
 
+# cpan_mirror: http://mirror.cc.columbia.edu/pub/software/cpan
+
 # extra_tools:
 #  - vim
 #  - byobu

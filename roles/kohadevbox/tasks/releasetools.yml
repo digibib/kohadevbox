@@ -8,7 +8,7 @@
 
 - name: Install deps (cpan)
   become_user: root
-  cpanm: name={{ item }}
+  cpanm: name={{ item }} mirror={{ cpan_mirror }}
   with_items:
     - File::FindLib
     - REST::Client
