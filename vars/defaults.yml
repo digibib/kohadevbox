@@ -10,7 +10,7 @@ skip_webinstaller: false
 create_admin_user: false
 enable_memcached: true
 elasticsearch: false
-elasticsearch_version: 1.7
+elasticsearch_version: '1.7'
 plack: true
 
 # Set mysql_engine: mysql | mariadb
