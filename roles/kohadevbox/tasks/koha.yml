@@ -18,17 +18,6 @@
   template: src=apt_conf_koha.j2 dest=/etc/apt/preferences.d/koha mode=0644 owner=root
   when: koha_use_custom_repo and koha_pin_custom_repo
 
-- name: Install (temporarily) unpackaged dependencies (cpanm)
-  become_user: root
-  cpanm: name={{ item }} mirror={{ cpan_mirror }}
-  with_items:
-    - Sereal
-
-- name: Install (temporarily) not pulled dependencies (deb)
-  apt: pkg={{ item }} state=latest
-  with_items:
-    - libcache-memcached-perl
-
 - name: Install Koha
   apt: pkg=koha-common state=latest force=yes
 
