@@ -89,6 +89,9 @@
   - include: releasetools.yml
     become_user: vagrant
 
+  - include: misc4dev.yml
+    become_user: vagrant
+
   - include: elasticsearch.yml
     become_user: root
     when: elasticsearch and elasticsearch_version == '1.7'

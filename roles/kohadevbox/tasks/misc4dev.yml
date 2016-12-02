@@ -1,0 +1,4 @@
+# Tasks required to have the misc4dev working for the vagrant user
+
+- name: Clone the misc4dev repo
+  git: repo={{ misc4dev_repo }}  dest={{ misc4dev_dir }} version={{ misc4dev_version }}
