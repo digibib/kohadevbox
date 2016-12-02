@@ -1,4 +1,2 @@
 .vagrant
-config.cfg
-koha-sites.cfg
-koha.psgi
+vars/user.yml
