@@ -100,6 +100,9 @@
     become_user: root
     when: elasticsearch and elasticsearch_version == '2.x'
 
+  - include: less.yml
+    become_user: root
+
   - name: Load sample data
     become_user: root
     shell: koha-shell {{ koha_instance_name }} -c "/home/vagrant/kohaclone/misc/devel/populate_db.pl --marcflavour {{ koha_marc_flavour }}"

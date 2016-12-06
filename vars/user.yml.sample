@@ -72,6 +72,8 @@
 # koha_qa_version: master
 # koha_qa_dir: /home/vagrant/qa-test-tools
 
+# node_version: node_6.x
+
 # git_email: your_email
 # git_full_name: "Your Full Name"
 

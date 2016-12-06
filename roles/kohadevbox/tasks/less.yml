@@ -1,0 +1,16 @@
+
+- name: Add Node.js repository (key)
+  apt_key: url="https://deb.nodesource.com/gpgkey/nodesource.gpg.key" state=present
+
+- name: Add Node.js repository (repo)
+  apt_repository: repo="deb https://deb.nodesource.com/{{ node_version }} {{ ansible_distribution_release }} main" state=present
+
+- name: Instal Node.js
+  apt:
+    name: nodejs
+    state: latest
+
+- name: Install lessc globally
+  npm:
+    name: less
+    global: yes
