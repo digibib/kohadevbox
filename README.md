@@ -254,6 +254,21 @@ Usage:
 This makes the provisioning script run within the VM. For the task, it installs Ansible inside of
 it before running the playbook. This is the default behaviour on Windows OS.
 
+### PLUGIN_REPO
+
+Value: The path to an existing Koha plugin repository/directory.
+
+Usage:
+
+```
+  $ PLUGIN_REPO="/home/me/koha-plugin-dev-dir" vagrant up
+```
+
+You can use PLUGIN_REPO to have Vagrant mount your Koha plugin development directory within
+KohaDevBox. This way you will have your working directory mounted on */home/vagrant/koha_plugin*
+which can be configured in */etc/koha/sites/kohadev/koha-conf.xml* so the dev instance points
+to it (TODO: once bug 15879 is pushed, explain how to set multiple *koha_plugin_dir* entries).
+
 # Working on patches
 
 When you are working on the code, you need to make sure you run each command on the right context.
