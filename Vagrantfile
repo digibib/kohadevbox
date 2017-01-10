@@ -38,6 +38,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.define "jessie", primary: true do |jessie|
     jessie.vm.box = "debian/jessie64"
+    #jessie.vm.box = "glenux/jessie64-lxc"
   end
 
   config.vm.define "wheezy", autostart: false do |wheezy|
@@ -57,10 +58,16 @@ Vagrant.configure(2) do |config|
   config.vm.network :forwarded_port, guest: 8080, host: 8081, auto_correct: true  # INTRA
   config.vm.network :forwarded_port, guest: 9200, host: 9200, auto_correct: true  # ES
   config.vm.network "private_network", ip: "192.168.50.10"
+  #config.vm.network "private_network", ip: "192.168.50.10", lxc__bridge_name: 'vlxcbr1'
 
   config.vm.provider :virtualbox do |vb|
     vb.customize ["modifyvm", :id, "--memory", "2048"]
   end
+
+  #config.vm.provider :lxc do |lxc, override|
+  #  lxc.container_name = "kohadevbox-lxc"
+  #  lxc.customize 'cgroup.memory.limit_in_bytes', '1024M'
+  #end
 
   if ENV['SYNC_REPO']
     if OS.windows?
