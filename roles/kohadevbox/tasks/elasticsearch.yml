@@ -4,6 +4,15 @@
     apt: pkg={{ item }} state=latest
     with_items:
       - openjdk-7-jre
+        when
+      - ansible_distribution_release != 'xenial'
+
+  - name: Elasticsearch 1.7 | Add Elasticsearch dependencies
+    apt: pkg={{ item }} state=latest
+    with_items:
+      - openjdk-8-jre
+        when
+      - ansible_distribution_release == 'xenial'
 
   - name: Elasticsearch 1.7 | Add Elasticsearch repository (key)
     apt_key: url='https://packages.elastic.co/GPG-KEY-elasticsearch' state=present
