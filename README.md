@@ -45,6 +45,8 @@ If you don't have them already, you need to install some prerequisites:
   Note: Ubuntu and Debian ship their own vagrant package, but don't use it. Download the latest version from the above URL.
 
 * Ansible (version 1.9+): http://docs.ansible.com/ansible/intro_installation.html
+  
+  Note: Ansible is not required when using LOCAL_ANSIBLE=1, which is the default behaviour for Windows users.
 
 * Git: http://git-scm.com/downloads
 
