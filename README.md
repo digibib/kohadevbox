@@ -143,6 +143,8 @@ Some aliases are provided to help reduce typing:
 * koha-plack-err - tail de Plack error log
 * koha-user - get the db/admin username from koha-conf.xml
 * koha-pass - get the db/admin password from koha-conf.xml
+* dbic - recreate the schema files using a fresh DB
+* restart_all - restarts memcached, apache and plack
 
 ## Environment variables
 
