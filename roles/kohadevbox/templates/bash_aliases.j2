@@ -10,7 +10,12 @@ alias koha-plack-err="sudo tail -f /var/log/koha/{{ koha_instance_name }}/plack
 # Aliases for getting the db/admin user and password for our instance
 alias koha-user="sudo xmlstarlet sel -t -v 'yazgfs/config/user' -n '/etc/koha/sites/{{ koha_instance_name }}/koha-conf.xml'"
 alias koha-pass="sudo xmlstarlet sel -t -v 'yazgfs/config/pass' -n '/etc/koha/sites/{{ koha_instance_name }}/koha-conf.xml'"
+
+# Alias to recreate the schema files
 alias dbic="mysql -uroot -e 'DROP DATABASE IF EXISTS dbic; CREATE DATABASE dbic' ; \
             cd /home/vagrant/kohaclone ; \
             mysql -uroot dbic < installer/data/mysql/kohastructure.sql ;\
             misc/devel/update_dbix_class_files.pl --db_name dbic --db_user root"
+
+# Alias for restarting all needed services
+alias restart_all="sudo service memcached restart ; sudo service apache2 reload ; sudo koha-plack --restart {{ koha_instance_name }}"
