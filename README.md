@@ -42,13 +42,15 @@ If you don't have them already, you need to install some prerequisites:
 
 * Vagrant (version 1.8+): http://www.vagrantup.com/downloads.html
 
-  Note: Ubuntu and Debian ship their own vagrant package, but don't use it. Download the latest version from the above URL.
+  **Note:** Ubuntu and Debian ship their own vagrant package, but don't use it. Download the latest version from the above URL.
 
 * Ansible (version 1.9+): http://docs.ansible.com/ansible/intro_installation.html
   
-  Note: Ansible is not required when using LOCAL_ANSIBLE=1, which is the default behaviour for Windows users.
+  **Note:** Ansible is not required when installing on **Windows** or when using LOCAL_ANSIBLE=1.
 
 * Git: http://git-scm.com/downloads
+
+**Note to Windows users:** The following command-line interactions should take place on the **Git Bash** command line. You may have to run Git Bash as an administrator in order for it to work correctly.
 
 Now you can clone the KohaDevBox repository to your local machine and cd into
 the directory that was created by the cloning operation:
@@ -91,7 +93,7 @@ To spin up a new dev box. You need to specify either jessie, wheezy or trusty:
 Note: ommiting the distribution will default to jessie for all the vagrant * commands.
 
 This will download and install a bunch of stuff, please be patient - especially when 
-you are not using `SYNC_REPO` (see below), since then the full Koha repo (which is over 
+you are not using `SYNC_REPO` (see below), since then the full Koha repository (which is over 
 2GiB) will be cloned too.
 
 If the process somehow gets interrupted, hangs, or otherwise does not get completed, 
@@ -203,6 +205,11 @@ off whatever branch you had checked out in your pre-existing repo when you ran
 "vagrant up".
 * Windows users need to have the *vagrant-vbguest* in order to use this feature. If
 the plugin is not present and SYNC_REPO is set, it will fail with an error.
+* Windows users will need to specify the path in this way:
+
+   ```
+   export SYNC_REPO="c:\\Users\\Me\\kohaclone\\"
+   ```
 
 ### SKIP_WEBINSTALLER
 
