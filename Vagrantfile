@@ -35,6 +35,9 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.hostname = "kohadevbox"
+  if OS.windows?
+    config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
+  end
 
   config.vm.define "jessie", primary: true do |jessie|
     jessie.vm.box = "debian/jessie64"
