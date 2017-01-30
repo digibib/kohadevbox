@@ -56,8 +56,8 @@
 # gitify_version: master
 # gitify_dir: /home/vagrant/gitify
 
-# gitbz_repo: http://git.koha-community.org/git-bz.git
-# gitbz_version: fishsoup
+# gitbz_repo: https://github.com/joubu/git-bz.git
+# gitbz_version: apply_on_cascade
 # gitbz_dir: /home/vagrant/gitbz
 
 # release_tools_repo: git://git.koha-community.org/release-tools.git
