@@ -74,6 +74,9 @@
   - name: DB server | Set up ({{ mysql_engine }})
     template: src=my.cnf.j2 dest=/etc/mysql/my.cnf owner=root mode=0644
 
+  - include: misc4dev.yml
+    become_user: vagrant
+
   - include: koha.yml
     become_user: root
 
@@ -87,9 +90,6 @@
     become_user: vagrant
 
   - include: releasetools.yml
-    become_user: vagrant
-
-  - include: misc4dev.yml
     become_user: vagrant
 
   - include: elasticsearch.yml

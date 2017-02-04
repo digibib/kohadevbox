@@ -21,6 +21,9 @@
 - name: Install Koha
   apt: pkg=koha-common state=latest force=yes
 
+- name: Replace koha-* scripts
+  shell: perl misc4dev/cp_debian_files.pl
+
 - name: Use our koha-sites.conf file
   template: src=koha-sites.conf.j2 dest=/etc/koha/koha-sites.conf mode=0644 owner=root
 
