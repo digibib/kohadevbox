@@ -28,6 +28,8 @@
   with_items:
     - HTTPD::Bench::ApacheBench
     - Test::DBIx::Class
+  retries: 5
+  delay: 1
 
 - name: Clone Koha QA tools
   become_user: vagrant

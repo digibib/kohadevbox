@@ -98,7 +98,7 @@
 
   - include: elasticsearch-2.x.yml
     become_user: root
-    when: elasticsearch and elasticsearch_version == '2.x'
+    when: elasticsearch and elasticsearch_version != '1.7'
 
   - include: less.yml
     become_user: root
