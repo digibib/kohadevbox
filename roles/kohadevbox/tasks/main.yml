@@ -68,10 +68,10 @@
   - name: Set up vimrc
     template: src=vimrc.local.j2 dest=/etc/vim/vimrc.local owner=root mode=0644
 
-  - name: Install DB server
+  - name: DB server | Install ({{ mysql_engine }})
     apt: pkg={{ mysql_engine }}-server state=latest force=yes
 
-  - name: Set up mysql
+  - name: DB server | Set up ({{ mysql_engine }})
     template: src=my.cnf.j2 dest=/etc/mysql/my.cnf owner=root mode=0644
 
   - include: koha.yml
