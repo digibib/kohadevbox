@@ -1,6 +1,7 @@
 # This is the top-level playbook for deploying Bokeh at UNC
 
 - hosts: all
+  ansible_required: 1.9
   user: vagrant
   become: True
   become_user: root
