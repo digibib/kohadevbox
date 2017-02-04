@@ -203,6 +203,9 @@ box.
 * When you do "vagrant up", the Koha instance configured by the box will run
 off whatever branch you had checked out in your pre-existing repo when you ran
 "vagrant up".
+* If running "vagrant up" with SYNC_REPO gets interrupted you need to supply 
+SYNC_REPO again when running --provision. Otherwise the --provision run will clone
+the community repo while mirroring the changes to the host and overwriting you local repo. 
 * Windows users need to have the *vagrant-vbguest* in order to use this feature. If
 the plugin is not present and SYNC_REPO is set, it will fail with an error.
 * Windows users will need to specify the path in this way:
