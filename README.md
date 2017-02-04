@@ -252,9 +252,12 @@ This makes the provisioning scripts install Elasticsearch-related stuff, which i
 still in heavy development. This is required for testing ES patches, and is not
 enabled by default because it takes more time to complete and not everyone is interested yet.
 
-NOTE: It defaults to Elasticsearch 1.7, but development has moved towards Elasticsearch 2.4 (the
-2.x branch). If you want to work on 2.x support, set _elasticsearch_version_ to _2.x_ in your
-_vars/user.yml_ file.
+The default is to install Elasticsearch 1.7, but development has moved towards Elasticsearch 2.4 
+and 5.1 (the 2.x and 5.x branches, respectively). If you want to work on 2.x/5.x support, set
+ _elasticsearch_version_ to _'2.x'_ or _'5.x'_ in your _vars/user.yml_ file.
+
+NOTE: when choosing to install Elasticsearch, the *Vagrantfile* will create the VM using
+4GB RAM. Make sure you have enough spare RAM and/or tweak the Vagrantfile as you need to.
 
 ### LOCAL_ANSIBLE
 
