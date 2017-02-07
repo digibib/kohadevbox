@@ -37,8 +37,12 @@
     apt: pkg={{ item }}
     with_items:
       - libdata-uuid-perl
-      - libcatmandu-perl
-      - libcatmandu-store-elasticsearch-perl
+
+  - name: Elasticsearch {{ elasticsearch_version }} | Add Catmandu from CPAN
+    cpanm: pkg={{ item }}
+    with_items:
+      - Catmandu
+      - Catmandu::Store::Elasticsearch
 
   - name: Elasticsearch {{ elasticsearch_version }} | Pin distro's libmarc-xml-perl
     apt:
