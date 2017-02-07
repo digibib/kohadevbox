@@ -26,6 +26,7 @@
   become_user: root
   cpanm: name={{ item }} mirror={{ cpan_mirror }}
   with_items:
+    - DBD::SQLite
     - HTTPD::Bench::ApacheBench
     - Test::DBIx::Class
   retries: 5
