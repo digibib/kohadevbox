@@ -18,4 +18,5 @@ alias dbic="mysql -uroot -e 'DROP DATABASE IF EXISTS dbic; CREATE DATABASE dbic'
             misc/devel/update_dbix_class_files.pl --db_name dbic --db_user root"
 
 # Alias for restarting all needed services
-alias restart_all="sudo service memcached restart ; sudo service apache2 reload ; sudo koha-plack --restart {{ koha_instance_name }}"
+alias restart_all="sudo service memcached restart ; sudo service apache2 reload ; sudo service koha-common restart"
+
