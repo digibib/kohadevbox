@@ -9,3 +9,6 @@
 - name: Gitify the Koha instance
   shell:  ./koha-gitify {{ koha_instance_name }} /home/vagrant/kohaclone chdir={{ gitify_dir }}
   become_user: root
+
+- name: Replace koha-* scripts
+  shell: perl {{ misc4dev_dir }}/cp_debian_files.pl
