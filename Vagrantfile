@@ -52,7 +52,7 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.define "xenial", autostart: false do |xenial|
-    xenial.vm.box = "geerlingguy/ubuntu1604"
+    xenial.vm.box = "ubuntu/xenial64"
   end
 
   config.vm.network :forwarded_port, guest: 6001, host: 6001, auto_correct: true  # SIP2
