@@ -1,0 +1,45 @@
+- name: Instance creation | Check for instance existence
+  command: koha-list | grep {{ koha_instance_name }}
+  register: result
+  ignore_errors: yes
+
+- name: Instance creation | Create Koha instance
+  shell:  koha-create --create-db {{ koha_instance_name }}
+  when: result.stdout == ""
+  notify: restart apache
+
+- name: Instance creation | Set instance's env variables needed for testing
+  template:
+    src: instance_bashrc.j2
+    dest: "/var/lib/koha/{{ koha_instance_name }}/.bashrc"
+    mode: 0644
+    owner: "{{ koha_instance_name }}-koha"
+
+- name: Instance creation | Create .ssh directory for {{ koha_instance_name }}
+  file:
+    path: "/var/lib/koha/{{ koha_instance_name }}/.ssh"
+    owner: "{{ koha_instance_name }}-koha"
+    mode: 0700
+    state: directory
+
+- name: Instance creation | Copy public ssh key from host to {{ koha_instance_name }}
+  copy:
+    src: ~/.ssh/id_rsa.pub
+    dest: "/var/lib/koha/{{ koha_instance_name }}/.ssh/id_rsa.pub"
+    owner: "{{ koha_instance_name }}-koha"
+    group: "{{ koha_instance_name }}-koha"
+    mode: 0600
+  when: ssh_key_from_host
+
+- name: Instance creation | Copy private ssh key from host to {{ koha_instance_name }}
+  copy:
+    src: ~/.ssh/id_rsa
+    dest: "/var/lib/koha/{{ koha_instance_name }}/.ssh/id_rsa"
+    owner: "{{ koha_instance_name }}-koha"
+    group: "{{ koha_instance_name }}-koha"
+    mode: 0600
+  when: ssh_key_from_host
+
+- name: Instance creation | Gitify the Koha instance
+  shell:  ./koha-gitify {{ koha_instance_name }} /home/vagrant/kohaclone chdir={{ gitify_dir }}
+  become_user: root

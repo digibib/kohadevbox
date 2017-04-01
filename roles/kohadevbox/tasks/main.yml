@@ -74,19 +74,28 @@
   - name: DB server | Set up ({{ mysql_engine }})
     template: src=my.cnf.j2 dest=/etc/mysql/my.cnf owner=root mode=0644
 
-  - include: misc4dev.yml
+  - include: gitify.yml
+    become_user: vagrant
+
+  - include: koha-src.yml
     become_user: vagrant
 
   - include: koha.yml
+    become_user: root
+
+  - include: misc4dev.yml
+    become_user: vagrant
+
+  - include: koha-debian-specific.yml
+    become_user: root
+
+  - include: koha-instance.yml
     become_user: root
 
   - include: qatools.yml
     become_user: vagrant
 
   - include: gitbz.yml
-    become_user: vagrant
-
-  - include: gitify.yml
     become_user: vagrant
 
   - include: releasetools.yml

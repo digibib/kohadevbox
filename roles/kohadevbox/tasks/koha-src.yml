@@ -1,0 +1,6 @@
+- name: Clone Koha repository
+  git:
+    repo: "{{ koha_git_repo }}"
+    dest: /home/vagrant/kohaclone
+    version: "{{ koha_git_branch }}"
+  when: not sync_repo

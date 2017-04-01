@@ -1,9 +1,9 @@
 # Tasks required for setting Plack
-- name: Enable Plack
+- name: Plack | Enable Plack for {{ koha_instance_name }}
   shell: koha-plack --enable {{ koha_instance_name }} > /dev/null 2>&1 || /bin/true
   ignore_errors: yes
 
-- name: Start Plack
+- name: Plack | Start Plack for {{ koha_instance_name }}
   shell:  koha-plack --start {{ koha_instance_name }} > /dev/null 2>&1 || /bin/true
   notify: restart apache
   ignore_errors: yes
