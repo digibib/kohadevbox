@@ -1,7 +1,13 @@
 # Tasks required to have git-bz working for the vagrant user
-- name: Clone Git-Bz
-  git: repo={{ gitbz_repo }}  dest={{ gitbz_dir }} version={{ gitbz_version }}
+- name: Git-bz | Clone repository
+  git:
+    repo: "{{ gitbz_repo }}"
+    dest: "{{ gitbz_dir }}"
+    version: "{{ gitbz_version }}"
 
-- name: Make git-bz globally available
-  file: src={{ gitbz_dir }}/git-bz dest=/usr/local/bin/git-bz state=link
+- name: Git-bz | Make git-bz globally available
+  file:
+    src: "{{ gitbz_dir }}/git-bz"
+    dest: "/usr/local/bin/git-bz"
+    state: link
   become_user: root

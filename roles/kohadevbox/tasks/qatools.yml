@@ -1,7 +1,8 @@
 # Tasks required to have Koha QA Tools working for the vagrant user
-- name: Install Koha QA tools (dependencies)
-  become_user: root
-  apt: pkg={{ item }} state=latest
+- name: Koha QA tools | Packaged dependencies
+  apt:
+    name: "{{ item }}"
+    state: latest
   with_items:
     - libfile-chdir-perl
     - libgit-repository-perl
@@ -14,17 +15,13 @@
     - libdatetimex-easy-perl
     - libtest-differences-perl
     - libdbd-sqlite2-perl
-
-- name: Install Koha QA tools (not in wheezy)
-  become_user: root
-  apt: pkg={{ item }} state=latest
-  with_items:
     - codespell
-  when: ansible_distribution_release != 'wheezy'
 
-- name: Install testing dependencies (cpanm)
+- name: Koha QA tools | CPAN dependencies
   become_user: root
-  cpanm: name={{ item }} mirror={{ cpan_mirror }}
+  cpanm:
+    name: "{{ item }}"
+    mirror: "{{ cpan_mirror }}"
   with_items:
     - DBD::SQLite
     - HTTPD::Bench::ApacheBench
@@ -32,13 +29,23 @@
   retries: 5
   delay: 1
 
-- name: Clone Koha QA tools
-  become_user: vagrant
-  git: repo={{ koha_qa_repo }}  dest={{ koha_qa_dir }} version={{ koha_qa_version }} accept_hostkey=yes
+- name: Koha QA tools | Clone repository
+  git:
+    repo: "{{ koha_qa_repo }}"
+    dest: "{{ koha_qa_dir }}"
+    version: "{{ koha_qa_version }}"
+    accept_hostkey: yes
 
-- name: Set perlcritic for the vagrant user
-  file: src={{ koha_qa_dir }}/perlcriticrc dest={{ vagrant_home_dir }}/.perlcriticrc state=link
+- name: Koha QA tools | Set perlcritic for the vagrant user
+  file:
+    src: "{{ koha_qa_dir }}/perlcriticrc"
+    dest: "{{ vagrant_home_dir }}/.perlcriticrc"
+    state: link
 
-- name: Set perlcritic for the instance user
-  become_user: root
-  file: src={{ koha_qa_dir }}/perlcriticrc dest=/var/lib/koha/{{ koha_instance_name }}/.perlcriticrc mode=0644 owner={{ koha_instance_name }}-koha state=link
+- name: Koha QA tools | Set perlcritic for the instance user
+  file:
+    src: "{{ koha_qa_dir }}/perlcriticrc"
+    dest: "/var/lib/koha/{{ koha_instance_name }}/.perlcriticrc"
+    mode: 0644
+    owner: "{{ koha_instance_name }}-koha"
+    state: link

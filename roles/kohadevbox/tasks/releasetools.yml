@@ -1,17 +1,23 @@
 # Tasks required to have the release-tools working for the vagrant user
-- name: Install deps
-  become_user: root
-  apt: name={{ item }} state=latest
+- name: Release tools | Packaged dependencies
+  apt:
+    name: "{{ item }}"
+    state: latest
   with_items:
     - libhtml-tableextract-perl
     - libtext-multimarkdown-perl
 
-- name: Install deps (cpan)
+- name: Release tools | CPAN dependencies
   become_user: root
-  cpanm: name={{ item }} mirror={{ cpan_mirror }}
+  cpanm:
+    name: "{{ item }}"
+    mirror: "{{ cpan_mirror }}"
   with_items:
     - File::FindLib
     - REST::Client
 
-- name: Clone the release-tools repo
-  git: repo={{ release_tools_repo }}  dest={{ release_tools_dir }} version={{ release_tools_version }}
+- name: Release tools | Clone repository
+  git:
+    repo: "{{ release_tools_repo }}"
+    dest: "{{ release_tools_dir }}"
+    version: "{{ release_tools_version }}"

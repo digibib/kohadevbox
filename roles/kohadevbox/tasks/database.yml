@@ -1,0 +1,12 @@
+  - name: Database | Install ({{ mysql_engine }})
+    apt:
+      name: "{{ mysql_engine }}-server"
+      state: latest
+      force: yes
+
+  - name: Database | Set up ({{ mysql_engine }})
+    template:
+      src: my.cnf.j2
+      dest: /etc/mysql/my.cnf
+      owner: root
+      mode: 0644

@@ -1,0 +1,9 @@
+  - name: Sample data | Load
+    become_user: root
+    shell: koha-shell {{ koha_instance_name }} -c "/home/vagrant/kohaclone/misc/devel/populate_db.pl --marcflavour {{ koha_marc_flavour }}"
+    when: skip_webinstaller
+
+  - name: Sample data | Create Koha admin user ({{ koha_admin_user }} / {{ koha_admin_pass }})
+    become_user: root
+    shell: koha-shell {{ koha_instance_name }} -c "/home/vagrant/kohaclone/misc/devel/create_superlibrarian.pl --userid {{ koha_admin_user }} --password {{ koha_admin_pass }}"
+    when: skip_webinstaller and create_admin_user

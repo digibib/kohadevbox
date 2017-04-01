@@ -1,0 +1,29 @@
+    # This needs to be done before trying to enable the cgi module
+  - name: Apache | MPM fix
+    apache2_module:
+      name: mpm_event
+      state: absent
+    notify: restart apache
+
+  - name: Apache | Disable default vhost
+    shell: a2dissite 000-default
+    become_user: root
+    notify: restart apache
+
+  - name: Apache | Set ports
+    template:
+      src: ports.conf.j2
+      dest: /etc/apache2/ports.conf
+      owner: root
+      mode: 0644
+
+  - name: Apache | Enable needed modules
+    apache2_module:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - rewrite
+      - headers
+      - proxy_http
+      - cgi
+    notify: restart apache

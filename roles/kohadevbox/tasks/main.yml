@@ -1,105 +1,23 @@
 # file: roles/kohadevbox/tasks/main.yml
 ---
-  - name: Update Apt cache and system packages
-    apt: update_cache=yes upgrade=dist
+  - name: Init | Update Apt cache and system packages
+    apt:
+      update_cache: yes
+      upgrade: dist
 
-  - name: Install default tools
-    apt: pkg={{ item }} state=latest force=yes
-    with_items:
-      - apt-transport-https
-      - bash-completion
-      - cpanminus
-      - dh-make-perl
-      - git
-      - git-email
-      - apache2
-      - libapache2-mpm-itk
-      - libdata-printer-perl
-      - perltidy
-      - pmtools
-      - memcached
-
-  - name: Install extra tools
-    apt: pkg={{ extra_tools }} state=latest
-
-  - name: start memcached
-    service: name=memcached state=restarted enabled=yes
-    when: enable_memcached
-
-  - name: stop memcached
-    service: name=memcached state=stopped enabled=no
-    when: "{{ enable_memcached }} is not defined"
-
-  - name: SSH tweak
-    shell: perl -pi -e 's/AcceptEnv LANG LC_\*/# AcceptEnv LANG LC_\*/g' '/etc/ssh/sshd_config'
-    notify: reload ssh
-
-    # This needs to be done before trying to enable the cgi module
-  - name: Apache MPM fix
-    apache2_module: state=absent name=mpm_event
-    notify: restart apache
-
-  - name: Disable Apache default vhost
-    shell: a2dissite 000-default
-    become_user: root
-    notify: restart apache
-
-  - name: Set Apache ports
-    template: src=ports.conf.j2 dest=/etc/apache2/ports.conf owner=root mode=0644
-
-  - name: Apache modules
-    apache2_module: name={{ item }} state=present
-    with_items:
-      - rewrite
-      - headers
-      - proxy_http
-      - cgi
-    notify: restart apache
-
-  - name: Set git user configuration
-    template: src=gitconfig.j2 dest=/home/vagrant/.gitconfig owner=vagrant mode=0644
-
-  - name: Set Bash configuration
-    template: src=bashrc.j2 dest=/home/vagrant/.bashrc owner=vagrant mode=0644
-
-  - name: Set some Bash aliases
-    template: src=bash_aliases.j2 dest=/home/vagrant/.bash_aliases owner=vagrant mode=0644
-
-  - name: Set up vimrc
-    template: src=vimrc.local.j2 dest=/etc/vim/vimrc.local owner=root mode=0644
-
-  - name: DB server | Install ({{ mysql_engine }})
-    apt: pkg={{ mysql_engine }}-server state=latest force=yes
-
-  - name: DB server | Set up ({{ mysql_engine }})
-    template: src=my.cnf.j2 dest=/etc/mysql/my.cnf owner=root mode=0644
-
+  - include: tools.yml
+  - include: environment.yml
+  - include: apache.yml
+  - include: database.yml
   - include: gitify.yml
-    become_user: vagrant
-
   - include: koha-src.yml
-    become_user: vagrant
-
   - include: koha.yml
-    become_user: root
-
   - include: misc4dev.yml
-    become_user: vagrant
-
   - include: koha-debian-specific.yml
-    become_user: root
-
   - include: koha-instance.yml
-    become_user: root
-
   - include: qatools.yml
-    become_user: vagrant
-
   - include: gitbz.yml
-    become_user: vagrant
-
   - include: releasetools.yml
-    become_user: vagrant
 
   - include: elasticsearch.yml
     become_user: root
@@ -110,20 +28,8 @@
     when: elasticsearch and elasticsearch_version != '1.7'
 
   - include: less.yml
-    become_user: root
-
-  - name: Load sample data
-    become_user: root
-    shell: koha-shell {{ koha_instance_name }} -c "/home/vagrant/kohaclone/misc/devel/populate_db.pl --marcflavour {{ koha_marc_flavour }}"
-    when: skip_webinstaller
-
-  - name: Create Koha admin user ({{ koha_admin_user }} / {{ koha_admin_pass }})
-    become_user: root
-    shell: koha-shell {{ koha_instance_name }} -c "/home/vagrant/kohaclone/misc/devel/create_superlibrarian.pl --userid {{ koha_admin_user }} --password {{ koha_admin_pass }}"
-    when: skip_webinstaller and create_admin_user
-
+  - include: sample_data.yml
   - include: plack.yml
-    become_user: root
     when:
       - plack
       - ansible_distribution_release != 'wheezy' # plack not supported on wheezy
@@ -132,11 +38,3 @@
   - name: Init database for mlocate
     shell: updatedb
     become_user: root
-
-  - name: Copy public ssh key from host to vagrant
-    copy: src=~/.ssh/id_rsa.pub dest=/home/vagrant/.ssh/id_rsa.pub owner=vagrant group=vagrant mode=0600
-    when: ssh_key_from_host
-
-  - name: Copy private ssh key from host to vagrant
-    copy: src=~/.ssh/id_rsa dest=/home/vagrant/.ssh/id_rsa owner=vagrant group=vagrant mode=0600
-    when: ssh_key_from_host

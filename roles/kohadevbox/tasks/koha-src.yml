@@ -1,4 +1,4 @@
-- name: Clone Koha repository
+- name: Koha source | Clone repository
   git:
     repo: "{{ koha_git_repo }}"
     dest: /home/vagrant/kohaclone

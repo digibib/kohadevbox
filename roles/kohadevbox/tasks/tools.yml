@@ -1,0 +1,30 @@
+  - name: Tools | Install default tools
+    apt:
+      name: "{{ item }}"
+      state: latest
+      force: yes
+    with_items:
+      - apt-transport-https
+      - bash-completion
+      - cpanminus
+      - dh-make-perl
+      - git
+      - git-email
+      - apache2
+      - libapache2-mpm-itk
+      - libdata-printer-perl
+      - perltidy
+      - pmtools
+      - memcached
+
+  - name: Tools | Install extra tools
+    apt:
+      name: "{{ extra_tools }}"
+      state: latest
+
+  - name: Tools | Stop memcached if required
+    service:
+      name: memcached
+      state: stopped
+      enabled: no
+    when: "{{ enable_memcached }} is not defined"

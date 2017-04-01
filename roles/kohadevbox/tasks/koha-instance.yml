@@ -1,10 +1,12 @@
 - name: Instance creation | Check for instance existence
   command: koha-list | grep {{ koha_instance_name }}
+  become_user: root
   register: result
   ignore_errors: yes
 
 - name: Instance creation | Create Koha instance
   shell:  koha-create --create-db {{ koha_instance_name }}
+  become_user: root
   when: result.stdout == ""
   notify: restart apache
 

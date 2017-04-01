@@ -1,0 +1,50 @@
+  - name: Environment | SSH tweak
+    shell: perl -pi -e 's/AcceptEnv LANG LC_\*/# AcceptEnv LANG LC_\*/g' '/etc/ssh/sshd_config'
+    notify: reload ssh
+
+  - name: Environment | Set git user configuration
+    template:
+      src: gitconfig.j2
+      dest: /home/vagrant/.gitconfig
+      owner: vagrant
+      mode: 0644
+
+  - name: Environment | Set Bash configuration
+    template:
+      src: bashrc.j2
+      dest: /home/vagrant/.bashrc
+      owner: vagrant
+      mode: 0644
+
+  - name: Environment | Set some Bash aliases
+    template:
+      src: bash_aliases.j2
+      dest: /home/vagrant/.bash_aliases
+      owner: vagrant
+      mode: 0644
+
+  - name: Environment | Set up vimrc
+    template:
+      src: vimrc.local.j2
+      dest: /etc/vim/vimrc.local
+      owner: root
+      mode: 0644
+
+  - name: Environment | Copy public ssh key from host to vagrant
+    copy:
+      src: ~/.ssh/id_rsa.pub
+      dest: /home/vagrant/.ssh/id_rsa.pub
+      owner: vagrant
+      group: vagrant
+      mode: 0600
+    when: ssh_key_from_host
+
+  - name: Environment | Copy private ssh key from host to vagrant
+    copy:
+      src: ~/.ssh/id_rsa
+      dest: /home/vagrant/.ssh/id_rsa
+      owner: vagrant
+      group: vagrant
+      mode: 0600
+    when: ssh_key_from_host
+
