@@ -5,8 +5,22 @@
   become: True
   become_user: root
   gather_facts: True
+
   vars_files:
       - vars/defaults.yml
       - vars/user.yml
+
+  pre_tasks:
+    - name: Update apt cache if needed
+      apt:
+        update_cache: yes
+        upgrade: dist
+        cache_valid_time: 3600
+
   roles:
       - kohadevbox
+
+  post_tasks:
+    - name: Init mlocate database
+      shell: updatedb
+      become_user: root

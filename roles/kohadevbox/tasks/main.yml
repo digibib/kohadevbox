@@ -1,10 +1,5 @@
 # file: roles/kohadevbox/tasks/main.yml
 ---
-  - name: Init | Update Apt cache and system packages
-    apt:
-      update_cache: yes
-      upgrade: dist
-
   - include: tools.yml
   - include: environment.yml
   - include: apache.yml
@@ -34,7 +29,3 @@
       - plack
       - ansible_distribution_release != 'wheezy' # plack not supported on wheezy
       - ansible_distribution_release != 'trusty' # plack not supported on trusty
-
-  - name: Init database for mlocate
-    shell: updatedb
-    become_user: root
