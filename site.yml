@@ -1,10 +1,8 @@
 ---
 # This is the top-level playbook for deploying Bokeh at UNC
 - hosts: all
-  user: vagrant
-  become: True
-  become_user: root
-  gather_facts: True
+  remote_user: vagrant
+  gather_facts: true
 
   vars_files:
       - vars/defaults.yml
@@ -16,6 +14,7 @@
         update_cache: yes
         upgrade: dist
         cache_valid_time: 3600
+      become: yes
 
   roles:
       - kohadevbox
@@ -23,4 +22,4 @@
   post_tasks:
     - name: Init mlocate database
       shell: updatedb
-      become_user: root
+      become: yes

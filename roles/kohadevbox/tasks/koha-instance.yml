@@ -44,4 +44,3 @@
 
 - name: Instance creation | Gitify the Koha instance
   shell:  ./koha-gitify {{ koha_instance_name }} /home/vagrant/kohaclone chdir={{ gitify_dir }}
-  become_user: root

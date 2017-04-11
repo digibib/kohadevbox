@@ -10,4 +10,4 @@
     src: "{{ gitbz_dir }}/git-bz"
     dest: "/usr/local/bin/git-bz"
     state: link
-  become_user: root
+  become: yes

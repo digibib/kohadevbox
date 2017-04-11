@@ -16,9 +16,10 @@
     - libtest-differences-perl
     - libdbd-sqlite2-perl
     - codespell
+  become: yes
 
 - name: Koha QA tools | CPAN dependencies
-  become_user: root
+  become: yes
   cpanm:
     name: "{{ item }}"
     mirror: "{{ cpan_mirror }}"
@@ -49,3 +50,4 @@
     mode: 0644
     owner: "{{ koha_instance_name }}-koha"
     state: link
+  become: yes

@@ -1,6 +1,5 @@
 - name: Koha packages tweaks | Replace koha-* scripts
   shell: perl {{ misc4dev_dir }}/cp_debian_files.pl
-  become_user: root
 
 - name: Koha packages tweaks | Use our koha-sites.conf file
   template:

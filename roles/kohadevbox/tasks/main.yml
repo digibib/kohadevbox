@@ -1,29 +1,50 @@
 # file: roles/kohadevbox/tasks/main.yml
 ---
   - include: tools.yml
+    become: yes
+
   - include: environment.yml
+
   - include: apache.yml
+    become: yes
+
   - include: database.yml
+    become: yes
+
   - include: gitify.yml
+
   - include: koha-src.yml
+
   - include: koha.yml
+    become: yes
+
   - include: misc4dev.yml
+
   - include: koha-debian-specific.yml
+    become: yes
+
   - include: koha-instance.yml
+    become: yes
+
   - include: qatools.yml
+
   - include: gitbz.yml
+
   - include: releasetools.yml
 
   - include: elasticsearch.yml
-    become_user: root
+    become: yes
     when: elasticsearch and elasticsearch_version == '1.7'
 
   - include: elasticsearch-2.x.yml
-    become_user: root
+    become: yes
     when: elasticsearch and elasticsearch_version != '1.7'
 
   - include: less.yml
+    become: yes
+
   - include: sample_data.yml
+
   - include: plack.yml
     when:
       - plack

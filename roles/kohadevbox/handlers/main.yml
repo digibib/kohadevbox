@@ -1,7 +1,13 @@
 # file: roles/kohadevbox/handlers/main.yml
 ---
 - name: restart apache
-  service: name=apache2 state=restarted
+  service:
+    name: apache2
+    state: restarted
+  become: yes
 
 - name: reload ssh
-  service: name=ssh state=reloaded
+  service:
+    name: ssh
+    state: reloaded
+  become: yes

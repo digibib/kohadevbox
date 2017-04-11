@@ -7,14 +7,12 @@
 
   - name: Apache | Disable default vhost
     shell: a2dissite 000-default
-    become_user: root
     notify: restart apache
 
   - name: Apache | Set ports
     template:
       src: ports.conf.j2
       dest: /etc/apache2/ports.conf
-      owner: root
       mode: 0644
 
   - name: Apache | Enable needed modules

@@ -7,6 +7,7 @@
       src: gitconfig.j2
       dest: /home/vagrant/.gitconfig
       owner: vagrant
+      group: vagrant
       mode: 0644
 
   - name: Environment | Set Bash configuration
@@ -14,6 +15,7 @@
       src: bashrc.j2
       dest: /home/vagrant/.bashrc
       owner: vagrant
+      group: vagrant
       mode: 0644
 
   - name: Environment | Set some Bash aliases
@@ -21,6 +23,7 @@
       src: bash_aliases.j2
       dest: /home/vagrant/.bash_aliases
       owner: vagrant
+      group: vagrant
       mode: 0644
 
   - name: Environment | Set up vimrc
@@ -29,6 +32,7 @@
       dest: /etc/vim/vimrc.local
       owner: root
       mode: 0644
+    become: yes
 
   - name: Environment | Copy public ssh key from host to vagrant
     copy:

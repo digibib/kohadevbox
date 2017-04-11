@@ -1,5 +1,6 @@
 # Tasks required to have the release-tools working for the vagrant user
 - name: Release tools | Packaged dependencies
+  become: yes
   apt:
     name: "{{ item }}"
     state: latest
@@ -8,7 +9,7 @@
     - libtext-multimarkdown-perl
 
 - name: Release tools | CPAN dependencies
-  become_user: root
+  become: yes
   cpanm:
     name: "{{ item }}"
     mirror: "{{ cpan_mirror }}"
