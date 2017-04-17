@@ -1,66 +1,48 @@
 # file: roles/kohadevbox/tasks/elasticsearch.yml
 ---
   - name: Elasticsearch {{ elasticsearch_version }} | Add Oracle Java 8 repository (key)
-    apt_key: keyserver=keyserver.ubuntu.com id=7B2C3B0889BF5709A105D03AC2518248EEA14886
+    apt_key:
+      keyserver: keyserver.ubuntu.com
+      id: 7B2C3B0889BF5709A105D03AC2518248EEA14886
+      state: present
 
   - name: Elasticsearch {{ elasticsearch_version }} | Add Oracle Java 8 repository (repo)
-    apt_repository: repo='deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main' state=present update_cache=yes
+    apt_repository:
+      repo: 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main'
+      state: present
+      update_cache: yes
 
   - name: Elasticsearch {{ elasticsearch_version }} | Accept Oracle license
     shell: echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
-    become_user: root
 
   - name: Elasticsearch {{ elasticsearch_version }} | Install Oracle Java 8
-    apt: pkg={{ item }} state=latest
-    with_items:
-      - oracle-java8-installer
+    apt:
+      name: oracle-java8-installer
+      state: latest
 
   - name: Elasticsearch {{ elasticsearch_version }} | Add Elasticsearch repository (key)
-    apt_key: url='https://packages.elastic.co/GPG-KEY-elasticsearch' state=present
+    apt_key:
+      url: 'https://packages.elastic.co/GPG-KEY-elasticsearch'
+      state: present
 
   - name: Elasticsearch {{ elasticsearch_version }} | Add Elasticsearch repository (repo)
-    apt_repository: repo='deb http://packages.elastic.co/elasticsearch/{{ elasticsearch_version }}/debian stable main' state=present
-    #'
+    apt_repository:
+      repo: "deb http://packages.elastic.co/elasticsearch/{{ elasticsearch_version }}/debian stable main"
+      state: present
 
   - name: Elasticsearch {{ elasticsearch_version }} | Install Elasticsearch
-    apt: pkg=elasticsearch state=latest force=yes
+    apt:
+      name: elasticsearch
+      state: latest
+      force: yes
 
   - name: Elasticsearch {{ elasticsearch_version }} | Run Elasticsearch on startup
-    service: name=elasticsearch enabled=yes state=started
+    service:
+      name: elasticsearch
+      enabled: yes
+      state: started
 
-  - name: Elasticsearch {{ elasticsearch_version }} | Add Catmandu 1.x repository (key)
-    apt_key: url='https://apt.abunchofthings.net/abunchofthings.gpg' state=present
-
-  - name: Elasticsearch {{ elasticsearch_version }} | Add Catmandu 1.x repository (repo)
-    apt_repository: repo='deb https://apt.abunchofthings.net/debian jessie main' state=present update_cache=yes
-
-  - name: Elasticsearch {{ elasticsearch_version }} | Add Catmandu 1.x packages
-    apt: pkg={{ item }}
-    with_items:
-      - libdata-uuid-perl
-
-  - name: Elasticsearch {{ elasticsearch_version }} | Add Catmandu from CPAN
-    cpanm: pkg={{ item }}
-    with_items:
-      - Catmandu
-      - Catmandu::Store::ElasticSearch
-
-  - name: Elasticsearch {{ elasticsearch_version }} | Pin distro's libmarc-xml-perl
+  - name: Elasticsearch {{ elasticsearch_version }} | Install Koha's Elasticsearch deps
     apt:
-      name: libmarc-xml-perl
+      name: koha-elasticsearch
       state: latest
-      default_release: jessie
-      update_cache: yes
-    when: ansible_distribution_release == 'jessie'
-
-  - name: Elasticsearch {{ elasticsearch_version }} | Pin distro's libmarc-xml-perl
-    apt:
-      name: libmarc-xml-perl
-      state: latest
-      default_release: xenial
-      update_cache: yes
-    when: ansible_distribution_release == 'xenial'
-
-  - name: Elasticsearch {{ elasticsearch_version }} | Add Catmandu 1.x packages
-    apt:
-      name: libcatmandu-marc-perl
