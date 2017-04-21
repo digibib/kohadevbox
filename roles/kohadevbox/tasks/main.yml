@@ -34,11 +34,7 @@
 
   - include: elasticsearch.yml
     become: yes
-    when: elasticsearch and elasticsearch_version == '1.7'
-
-  - include: elasticsearch-2.x.yml
-    become: yes
-    when: elasticsearch and elasticsearch_version != '1.7'
+    when: elasticsearch
 
   - include: less.yml
     become: yes

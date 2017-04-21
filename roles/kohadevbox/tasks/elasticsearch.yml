@@ -1,50 +1,48 @@
 # file: roles/kohadevbox/tasks/elasticsearch.yml
 ---
-  - name: Elasticsearch 1.7 | Add Elasticsearch dependencies
-    apt: pkg={{ item }} state=latest
-    with_items:
-      - openjdk-7-jre
-    when: ansible_distribution_release != 'xenial'
+  - name: Elasticsearch {{ elasticsearch_version }} | Add Oracle Java 8 repository (key)
+    apt_key:
+      keyserver: keyserver.ubuntu.com
+      id: 7B2C3B0889BF5709A105D03AC2518248EEA14886
+      state: present
 
-  - name: Elasticsearch 1.7 | Add Elasticsearch dependencies
-    apt: pkg={{ item }} state=latest
-    with_items:
-      - openjdk-8-jre
-    when: ansible_distribution_release == 'xenial'
+  - name: Elasticsearch {{ elasticsearch_version }} | Add Oracle Java 8 repository (repo)
+    apt_repository:
+      repo: 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main'
+      state: present
+      update_cache: yes
 
-  - name: Elasticsearch 1.7 | Add Elasticsearch repository (key)
-    apt_key: url='https://packages.elastic.co/GPG-KEY-elasticsearch' state=present
+  - name: Elasticsearch {{ elasticsearch_version }} | Accept Oracle license
+    shell: echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
 
-  - name: Elasticsearch 1.7 | Add Elasticsearch repository (repo)
-    apt_repository: repo='deb http://packages.elastic.co/elasticsearch/{{ elasticsearch_version }}/debian stable main' state=present
-    #'
+  - name: Elasticsearch {{ elasticsearch_version }} | Install Oracle Java 8
+    apt:
+      name: oracle-java8-installer
+      state: latest
 
-  - name: Elasticsearch 1.7 | Install Elasticsearch
-    apt: pkg=elasticsearch state=latest force=yes
+  - name: Elasticsearch {{ elasticsearch_version }} | Add Elasticsearch repository (key)
+    apt_key:
+      url: 'https://packages.elastic.co/GPG-KEY-elasticsearch'
+      state: present
 
-  - name: Elasticsearch 1.7 | Run Elasticsearch on startup
-    service: name=elasticsearch enabled=yes state=started
+  - name: Elasticsearch {{ elasticsearch_version }} | Add Elasticsearch repository (repo)
+    apt_repository:
+      repo: "deb http://packages.elastic.co/elasticsearch/{{ elasticsearch_version }}/debian stable main"
+      state: present
 
-  - name: Elasticsearch 1.7 | Install Koha's ES integration dependencies
-    apt: pkg={{ item }} state=latest
-    with_items:
-      - libcatmandu-marc-perl
+  - name: Elasticsearch {{ elasticsearch_version }} | Install Elasticsearch
+    apt:
+      name: elasticsearch
+      state: latest
+      force: yes
 
-  - name: Elasticsearch 1.7 | Koha's ES integration dependencies (create download dir)
-    file: path=elasticsearch_deps state=directory mode=0755
+  - name: Elasticsearch {{ elasticsearch_version }} | Run Elasticsearch on startup
+    service:
+      name: elasticsearch
+      enabled: yes
+      state: started
 
-  - name: Elasticsearch 1.7 | Koha's ES integration dependencies (download)
-    get_url: url={{ item }} dest=elasticsearch_deps
-    with_items:
-      - http://debian.koha-community.org/koha/otherthings/liblog-any-adapter-perl_0.11-2_all.deb
-      - http://debian.koha-community.org/koha/otherthings/liblog-any-perl_1.03-1_all.deb
-      - http://debian.koha-community.org/koha/otherthings/libsearch-elasticsearch-perl_1.19-1_all.deb
-      - http://debian.koha-community.org/koha/otherthings/libcatmandu-store-elasticsearch-perl_0.0304-1_all.deb
-
-  - name: Elasticsearch 1.7 | Koha's ES integration dependencies (install)
-    apt: deb=elasticsearch_deps/{{ item }} state=present
-    with_items:
-      - liblog-any-adapter-perl_0.11-2_all.deb
-      - liblog-any-perl_1.03-1_all.deb
-      - libsearch-elasticsearch-perl_1.19-1_all.deb
-      - libcatmandu-store-elasticsearch-perl_0.0304-1_all.deb
+  - name: Elasticsearch {{ elasticsearch_version }} | Install Koha's Elasticsearch deps
+    apt:
+      name: koha-elasticsearch
+      state: latest
