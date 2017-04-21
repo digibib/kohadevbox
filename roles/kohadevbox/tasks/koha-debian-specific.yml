@@ -15,10 +15,9 @@
     mode: 0644
     owner: root
 
-- name: Koha packages tweaks | Use ES-specific koha-conf-site.xml.in file
+- name: Koha packages tweaks | Use our koha-conf-site.xml.in file
   template:
     src: koha-conf-site.xml.in.j2
     dest: /etc/koha/koha-conf-site.xml.in
     mode: 0644
     owner: root
-  when: elasticsearch
