@@ -1,12 +1,42 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-require 'fileutils' 
+require 'fileutils'
 
 module OS
     # Try detecting Windows
     def OS.windows?
         (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
     end
+end
+
+# Absolute path on the host machine.
+host_config_dir = File.dirname(File.expand_path(__FILE__))
+
+require 'yaml'
+# Load default VM configuration.
+vconfig = YAML.load_file("#{host_config_dir}/vars/defaults.yml")
+
+# Load user VM configuration if exists.
+if File.file?("#{host_config_dir}/vars/user.yml")
+  vconfig.merge!(YAML.load_file("#{host_config_dir}/vars/user.yml"))
+end
+
+def walk(obj, &fn)
+  if obj.is_a?(Array)
+    obj.map { |value| walk(value, &fn) }
+  elsif obj.is_a?(Hash)
+    obj.each_pair { |key, value| obj[key] = walk(value, &fn) }
+  else
+    obj = yield(obj)
+  end
+end
+
+# Replace jinja variables in config.
+vconfig = walk(vconfig) do |value|
+  while value.is_a?(String) && value.match(/{{ .* }}/)
+    value = value.gsub(/{{ (.*?) }}/) { vconfig[Regexp.last_match(1)] }
+  end
+  value
 end
 
 Vagrant.configure(2) do |config|
@@ -65,17 +95,19 @@ Vagrant.configure(2) do |config|
     end
   end
 
-  if ENV['SYNC_REPO']
+  sync_repo_dir = ENV['SYNC_REPO'] || vconfig['sync_repo'] && vconfig['sync_repo_dir']
+
+  if sync_repo_dir
     if OS.windows?
       unless Vagrant.has_plugin?("vagrant-vbguest")
         raise 'The vagrant-vbguest plugin is not present, and is mandatory for SYNC_REPO on Windows! See README.md'
       end
 
-      config.vm.synced_folder ENV['SYNC_REPO'], "/home/vagrant/kohaclone", type: "virtualbox"
+      config.vm.synced_folder sync_repo_dir, vconfig['koha_dir'], type: "virtualbox"
 
     else
       # We should safely rely on NFS
-      config.vm.synced_folder ENV['SYNC_REPO'], "/home/vagrant/kohaclone", type: "nfs"
+      config.vm.synced_folder sync_repo_dir, vconfig['koha_dir'], type: "nfs"
     end
   end
 

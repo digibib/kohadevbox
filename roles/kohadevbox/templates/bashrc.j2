@@ -25,7 +25,7 @@ fi
 
 export EDITOR="{{ editor }}"
 export KOHA_CONF=/etc/koha/sites/{{ koha_instance_name }}/koha-conf.xml
-export PERL5LIB="/home/vagrant/kohaclone:{{ koha_qa_dir }}"
+export PERL5LIB="{{ koha_dir }}:{{ koha_qa_dir }}"
 export TEST_QA=1
 
 PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]$(__git_ps1 "\[\e[1;33m\](%s)\[\e[0m\]")$ '
