@@ -13,7 +13,7 @@ alias koha-pass="sudo xmlstarlet sel -t -v 'yazgfs/config/pass' -n '/etc/koha/si
 
 # Alias to recreate the schema files
 alias dbic="mysql -uroot -e 'DROP DATABASE IF EXISTS dbic; CREATE DATABASE dbic' ; \
-            cd /home/vagrant/kohaclone ; \
+            cd '{{ koha_dir }}' ; \
             mysql -uroot dbic < installer/data/mysql/kohastructure.sql ;\
             misc/devel/update_dbix_class_files.pl --db_name dbic --db_user root"
 

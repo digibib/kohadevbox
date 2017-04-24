@@ -35,6 +35,7 @@ koha_pin_custom_repo: no
 koha_git_repo: http://git.koha-community.org/koha.git
 koha_git_branch: master
 
+koha_dir: "/home/vagrant/kohaclone"
 koha_instance_name: kohadev
 koha_domain: .myDNSname.org
 koha_intra_port: 8080
