@@ -5,7 +5,7 @@
     repo: "{{ misc4dev_repo }}"
     dest: "{{ misc4dev_dir }}"
     version: "{{ misc4dev_version }}"
-    force: "{{ 'yes' if koha_dir != '/home/vagrant/kohaclone' else 'no' }}"
+    force: yes
 
 - name: misc4dev | Find all perl files
   find:
