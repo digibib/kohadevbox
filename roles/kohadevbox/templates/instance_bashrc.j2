@@ -2,7 +2,7 @@ export KOHA_USER=koha_{{ koha_instance_name }}
 export KOHA_PASS={{ koha_db_password }}
 export KOHA_INTRANET_URL=http://localhost:8080
 export KOHA_OPAC_URL=http://localhost:80
-export PERL5LIB="/home/vagrant/kohaclone:{{ koha_qa_dir }}"
+export PERL5LIB="{{ koha_dir }}:{{ koha_qa_dir }}"
 export TEST_QA=1
 
 # Alias for the Koha QA tool

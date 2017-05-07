@@ -1,6 +1,14 @@
+- name: Koha source | Ensure Koha directory exists
+  file:
+    path: "{{ koha_dir }}"
+    state: directory
+    owner: vagrant
+    group: vagrant
+    mode: 0775
+    recurse: yes
 - name: Koha source | Clone repository
   git:
     repo: "{{ koha_git_repo }}"
-    dest: /home/vagrant/kohaclone
+    dest: "{{ koha_dir }}"
     version: "{{ koha_git_branch }}"
   when: not sync_repo

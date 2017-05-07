@@ -5,3 +5,23 @@
     repo: "{{ misc4dev_repo }}"
     dest: "{{ misc4dev_dir }}"
     version: "{{ misc4dev_version }}"
+    force: yes
+
+- name: misc4dev | Find all perl files
+  find:
+    file_type: file
+    paths: "{{ misc4dev_dir }}"
+    patterns: "*.pl"
+    recurse: no
+    use_regex: no
+  register: perl_files
+
+- name: misc4dev | Replace all instances of hard coded koha directory with the current koha directory
+  replace:
+    dest: "{{ item.path }}" # path: instead of dest: in ansible >= 2.3
+    regexp: '\/home\/vagrant\/kohaclone'
+    replace: "{{ koha_dir }}"
+  with_items: "{{ perl_files.files }}"
+  # Simpler, but can't get this to work:
+  # with_fileglob:
+  #  - "{{ misc4dev_dir }}/*.pl"
