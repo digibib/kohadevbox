@@ -20,3 +20,6 @@ alias dbic="mysql -uroot -e 'DROP DATABASE IF EXISTS dbic; CREATE DATABASE dbic'
 # Alias for restarting all needed services
 alias restart_all="sudo service memcached restart ; sudo service apache2 reload ; sudo service koha-common restart"
 
+# Alias for reseting everything koha-related
+alias reset_all='mysql -u koha_{{ koha_instance_name }} -p{{ koha_db_password }} -e"DROP DATABASE koha_{{ koha_instance_name }}"; mysql -u koha_kohadev -p{{ koha_db_password }} -e"CREATE DATABASE koha_{{ koha_instance_name }}"; perl /home/vagrant/misc4dev/do_all_you_can_do.pl'
+

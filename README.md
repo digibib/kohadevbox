@@ -147,6 +147,13 @@ Some aliases are provided to help reduce typing:
 * koha-pass - get the db/admin password from koha-conf.xml
 * dbic - recreate the schema files using a fresh DB
 * restart_all - restarts memcached, apache and plack
+* reset_all   - Drop and recreate the koha database
+                Call the misc4dev/do_all_you_can_do.pl script
+                    * populate the DB with the sample data
+                    * create a superlibrarian user
+                    * update the debian files
+                    * copy the plack configuration file
+                    * restart plack
 
 ## Environment variables
 
