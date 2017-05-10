@@ -23,6 +23,6 @@ alias restart_all="sudo service memcached restart ; sudo service apache2 reload 
 # Alias for reseting everything koha-related
 alias reset_all='mysql -u koha_{{ koha_instance_name }} -p{{ koha_db_password }} -e"DROP DATABASE koha_{{ koha_instance_name }}" ; \
                  mysql -u koha_{{ koha_instance_name }} -p{{ koha_db_password }} -e"CREATE DATABASE koha_{{ koha_instance_name }}" ; \
-                 perl {{ misc4dev_dir }}/do_all_you_can_do.pl ; \
+                 perl {{ misc4dev_dir }}/do_all_you_can_do.pl --instance {{ koha_instance_name }} --userid {{ koha_admin_user }} --password {{ koha_admin_pass }} ; \
                  restart_all'
 
