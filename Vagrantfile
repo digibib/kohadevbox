@@ -39,6 +39,10 @@ Vagrant.configure(2) do |config|
     config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
   end
 
+  config.vm.define "stretch", autostart: false do |stretch|
+    stretch.vm.box = "debian/stretch64"
+  end
+
   config.vm.define "jessie", primary: true do |jessie|
     jessie.vm.box = "debian/jessie64"
   end
