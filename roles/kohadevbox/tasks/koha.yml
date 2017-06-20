@@ -38,3 +38,9 @@
     name: koha-common
     state: latest
     force: yes
+
+- name: Install Koha | Install mlocate
+  apt:
+    name: mlocate
+    state: latest
+    force: yes
