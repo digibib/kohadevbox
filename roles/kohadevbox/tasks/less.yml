@@ -4,10 +4,17 @@
     url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
     state: present
 
-- name: Less | Add Node.js repository (repo)
+- name: Less | Add Node.js repository (non-stretch repo)
   apt_repository:
     repo: "deb https://deb.nodesource.com/{{ node_version }} {{ ansible_distribution_release }} main"
     state: present
+  when: (not ansible_distribution_release == "stretch")
+
+- name: Less | Add Node.js repository (stretch repo)
+  apt_repository:
+    repo: "deb https://deb.nodesource.com/{{ node_version }} jessie main"
+    state: present
+  when: ansible_distribution_release == "stretch"
 
 - name: Less | Instal Node.js
   apt:

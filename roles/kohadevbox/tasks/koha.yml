@@ -29,12 +29,12 @@
     owner: root
   when: koha_use_custom_repo and koha_pin_custom_repo
 
+- name: Install Koha | Install older JSON::Validator
+  apt:
+    deb: http://debian.koha-community.org/koha/pool/main/libj/libjson-validator-perl/libjson-validator-perl_0.67+dfsg-1~koha1_all.deb
+
 - name: Install Koha | Install koha-common
   apt:
     name: koha-common
     state: latest
     force: yes
-
-- name: Install Koha | Install older JSON::Validator
-  apt:
-    deb: http://debian.koha-community.org/koha/pool/main/libj/libjson-validator-perl/libjson-validator-perl_0.67+dfsg-1~koha1_all.deb
