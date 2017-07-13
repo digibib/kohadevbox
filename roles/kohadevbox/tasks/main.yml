@@ -15,6 +15,8 @@
 
   - include: koha-src.yml
 
+  - include: kohadocs-src.yml
+
   - include: koha.yml
     become: yes
 
