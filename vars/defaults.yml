@@ -9,6 +9,7 @@ sync_repo: false
 skip_webinstaller: false
 create_admin_user: false
 enable_memcached: true
+enable_kohadocs: true
 elasticsearch: false
 elasticsearch_version: '5.x'
 plack: true
@@ -34,6 +35,9 @@ koha_pin_custom_repo: no
 
 koha_git_repo: http://git.koha-community.org/koha.git
 koha_git_branch: master
+
+kohadocs_git_repo: https://gitlab.com/koha-community-devs-users/kohadocs.git
+kohadocs_git_branch: master
 
 koha_instance_name: kohadev
 koha_domain: .myDNSname.org

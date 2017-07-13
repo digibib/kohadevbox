@@ -22,6 +22,15 @@
       name: "{{ extra_tools }}"
       state: latest
 
+  - name: Tools | Install sphinx
+    apt:
+      name: "{{ item }}"
+      state: latest
+      force: yes
+    with_items:
+      - python-sphinx
+    when: enable_kohadocs
+
   - name: Tools | Stop memcached if required
     service:
       name: memcached
