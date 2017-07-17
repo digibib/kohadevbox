@@ -26,14 +26,6 @@ Vagrant.configure(2) do |config|
     puts "Run 'vagrant plugin install vagrant-cachier' to speed up provisioning."
   end
 
-  # Default to host's ansible
-  provisioner = :ansible
-  local_ansible = false
-
-  if ENV['LOCAL_ANSIBLE'] or OS.windows?
-    local_ansible = true
-  end
-
   config.vm.hostname = "kohadevbox"
   if OS.windows?
     config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
@@ -115,9 +107,16 @@ Vagrant.configure(2) do |config|
     end
   end
 
-  if local_ansible
-    provisioner = :ansible_local
-    config.vm.provision :shell, path: "tools/install-ansible.sh"
+  # Windows users need Ansible on the guest OS
+  if ENV['LOCAL_ANSIBLE'] or OS.windows?
+    # Windows host, or we got explicitly requested
+    # running ansible on the guest OS
+    local_ansible = true
+    provisioner   = "ansible_local"
+  else
+    # The default is to run Ansible on the host OS
+    local_ansible = false
+    provisioner   = :ansible
   end
 
   config.vm.provision provisioner do |ansible|
@@ -144,11 +143,11 @@ Vagrant.configure(2) do |config|
     end
 
     ansible.playbook = "site.yml"
+
     if local_ansible
-      ## Special variables needed for :ansible_local go here
-      # We install our own ansible, which is newer
-      ansible.install  = false
+      ansible.install_mode = "pip"
     end
+
   end
 
   config.vm.post_up_message = "Welcome to KohaDevBox!\nSee https://github.com/digibib/kohadevbox for details"
