@@ -10,6 +10,7 @@ skip_webinstaller: false
 create_admin_user: false
 enable_memcached: true
 enable_kohadocs: true
+sync_kohadocs: false
 elasticsearch: false
 elasticsearch_version: '5.x'
 plack: true

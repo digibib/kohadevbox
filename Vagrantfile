@@ -87,6 +87,20 @@ Vagrant.configure(2) do |config|
     end
   end
 
+  if ENV['SYNC_KOHADOCS']
+    if OS.windows?
+      unless Vagrant.has_plugin?("vagrant-vbguest")
+        raise 'The vagrant-vbguest plugin is not present, and is mandatory for SYNC_KOHADOCS on Windows! See README.md'
+      end
+
+      config.vm.synced_folder ENV['SYNC_KOHADOCS'], "/home/vagrant/kohadocs", type: "virtualbox"
+
+    else
+      # We should safely rely on NFS
+      config.vm.synced_folder ENV['SYNC_KOHADOCS'], "/home/vagrant/kohadocs", type: "nfs"
+    end
+  end
+
   if ENV['PLUGIN_REPO']
     if OS.windows?
       unless Vagrant.has_plugin?("vagrant-vbguest")
@@ -115,6 +129,10 @@ Vagrant.configure(2) do |config|
 
     if ENV['SYNC_REPO']
       ansible.extra_vars.merge!({ sync_repo: true });
+    end
+
+    if ENV['SYNC_KOHADOCS']
+      ansible.extra_vars.merge!({ sync_kohadocs: true });
     end
 
     if ENV['KOHA_ELASTICSEARCH']

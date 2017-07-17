@@ -293,6 +293,19 @@ KohaDevBox. This way you will have your working directory mounted on */home/vagr
 which can be configured in */etc/koha/sites/kohadev/koha-conf.xml* so the dev instance points
 to it (TODO: once bug 15879 is pushed, explain how to set multiple *koha_plugin_dir* entries).
 
+### SYNC_KOHADOCS
+
+Value: The path to an existing *kohadocs* repository clone.
+
+Usage:
+
+```
+  $ SYNC_KOHADOCS="/home/me/kohadocs_clone" vagrant up
+```
+
+You can use SYNC_KOHADOCS to specify an external directory to be mounted instead of cloning the
+*kohadocs* repository inside the box. The same as *SYNC_REPO*, but for kohadocs.
+
 # Working on patches
 
 When you are working on the code, you need to make sure you run each command on the right context.
