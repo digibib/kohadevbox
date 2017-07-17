@@ -3,15 +3,17 @@
 galaxy_info:
   author: Magnus Enger and Tomás Cohen Arazi
   license: GPLv3
-  min_ansible_version: 1.6
+  min_ansible_version: 2.1
   platforms:
     - name: Ubuntu
       versions:
         - trusty
+        - xenial
     - name: Debian
       versions:
         - wheezy
         - jessie
+        - stretch
   categories:
      - web
 dependencies: []

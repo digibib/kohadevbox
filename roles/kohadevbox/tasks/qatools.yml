@@ -16,6 +16,8 @@
     - libtest-differences-perl
     - libdbd-sqlite2-perl
     - codespell
+    - libdbix-class-timestamp-perl
+    - libmodule-install-perl
   become: yes
 
 - name: Koha QA tools | CPAN dependencies
@@ -26,6 +28,7 @@
   with_items:
     - DBD::SQLite
     - HTTPD::Bench::ApacheBench
+    - MooseX::Attribute::ENV
     - Test::DBIx::Class
   retries: 5
   delay: 1
