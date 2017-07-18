@@ -107,16 +107,15 @@ Vagrant.configure(2) do |config|
     end
   end
 
-  # Windows users need Ansible on the guest OS
+  # The default is to run Ansible on the host OS
+  local_ansible = false
+  provisioner   = :ansible
+
   if ENV['LOCAL_ANSIBLE'] or OS.windows?
     # Windows host, or we got explicitly requested
     # running ansible on the guest OS
     local_ansible = true
     provisioner   = "ansible_local"
-  else
-    # The default is to run Ansible on the host OS
-    local_ansible = false
-    provisioner   = :ansible
   end
 
   config.vm.provision provisioner do |ansible|
