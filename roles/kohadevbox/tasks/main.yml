@@ -41,6 +41,8 @@
   - include: less.yml
     become: yes
 
+  - include: remote-debugger.yml
+
   - include: sample_data.yml
 
   - include: plack.yml

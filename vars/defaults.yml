@@ -15,6 +15,13 @@ elasticsearch: false
 elasticsearch_version: '5.x'
 plack: true
 
+remote_debugger: false
+remote_debugger_dir: /home/vagrant/dbgp
+remote_debugger_baseurl: "http://downloads.activestate.com/Komodo/releases/10.2.3/remotedebugging"
+remote_debugger_package: "Komodo-PerlRemoteDebugging-10.2.3-89902-linux-x86_64"
+remote_debugger_location: "localhost:9000"
+remote_debugger_key: "''"
+
 # Set mysql_engine: mysql | mariadb
 mysql_engine: mysql
 # Set to "*" to listen on all interfaces
@@ -26,7 +33,7 @@ koha_official_repo_key: http://debian.koha-community.org/koha/gpg.asc
 koha_official_repo_distribution: unstable
 
 koha_custom_repo_origin: apt.abunchofthings.net
-koha_custom_repo: '[trusted=yes] https://{{ koha_custom_repo_origin }}/koha-nightly'
+koha_custom_repo: '[trusted=yes] http://{{ koha_custom_repo_origin }}/koha-nightly'
 koha_custom_repo_has_key: no
 koha_custom_repo_key:
 koha_custom_repo_distribution: unstable

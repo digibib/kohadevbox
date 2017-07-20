@@ -1,0 +1,18 @@
+- name: Remote debugger | Create destination dir
+  file:
+    path: "{{ remote_debugger_dir }}"
+    state: directory
+    mode: 0755
+
+- name: Remote debugger | Extract Komodo remote debugger
+  unarchive:
+    src: "{{ remote_debugger_baseurl }}/{{ remote_debugger_package }}.tar.gz"
+    dest: "{{ remote_debugger_dir }}"
+    remote_src: True
+
+- name: Remote debugger | Install koha-plack-debug
+  template:
+    src: koha-plack-debug.j2
+    dest: /usr/sbin/koha-plack-debug
+    mode: 0755
+  become: yes

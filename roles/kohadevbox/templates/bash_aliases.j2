@@ -26,3 +26,6 @@ alias reset_all='mysql -u koha_{{ koha_instance_name }} -p{{ koha_db_password }}
                  perl {{ misc4dev_dir }}/do_all_you_can_do.pl --instance {{ koha_instance_name }} --userid {{ koha_admin_user }} --password {{ koha_admin_pass }} ; \
                  restart_all'
 
+alias plack_debug_start='sudo /usr/sbin/koha-plack-debug --start --debugger --debugger-path {{ remote_debugger_dir }}/{{ remote_debugger_package }} \
+                                                            --debugger-location {{ remote_debugger_location }} --debugger-key {{ remote_debugger_key }} \
+                                                            {{ koha_instance_name }}'
