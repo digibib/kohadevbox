@@ -50,6 +50,7 @@
 # kohadocs_git_repo: https://gitlab.com/koha-community-devs-users/kohadocs.git
 # kohadocs_git_branch: master
 
+# koha_dir: "/home/vagrant/kohaclone"
 # koha_instance_name: kohadev
 # koha_domain: .myDNSname.org
 # koha_intra_port: 8080
