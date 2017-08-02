@@ -13,6 +13,7 @@
       - apache2
       - libapache2-mpm-itk
       - libdata-printer-perl
+      - mlocate
       - perltidy
       - pmtools
       - memcached
@@ -37,9 +38,3 @@
       state: started
       enabled: yes
     when: enable_memcached
-
-  - name: Install mlocate | Install mlocate for later initialization
-    apt:
-      name: mlocate
-      state: latest
-      force: yes
