@@ -42,6 +42,7 @@
     become: yes
 
   - include: remote-debugger.yml
+    when: remote_debugger
 
   - include: sample_data.yml
 
