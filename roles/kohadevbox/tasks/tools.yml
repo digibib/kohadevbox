@@ -17,6 +17,7 @@
       - perltidy
       - pmtools
       - memcached
+      - ntp
 
   - name: Tools | Install extra tools
     apt:
