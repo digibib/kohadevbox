@@ -289,7 +289,7 @@ Usage:
 ```
 
 You can use PLUGIN_REPO to have Vagrant mount your Koha plugin development directory within
-KohaDevBox. This way you will have your working directory mounted on */home/vagrant/koha_plugin*
+KohaDevBox. This way you will have your working directory mounted on *{{ home_dir }}/koha_plugin*
 which can be configured in */etc/koha/sites/kohadev/koha-conf.xml* so the dev instance points
 to it (TODO: once bug 15879 is pushed, explain how to set multiple *koha_plugin_dir* entries).
 

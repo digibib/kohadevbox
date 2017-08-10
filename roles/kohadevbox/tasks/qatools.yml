@@ -43,7 +43,7 @@
 - name: Koha QA tools | Set perlcritic for the vagrant user
   file:
     src: "{{ koha_qa_dir }}/perlcriticrc"
-    dest: "{{ vagrant_home_dir }}/.perlcriticrc"
+    dest: "{{ home_dir }}/.perlcriticrc"
     state: link
 
 - name: Koha QA tools | Set perlcritic for the instance user

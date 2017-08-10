@@ -1,6 +1,6 @@
 - name: Koha manual | Clone repository
   git:
     repo: "{{ kohadocs_git_repo }}"
-    dest: /home/vagrant/kohadocs
+    dest: "{{ home_dir }}/kohadocs"
     version: "{{ kohadocs_git_branch }}"
   when: enable_kohadocs and not sync_kohadocs

@@ -117,25 +117,28 @@ Vagrant.configure(2) do |config|
         raise 'The vagrant-vbguest plugin is not present, and is mandatory for SYNC_KOHADOCS on Windows! See README.md'
       end
 
-      config.vm.synced_folder ENV['SYNC_KOHADOCS'], "/home/vagrant/kohadocs", type: "virtualbox"
+      config.vm.synced_folder ENV['SYNC_KOHADOCS'], vconfig['kohadocs_dir'], type: "virtualbox"
 
     else
       # We should safely rely on NFS
-      config.vm.synced_folder ENV['SYNC_KOHADOCS'], "/home/vagrant/kohadocs", type: "nfs"
+      config.vm.synced_folder ENV['SYNC_KOHADOCS'], vconfig['kohadocs_dir'], type: "nfs"
     end
   end
 
   if ENV['PLUGIN_REPO']
+
+    plugin_dir = vconfig['home_dir'] + "/koha_plugin"
+
     if OS.windows?
       unless Vagrant.has_plugin?("vagrant-vbguest")
         raise 'The vagrant-vbguest plugin is not present, and is mandatory for PLUGIN_REPO on Windows! See README.md'
       end
 
-      config.vm.synced_folder ENV['PLUGIN_REPO'], "/home/vagrant/koha_plugin", type: "virtualbox"
+      config.vm.synced_folder ENV['PLUGIN_REPO'], plugin_dir, type: "virtualbox"
 
     else
       # We should safely rely on NFS
-      config.vm.synced_folder ENV['PLUGIN_REPO'], "/home/vagrant/koha_plugin", type: "nfs"
+      config.vm.synced_folder ENV['PLUGIN_REPO'], plugin_dir, type: "nfs"
     end
   end
 
