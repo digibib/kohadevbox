@@ -1,6 +1,3 @@
-- name: Koha packages tweaks | Replace koha-* scripts
-  shell: perl {{ misc4dev_dir }}/cp_debian_files.pl
-
 - name: Koha packages tweaks | Use our koha-sites.conf file
   template:
     src: koha-sites.conf.j2
