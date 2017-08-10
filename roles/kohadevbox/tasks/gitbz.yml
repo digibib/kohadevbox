@@ -1,4 +1,4 @@
-# Tasks required to have git-bz working for the vagrant user
+# Tasks required to have git-bz working for {{ user }}
 - name: Git-bz | Clone repository
   git:
     repo: "{{ gitbz_repo }}"

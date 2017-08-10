@@ -2,6 +2,8 @@
 ---
 
 home_dir: /home/vagrant
+user: vagrant
+group: vagrant
 
 ssh_key_from_host: false
 

@@ -1,4 +1,4 @@
-# Tasks required to have the misc4dev working for the vagrant user
+# Tasks required to have the misc4dev working for {{ user }}
 
 - name: misc4dev | Clone the misc4dev repo
   git:

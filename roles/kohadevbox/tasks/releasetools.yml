@@ -1,4 +1,4 @@
-# Tasks required to have the release-tools working for the vagrant user
+# Tasks required to have the release-tools working for {{ user }}
 - name: Release tools | Packaged dependencies
   become: yes
   apt:

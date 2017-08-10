@@ -1,4 +1,4 @@
-# Tasks required to have Koha QA Tools working for the vagrant user
+# Tasks required to have Koha QA Tools working for {{ user }}
 - name: Koha QA tools | Packaged dependencies
   apt:
     name: "{{ item }}"
@@ -40,7 +40,7 @@
     version: "{{ koha_qa_version }}"
     accept_hostkey: yes
 
-- name: Koha QA tools | Set perlcritic for the vagrant user
+- name: Koha QA tools | Set perlcritic for {{ user }}
   file:
     src: "{{ koha_qa_dir }}/perlcriticrc"
     dest: "{{ home_dir }}/.perlcriticrc"
