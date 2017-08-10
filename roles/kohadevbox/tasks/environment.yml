@@ -6,24 +6,24 @@
     template:
       src: gitconfig.j2
       dest: "{{ home_dir }}/.gitconfig"
-      owner: {{ user }}
-      group: {{ group }}
+      owner: "{{ user }}"
+      group: "{{ group }}"
       mode: 0644
 
   - name: Environment | Set Bash configuration
     template:
       src: bashrc.j2
       dest: "{{ home_dir }}/.bashrc"
-      owner: {{ user }}
-      group: {{ group }}
+      owner: "{{ user }}"
+      group: "{{ group }}"
       mode: 0644
 
   - name: Environment | Set some Bash aliases
     template:
       src: bash_aliases.j2
       dest: "{{ home_dir }}/.bash_aliases"
-      owner: {{ user }}
-      group: {{ group }}
+      owner: "{{ user }}"
+      group: "{{ group }}"
       mode: 0644
 
   - name: Environment | Set up vimrc
@@ -38,8 +38,8 @@
     copy:
       src: ~/.ssh/id_rsa.pub
       dest: "{{ home_dir }}/.ssh/id_rsa.pub"
-      owner: {{ user }}
-      group: {{ group }}
+      owner: "{{ user }}"
+      group: "{{ group }}"
       mode: 0600
     when: ssh_key_from_host
 
@@ -47,8 +47,8 @@
     copy:
       src: ~/.ssh/id_rsa
       dest: "{{ home_dir }}/.ssh/id_rsa"
-      owner: {{ user }}
-      group: {{ group }}
+      owner: "{{ user }}"
+      group: "{{ group }}"
       mode: 0600
     when: ssh_key_from_host
 
