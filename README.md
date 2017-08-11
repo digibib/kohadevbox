@@ -110,10 +110,16 @@ at these addresses:
 * http://localhost:8080/ Public interface (Apache)
 * http://localhost:8081/ Staff interface (Apache)
 
-Until issue #2 has been fixed, you need to log in to the Web UI with the
-database user. It defaults to login: `koha_kohadev` and password: `password`
+By default, on the staff interface, it will launch the web installer. You can follow the install
+wizzard. The required credentials (DB user and password) default to `koha_kohadev` and password
+respectively.
 
-This can be changed before spinning the new box in user.yml.
+You can change the default password on your *vars/user.yml* file before spinning the new box:
+
+```
+  # koha_db_password: password
+  koha_db_password: your_favourite_password
+```
 
 To log into the newly created box:
 
