@@ -143,8 +143,17 @@ To destroy the box and all its contents:
 
 ## Aliases
 
-Some aliases are provided to help reduce typing:
+KohaDevBox ships some aliases to improve productivity. They are divided in two,
+depending on the user in which the alias is defined.
 
+Aliases for the *instance* user require that you start a shell with that user in
+order to be used. This is done like this:
+
+```
+  $ sudo koha-shell kohadev
+```
+
+### **vagrant** user
 * koha-intra-err - tail the intranet error log
 * koha-opac-err - tail the OPAC error log
 * koha-plack-log - tail the Plack access log
@@ -160,6 +169,11 @@ Some aliases are provided to help reduce typing:
                     * update the debian files
                     * copy the plack configuration file
                     * restart plack
+
+### **kohadev** user
+* **qa**: Run the QA scripts on the current branch. For example: *qa -c 2 -v 2*
+* **prove_debug**: Run the *prove* command with all parameters needed for starting
+  a remote debugging session.
 
 ## Environment variables
 
