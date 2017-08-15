@@ -7,3 +7,7 @@ export TEST_QA=1
 
 # Alias for the Koha QA tool
 alias qa="{{ home_dir }}/qa-test-tools/koha-qa.pl"
+alias prove_debug='PERL5LIB="{{ remote_debugger_dir }}/{{ remote_debugger_package }}":$PERL5LIB \
+                   PERL5DB="BEGIN { require q({{ remote_debugger_dir }}/{{ remote_debugger_package }}/perl5db.pl) }" \
+                   PERLDB_OPTS="RemotePort={{ remote_debugger_location }} async=1 LogFile=/var/log/koha/{{ koha_instance_name }}/plack-debug.log" \
+                   perl -d'
