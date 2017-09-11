@@ -266,6 +266,20 @@ the plugin is not present and SYNC_REPO is set, it will fail with an error.
    export SYNC_REPO="c:/Users/Me/kohaclone/"
    ```
 
+### SMB
+
+Value: 1
+
+Usage:
+
+```
+  $ SMB=1 SYNC_REPO="/home/me/kohaclone" vagrant up
+```
+
+If you are running on Windows and you have administrative privileges on the computer
+and you wish to make use of the SYNC_REPO functionality, enable the SMB variable in
+order to use SYNC_REPO.
+
 ### SKIP_WEBINSTALLER
 
 Value: 1

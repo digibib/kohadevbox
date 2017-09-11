@@ -58,7 +58,11 @@ Vagrant.configure(2) do |config|
 
   config.vm.hostname = "kohadevbox"
   if OS.windows?
-    config.vm.synced_folder ".", "/vagrant", type: "smb"
+    if ENV['SMB']
+      config.vm.synced_folder ".", "/vagrant", type: "smb"
+    else
+      config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
+    end
   end
 
   config.vm.define "stretch", autostart: false do |stretch|
@@ -102,8 +106,12 @@ Vagrant.configure(2) do |config|
       unless Vagrant.has_plugin?("vagrant-vbguest")
         raise 'The vagrant-vbguest plugin is not present, and is mandatory for SYNC_REPO on Windows! See README.md'
       end
-
-      config.vm.synced_folder sync_repo_dir, vconfig['koha_dir'], type: "smb"
+    
+      if ENV['SMB']
+        config.vm.synced_folder sync_repo_dir, vconfig['koha_dir'], type: "smb"
+      else
+        config.vm.synced_folder sync_repo_dir, vconfig['koha_dir'], type: "virtualbox"
+      end
 
     else
       # We should safely rely on NFS
@@ -117,7 +125,11 @@ Vagrant.configure(2) do |config|
         raise 'The vagrant-vbguest plugin is not present, and is mandatory for SYNC_KOHADOCS on Windows! See README.md'
       end
 
-      config.vm.synced_folder ENV['SYNC_KOHADOCS'], vconfig['kohadocs_dir'], type: "smb"
+      if ENV['SMB']
+        config.vm.synced_folder ENV['SYNC_KOHADOCS'], vconfig['kohadocs_dir'], type: "smb"
+      else
+        config.vm.synced_folder ENV['SYNC_KOHADOCS'], vconfig['kohadocs_dir'], type: "virtualbox"
+      end
 
     else
       # We should safely rely on NFS
@@ -134,7 +146,11 @@ Vagrant.configure(2) do |config|
         raise 'The vagrant-vbguest plugin is not present, and is mandatory for PLUGIN_REPO on Windows! See README.md'
       end
 
-      config.vm.synced_folder ENV['PLUGIN_REPO'], plugin_dir, type: "smb"
+      if ENV['SMB']
+        config.vm.synced_folder ENV['PLUGIN_REPO'], plugin_dir, type: "smb"
+      else
+        config.vm.synced_folder ENV['PLUGIN_REPO'], plugin_dir, type: "virtualbox"
+      end
 
     else
       # We should safely rely on NFS
