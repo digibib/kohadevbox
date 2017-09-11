@@ -175,7 +175,7 @@ order to be used. This is done like this:
 * **prove_debug**: Run the *prove* command with all parameters needed for starting
   a remote debugging session.
 
-Kohadevbox on Windows
+## Kohadevbox on Windows
 
 Running kohadevbox on Windows requires the use of a native Windows feature called
 Samba (usually written as its acronym "SMB" or "smb"). On Windows, after running
