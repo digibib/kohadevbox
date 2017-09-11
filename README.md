@@ -175,6 +175,12 @@ order to be used. This is done like this:
 * **prove_debug**: Run the *prove* command with all parameters needed for starting
   a remote debugging session.
 
+Kohadevbox on Windows
+
+Running kohadevbox on Windows requires the use of a native Windows feature called
+Samba (usually written as its acronym "SMB" or "smb"). On Windows, after running
+`vagrant up` you will be prompted for your Windows username and password.
+
 ## Environment variables
 
 Some of the behaviour of KohaDevBox can be altered through the use of environment
@@ -239,6 +245,10 @@ the plugin is not present and SYNC_REPO is set, it will fail with an error.
 
    ```
    export SYNC_REPO="c:\\Users\\Me\\kohaclone\\"
+   ```
+* UPDATE: Windows also supports paths with forward slash so it's possible to use:
+   ```
+   export SYNC_REPO="c:/Users/Me/kohaclone/"
    ```
 
 ### SKIP_WEBINSTALLER
