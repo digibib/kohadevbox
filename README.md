@@ -181,6 +181,21 @@ Running kohadevbox on Windows requires the use of a native Windows feature calle
 Samba (usually written as its acronym "SMB" or "smb"). On Windows, after running
 `vagrant up` you will be prompted for your Windows username and password.
 
+In order for SMB functionality to work on Vagrant, [PowerShell 5 is required](https://www.microsoft.com/en-us/download/details.aspx?id=50395).
+
+PowerShell's version can be checked with the following command after opening PowerShell:
+
+```
+  PS C:\> $PSVersionTable.PSVersion
+```
+
+### **Default PowerShell version by Windows version**
+
+* Windows 7   - PowerShell 2.0
+* Windows 8   - PowerShell 3.0
+* Windows 8.1 - PowerShell 4.0
+* Windows 10  - PowerShell 5.0
+
 ## Environment variables
 
 Some of the behaviour of KohaDevBox can be altered through the use of environment
