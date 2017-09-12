@@ -36,6 +36,10 @@
       state: latest
       force: yes
 
+  - name: Elasticsearch {{ elasticsearch_version }} | Install ICU analysis plugin
+    shell: /usr/share/elasticsearch/bin/elasticsearch-plugin install analysis-icu
+    become: yes
+
   - name: Elasticsearch {{ elasticsearch_version }} | Run Elasticsearch on startup
     service:
       name: elasticsearch
