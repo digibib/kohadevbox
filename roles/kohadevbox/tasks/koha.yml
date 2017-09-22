@@ -34,3 +34,8 @@
     name: koha-common
     state: latest
     force: yes
+
+- name: Install Koha | Mojolicious::Plugin::OpenAPI
+  apt:
+    name: libmojolicious-plugin-openapi-perl
+    state: latest
