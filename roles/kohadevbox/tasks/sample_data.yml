@@ -1,6 +1,6 @@
   - name: Sample data | Load
     become: yes
-    shell: koha-shell {{ koha_instance_name }} -c "{{ misc4dev_dir }}/populate_db.pl --marcflavour {{ koha_marc_flavour }}"
+    shell: koha-shell {{ koha_instance_name }} -c "{{ misc4dev_dir }}/populate_db.pl --marcflavour {{ koha_marc_flavour }} --opac-base-url http://{{ koha_opac_prefix }}{{ koha_instance_name }}{{ koha_opac_suffix }}{{ koha_domain }}:{{ koha_opac_port }} --intranet-base-url http://{{ koha_intra_prefix }}{{ koha_instance_name }}{{ koha_intra_suffix }}{{ koha_domain }}:{{ koha_intra_port }}"
     when: skip_webinstaller
 
   - name: Sample data | Create Koha admin user ({{ koha_admin_user }} / {{ koha_admin_pass }})
