@@ -18,7 +18,10 @@ vconfig = YAML.load_file("#{host_config_dir}/vars/defaults.yml")
 
 # Load user VM configuration if exists.
 if File.file?("#{host_config_dir}/vars/user.yml")
-  vconfig.merge!(YAML.load_file("#{host_config_dir}/vars/user.yml"))
+  user_prefs = YAML.load_file("#{host_config_dir}/vars/user.yml");
+  if !user_prefs == nil
+    vconfig.merge!(user_prefs)
+  end
 end
 
 def walk(obj, &fn)
