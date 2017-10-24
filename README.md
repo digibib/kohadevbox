@@ -158,6 +158,7 @@ order to be used. This is done like this:
 * koha-opac-err - tail the OPAC error log
 * koha-plack-log - tail the Plack access log
 * koha-plack-err - tail de Plack error log
+* kshell - get into the instance user, on the kohaclone dir
 * koha-user - get the db/admin username from koha-conf.xml
 * koha-pass - get the db/admin password from koha-conf.xml
 * dbic - recreate the schema files using a fresh DB
@@ -405,6 +406,13 @@ touch your instance's DB.
   $ sudo koha-shell kohadev
   k$ cd kohaclone
   k$ prove t/<paste your favourite test>
+``
+
+or use the alias:
+
+```
+  $ kshell
+ k$ prove t/<paste your favourite test>
 ```
 
 ## Run qa-test-tools
@@ -412,7 +420,7 @@ touch your instance's DB.
 An alias is set up so that you can easily run Koha's qa-test-tools when you are
 inside your Koha repository clone:
 
-```
+``
   $ sudo koha-shell kohadev
   k$ cd kohaclone
   k$ qa -c 7 -v 2

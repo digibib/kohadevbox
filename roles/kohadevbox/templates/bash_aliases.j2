@@ -7,6 +7,9 @@ alias koha-intra-err="sudo tail -f /var/log/koha/{{ koha_instance_name }}/intra
 alias koha-plack-log="sudo tail -f /var/log/koha/{{ koha_instance_name }}/plack.log"
 alias koha-plack-err="sudo tail -f /var/log/koha/{{ koha_instance_name }}/plack-error.log"
 
+# Alias for getting into the {{ koha_instance }} user, inside {{ koha_dir }}
+alias kshell='cd {{ koha_dir }} ; sudo koha-shell {{ koha_instance }}'
+
 # Aliases for getting the db/admin user and password for our instance
 alias koha-user="sudo xmlstarlet sel -t -v 'yazgfs/config/user' -n '/etc/koha/sites/{{ koha_instance_name }}/koha-conf.xml'"
 alias koha-pass="sudo xmlstarlet sel -t -v 'yazgfs/config/pass' -n '/etc/koha/sites/{{ koha_instance_name }}/koha-conf.xml'"
