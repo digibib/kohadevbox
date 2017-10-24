@@ -406,7 +406,7 @@ touch your instance's DB.
   $ sudo koha-shell kohadev
   k$ cd kohaclone
   k$ prove t/<paste your favourite test>
-``
+```
 
 or use the alias:
 
@@ -420,7 +420,7 @@ or use the alias:
 An alias is set up so that you can easily run Koha's qa-test-tools when you are
 inside your Koha repository clone:
 
-``
+```
   $ sudo koha-shell kohadev
   k$ cd kohaclone
   k$ qa -c 7 -v 2
