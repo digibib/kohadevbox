@@ -26,7 +26,13 @@ alias restart_all="sudo service memcached restart ; sudo service apache2 reload 
 # Alias for reseting everything koha-related
 alias reset_all='mysql -u koha_{{ koha_instance_name }} -p{{ koha_db_password }} -e"DROP DATABASE koha_{{ koha_instance_name }}" ; \
                  mysql -u koha_{{ koha_instance_name }} -p{{ koha_db_password }} -e"CREATE DATABASE koha_{{ koha_instance_name }}" ; \
-                 perl {{ misc4dev_dir }}/do_all_you_can_do.pl --instance {{ koha_instance_name }} --userid {{ koha_admin_user }} --password {{ koha_admin_pass }} ; \
+                 perl {{ misc4dev_dir }}/do_all_you_can_do.pl \
+                             --instance {{ koha_instance_name }} \
+                             --userid {{ koha_admin_user }} \
+                             --password {{ koha_admin_pass }} \
+                             --koha_dir {{ koha_dir }} \
+                             --opac-base-url {{ koha_opac_prefix }}{{ koha_instance_name }}{{ koha_opac_suffix }}{{ koha_domain }}:{{ koha_opac_port }} \
+                             --intranet-base-url {{ koha_intra_prefix }}{{ koha_instance_name }}{{ koha_intra_suffix }}{{ koha_domain }}:{{ koha_intra_port }} ; \
                  restart_all'
 
 alias plack_debug_start='sudo /usr/sbin/koha-plack-debug --start --debugger --debugger-path {{ remote_debugger_dir }}/{{ remote_debugger_package }} \

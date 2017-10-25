@@ -52,3 +52,10 @@
       mode: 0600
     when: ssh_key_from_host
 
+  - name: Environment | Update /etc/hosts file (opac domain)
+    shell: echo "127.0.0.1    {{ koha_opac_prefix }}{{ koha_instance_name }}{{ koha_opac_suffix }}{{ koha_domain }}" >> /etc/hosts
+    become: yes
+
+  - name: Environment | Update /etc/hosts file (intranet domain)
+    shell: echo "127.0.0.1    {{ koha_intra_prefix }}{{ koha_instance_name }}{{ koha_intra_suffix }}{{ koha_domain }}" >> /etc/hosts
+    become: yes

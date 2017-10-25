@@ -1,7 +1,7 @@
 export KOHA_USER={{ koha_admin_user }}
 export KOHA_PASS={{ koha_admin_pass }}
-export KOHA_INTRANET_URL=http://localhost:8080
-export KOHA_OPAC_URL=http://localhost:80
+export KOHA_INTRANET_URL=http://{{ koha_intra_prefix }}{{ koha_instance_name }}{{ koha_intra_suffix }}{{ koha_domain }}:{{ koha_intra_port }}
+export KOHA_OPAC_URL=http://{{ koha_opac_prefix }}{{ koha_instance_name }}{{ koha_opac_suffix }}{{ koha_domain }}:{{ koha_opac_port }}
 export PERL5LIB="{{ koha_dir }}:{{ koha_qa_dir }}"
 export TEST_QA=1
 
