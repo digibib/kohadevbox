@@ -7,7 +7,7 @@ alias koha-intra-err="sudo tail -f /var/log/koha/{{ koha_instance_name }}/intra
 alias koha-plack-log="sudo tail -f /var/log/koha/{{ koha_instance_name }}/plack.log"
 alias koha-plack-err="sudo tail -f /var/log/koha/{{ koha_instance_name }}/plack-error.log"
 
-# Alias for getting into the {{ koha_instance }} user, inside {{ koha_dir }}
+# Alias for getting into the {{ koha_instance_name }} user, inside {{ koha_dir }}
 alias kshell='cd {{ koha_dir }} ; sudo koha-shell {{ koha_instance_name }}'
 
 # Aliases for getting the db/admin user and password for our instance
