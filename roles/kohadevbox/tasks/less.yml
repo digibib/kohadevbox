@@ -14,7 +14,12 @@
     name: nodejs
     state: latest
 
-- name: Less | Install lessc globally
+- name: Less | Install Less globally
   npm:
     name: less
+    global: yes
+
+- name: Less | Install the Clean CSS plugin for Less globally
+  npm:
+    name: less-plugin-clean-css
     global: yes
