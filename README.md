@@ -162,6 +162,7 @@ order to be used. This is done like this:
 * koha-user - get the db/admin username from koha-conf.xml
 * koha-pass - get the db/admin password from koha-conf.xml
 * dbic - recreate the schema files using a fresh DB
+* less-opac - regenerates opac.css from opac.less
 * restart_all - restarts memcached, apache and plack
 * reset_all   - Drop and recreate the koha database
                 Call the misc4dev/do_all_you_can_do.pl script

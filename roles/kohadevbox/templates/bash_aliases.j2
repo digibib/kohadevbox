@@ -14,6 +14,11 @@ alias kshell='cd {{ koha_dir }} ; sudo koha-shell {{ koha_instance_name }}'
 alias koha-user="sudo xmlstarlet sel -t -v 'yazgfs/config/user' -n '/etc/koha/sites/{{ koha_instance_name }}/koha-conf.xml'"
 alias koha-pass="sudo xmlstarlet sel -t -v 'yazgfs/config/pass' -n '/etc/koha/sites/{{ koha_instance_name }}/koha-conf.xml'"
 
+# Aliases for dealing with Less compilation
+alias less-opac="lessc --clean-css='--s0 --advanced --compatibility=ie7' \
+                    {{ koha_dir }}/koha-tmpl/opac-tmpl/bootstrap/less/opac.less \
+                  > {{ koha_dir }}/koha-tmpl/opac-tmpl/bootstrap/css/opac.css"
+
 # Alias to recreate the schema files
 alias dbic="mysql -uroot -e 'DROP DATABASE IF EXISTS dbic; CREATE DATABASE dbic' ; \
             cd '{{ koha_dir }}' ; \
