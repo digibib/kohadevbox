@@ -35,7 +35,11 @@
     state: latest
     force: yes
 
-- name: Install Koha | Mojolicious::Plugin::OpenAPI
+- name: Install Koha | Missing dependencies
   apt:
-    name: libmojolicious-plugin-openapi-perl
+    name: "{{ item }}"
     state: latest
+    force: yes
+  with_items:
+    - libsearch-elasticsearch-perl
+    - libmojolicious-plugin-openapi-perl
