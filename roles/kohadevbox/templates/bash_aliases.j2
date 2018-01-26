@@ -46,11 +46,11 @@ alias reset_all='read -p "This action will erase all your data. Are you sure? (y
                     echo "Aborted"
                  fi'
 
-alias plack_debug_start='sudo koha-plack --start \
+alias start_plack_debug='sudo koha-plack --start \
                                          --debugger \
-                                         --debugger-path {{ remote_debugger_dir }}/{{ remote_debugger_package }} \
-                                         --debugger-location {{ remote_debugger_location }} \
-                                         --debugger-key {{ remote_debugger_key }} \
+                                         --debugger-path "{{ remote_debugger_dir }}/{{ remote_debugger_package }}" \
+                                         --debugger-location "{{ remote_debugger_location }}" \
+                                         --debugger-key "{{ remote_debugger_key }}" \
                                          {{ koha_instance_name }}'
 
 alias start_selenium='Xvfb :1 -screen 0 1024x768x24 > /dev/null 2>&1 & \

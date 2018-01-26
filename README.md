@@ -171,6 +171,7 @@ order to be used. This is done like this:
                     * update the debian files
                     * copy the plack configuration file
                     * restart plack
+* start_plack_debug - Start Plack in debug mode, trying to connect to a remote debugger if set.
 * start_selenium - Start Selenium (requires **selenium: true** in _vars/user.yml_)
 
 Note: it is recommended to run __start_selenium__ on a separate terminal because it doesn't
