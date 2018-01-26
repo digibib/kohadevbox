@@ -55,6 +55,7 @@ Now you can clone the KohaDevBox repository to your local machine and cd into
 the directory that was created by the cloning operation:
 
 ```
+  $ mkdir -p ~/git ; cd ~/git
   $ git clone https://github.com/digibib/kohadevbox.git
   $ cd kohadevbox
   $ git checkout origin/master
@@ -170,6 +171,10 @@ order to be used. This is done like this:
                     * update the debian files
                     * copy the plack configuration file
                     * restart plack
+* start_selenium - Start Selenium (requires **selenium: true** in _vars/user.yml_)
+
+Note: it is recommended to run __start_selenium__ on a separate terminal because it doesn't
+free the prompt until the process is stopped.
 
 ### **kohadev** user
 * **qa**: Run the QA scripts on the current branch. For example: *qa -c 2 -v 2*
