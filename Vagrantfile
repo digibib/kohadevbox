@@ -76,14 +76,6 @@ Vagrant.configure(2) do |config|
     jessie.vm.box = "debian/jessie64"
   end
 
-  config.vm.define "wheezy", autostart: false do |wheezy|
-    wheezy.vm.box = "debian/wheezy64"
-  end
-
-  config.vm.define "trusty", autostart: false do |trusty|
-    trusty.vm.box = "ubuntu/trusty64"
-  end
-
   config.vm.define "xenial", autostart: false do |xenial|
     xenial.vm.box = "geerlingguy/ubuntu1604"
   end
