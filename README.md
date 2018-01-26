@@ -154,33 +154,35 @@ order to be used. This is done like this:
 ```
 
 ### **vagrant** user
-* koha-intra-err - tail the intranet error log
-* koha-opac-err - tail the OPAC error log
-* koha-plack-log - tail the Plack access log
-* koha-plack-err - tail de Plack error log
-* kshell - get into the instance user, on the kohaclone dir
-* koha-user - get the db/admin username from koha-conf.xml
-* koha-pass - get the db/admin password from koha-conf.xml
-* dbic - recreate the schema files using a fresh DB
-* less-opac - regenerates opac.css from opac.less
-* restart_all - restarts memcached, apache and plack
-* reset_all   - Drop and recreate the koha database
-                Call the misc4dev/do_all_you_can_do.pl script
-                    * populate the DB with the sample data
-                    * create a superlibrarian user
-                    * update the debian files
-                    * copy the plack configuration file
-                    * restart plack
-* start_plack_debug - Start Plack in debug mode, trying to connect to a remote debugger if set.
-* start_selenium - Start Selenium (requires **selenium: true** in _vars/user.yml_)
+* **koha-intra-err**:    tail the intranet error log
+* **koha-opac-err**:     tail the OPAC error log
+* **koha-plack-log**:    tail the Plack access log
+* **koha-plack-err**:    tail de Plack error log
+* **kshell**:            get into the instance user, on the kohaclone dir
+* **koha-user**:         get the db/admin username from koha-conf.xml
+* **koha-pass**:         get the db/admin password from koha-conf.xml
+* **dbic**:              recreate the schema files using a fresh DB
+* **less-opac**:         regenerates opac.css from opac.less
+* **restart_all**:       restarts memcached, apache and plack
+* **reset_all**:         Drop and recreate the koha database [*]
+* **start_plack_debug**: Start Plack in debug mode, trying to connect to a remote debugger if set.
+* **start_selenium**:    Start Selenium (requires **selenium: true** in _vars/user.yml_)
 
-Note: it is recommended to run __start_selenium__ on a separate terminal because it doesn't
-free the prompt until the process is stopped.
+Note: it is recommended to run __start_selenium__ or __start_plack_debug__ on a separate terminal
+because it doesn't free the prompt until the process is stopped.
+
+[*] **reset_all** actually:
+* Drops the instance's database, and creates an empty one.
+* Calls the misc4dev/do_all_you_can_do.pl script.
+* Populates the DB with the sample data.
+* Create a superlibrarian user.
+* Updates the debian files in the VM (overwrites the ones shipped by the koha-common package).
+* Updates the plack configuration file for the instance.
+* Calls **restart_all**
 
 ### **kohadev** user
-* **qa**: Run the QA scripts on the current branch. For example: *qa -c 2 -v 2*
-* **prove_debug**: Run the *prove* command with all parameters needed for starting
-  a remote debugging session.
+* **qa**:          Run the QA scripts on the current branch. For example: *qa -c 2 -v 2*
+* **prove_debug**: Run the *prove* command with all parameters needed for starting a remote debugging session.
 
 ## Kohadevbox on Windows
 
@@ -386,7 +388,7 @@ running tests.
 ## Get into the instance's user session
 
 ```
-  $ sudo koha-shell kohadev
+   $ sudo koha-shell kohadev
   k$
 ```
 
@@ -427,11 +429,26 @@ An alias is set up so that you can easily run Koha's qa-test-tools when you are
 inside your Koha repository clone:
 
 ```
-  $ sudo koha-shell kohadev
-  k$ cd kohaclone
+   $ kshell
   k$ qa -c 7 -v 2
 ```
 
+## Running the remote debugger with Plack
+
+An alias is set up so that you can easily launch the Plack process for the dev instance
+without passing all the parameters manually (they will be picked from _vars/user.yml_).
+
+Provided that you set _vars/user.yml_ correctly, in order to start the remote debugging
+session you need to stop Plack for the instance, and run the alias (all from the __vagrant__
+user):
+
+```
+  $ sudo koha-plack --stop kohadev
+  $ start_plack_debug
+```
+
+Note: it is recommended that you run it on a separate terminal (or separate tab in _byobu_/_tmux_)
+because it won't return the prompt.
 
 ## Register with Bugzilla
 
