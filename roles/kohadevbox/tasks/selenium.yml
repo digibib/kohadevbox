@@ -1,0 +1,42 @@
+---
+  - name: Selenium | Add Oracle Java 8 repository (key)
+    become: yes
+    apt_key:
+      keyserver: keyserver.ubuntu.com
+      id: 7B2C3B0889BF5709A105D03AC2518248EEA14886
+      state: present
+
+  - name: Selenium | Add Oracle Java 8 repository (repo)
+    become: yes
+    apt_repository:
+      repo: 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main'
+      state: present
+      update_cache: yes
+
+  - name: Selenium | Accept Oracle license
+    become: yes
+    shell: echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+
+  - name: Selenium | Dependencies (apt)
+    become: yes
+    apt:
+      name: "{{ item }}"
+      state: latest
+      force: yes
+    with_items:
+      - oracle-java8-installer
+      - firefox-esr
+      - xvfb
+
+  - name: Selenium | Dependencies (cpanm)
+    become: yes
+    cpanm:
+      name={{ item }}
+    with_items:
+      - Selenium::Remote::Driver
+
+  - name: Selenium | Download jar
+    get_url:
+      url: "{{ selenium_url }}"
+      dest: "{{ home_dir }}/selenium.jar"
+      mode: 0440

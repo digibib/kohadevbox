@@ -44,6 +44,9 @@
   - include: remote-debugger.yml
     when: remote_debugger
 
+  - include: selenium.yml
+    when: selenium
+
   - include: sample_data.yml
 
   - include: plack.yml
