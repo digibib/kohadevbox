@@ -26,6 +26,9 @@
 # remote_debugger_location: "localhost:9000"
 # remote_debugger_key: "''"
 
+# selenium: false
+# selenium_url: https://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar
+
 # Set mysql_engine: mysql | mariadb
 # mysql_engine: mysql
 # Set to "*" to listen on all interfaces
