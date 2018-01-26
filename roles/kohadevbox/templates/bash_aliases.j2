@@ -46,6 +46,9 @@ alias reset_all='read -p "This action will erase all your data. Are you sure? (y
                     echo "Aborted"
                  fi'
 
-alias plack_debug_start='sudo /usr/sbin/koha-plack-debug --start --debugger --debugger-path {{ remote_debugger_dir }}/{{ remote_debugger_package }} \
-                                                            --debugger-location {{ remote_debugger_location }} --debugger-key {{ remote_debugger_key }} \
-                                                            {{ koha_instance_name }}'
+alias plack_debug_start='sudo koha-plack --start \
+                                         --debugger \
+                                         --debugger-path {{ remote_debugger_dir }}/{{ remote_debugger_package }} \
+                                         --debugger-location {{ remote_debugger_location }} \
+                                         --debugger-key {{ remote_debugger_key }} \
+                                         {{ koha_instance_name }}'
