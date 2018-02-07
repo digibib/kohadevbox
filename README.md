@@ -167,6 +167,7 @@ order to be used. This is done like this:
 * **reset_all**:         Drop and recreate the koha database [*]
 * **start_plack_debug**: Start Plack in debug mode, trying to connect to a remote debugger if set.
 * **start_selenium**:    Start Selenium (requires **selenium: true** in _vars/user.yml_)
+* **updatedatabase**:    Run the updatedatabase.pl script in the right context (instance user)
 
 Note: it is recommended to run __start_selenium__ or __start_plack_debug__ on a separate terminal
 because it doesn't free the prompt until the process is stopped.
