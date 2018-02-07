@@ -28,6 +28,9 @@ alias dbic="mysql -uroot -e 'DROP DATABASE IF EXISTS dbic; CREATE DATABASE dbic'
 # Alias for restarting all needed services
 alias restart_all="sudo service memcached restart ; sudo service apache2 reload ; sudo service koha-common restart"
 
+# Alias for running updatedatabase.pl
+alias updatedatabase="sudo koha-shell {{ koha_instance_name }} -p -c 'perl {{ koha_dir }}/installer/data/mysql/updatedatabase.pl'"
+
 # Alias for reseting everything koha-related
 alias reset_all='read -p "This action will erase all your data. Are you sure? (y/N) " -n 1 -r
                  echo    # move to a new line
