@@ -53,7 +53,7 @@ koha_git_branch: master
 
 kohadocs_git_repo: https://gitlab.com/koha-community-devs-users/kohadocs.git
 kohadocs_git_branch: master
-kohadcos_dir: "{{ home_dir }}/kohadocs"
+kohadocs_dir: "{{ home_dir }}/kohadocs"
 
 koha_dir: "{{ home_dir }}/kohaclone"
 koha_instance_name: kohadev
