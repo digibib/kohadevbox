@@ -73,7 +73,9 @@ cp vars/user.yml.sample vars/user.yml
 ```
 
 And then uncomment the lines you would like to change. Usually your personal information,
-including your email and bugzilla password (see below for instructions).
+including your email and bugzilla password (see below for instructions). Don't uncomment a line if you are already satisfied with it's value. That's the default value.
+
+And don't leave a space at the begining of the line. It will break the file.
 
 ### Running Vagrant
 
