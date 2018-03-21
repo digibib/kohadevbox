@@ -39,7 +39,7 @@ If you don't have them already, you need to install some prerequisites:
 
 * Virtualbox
 
-* Vagrant (version 1.8+): http://www.vagrantup.com/downloads.html
+* Vagrant (version 2.0+): http://www.vagrantup.com/downloads.html
 
   **Note:** Ubuntu and Debian ship their own vagrant package, but don't use it. Download the latest version from the above URL.
 

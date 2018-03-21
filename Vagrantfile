@@ -165,6 +165,7 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provision provisioner do |ansible|
+    ansible.compatibility_mode = "2.0"
     ansible.extra_vars = { ansible_ssh_user: "vagrant", testing: true }
 
     if ENV['SKIP_WEBINSTALLER']
