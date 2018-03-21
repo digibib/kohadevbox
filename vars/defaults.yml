@@ -82,7 +82,7 @@ release_tools_repo: git://git.koha-community.org/release-tools.git
 release_tools_version: master
 release_tools_dir: "{{ home_dir }}/release-tools"
 
-misc4dev_repo: https://github.com/joubu/koha-misc4dev.git
+misc4dev_repo: https://gitlab.com/koha-community/koha-misc4dev.git
 misc4dev_version: master
 misc4dev_dir: "{{ home_dir }}/misc4dev"
 
