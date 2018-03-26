@@ -9,6 +9,8 @@ module OS
     end
 end
 
+Vagrant.require_version ">= 2.0.0"
+
 # Absolute path on the host machine.
 host_config_dir = File.dirname(File.expand_path(__FILE__))
 
@@ -165,7 +167,11 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provision provisioner do |ansible|
-    ansible.compatibility_mode = "2.0"
+
+    if Vagrant::VERSION > '2.0.0'
+      ansible.compatibility_mode = "2.0"
+    end
+
     ansible.extra_vars = { ansible_ssh_user: "vagrant", testing: true }
 
     if ENV['SKIP_WEBINSTALLER']
