@@ -86,7 +86,7 @@ misc4dev_repo: https://gitlab.com/koha-community/koha-misc4dev.git
 misc4dev_version: master
 misc4dev_dir: "{{ home_dir }}/misc4dev"
 
-koha_qa_repo: git://git.koha-community.org/qa-test-tools.git
+koha_qa_repo: https://gitlab.com/koha-community/qa-test-tools.git
 koha_qa_version: master
 koha_qa_dir: "{{ home_dir }}/qa-test-tools"
 
