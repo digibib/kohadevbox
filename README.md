@@ -26,7 +26,7 @@ to set up a VirtualBox. It targets the following tasks:
   your host machine.
 * A gitified Koha instance, running off the repo.
 * Git-bz set up and ready to use.
-* Koha's qa-test-tools set up and ready to use.
+* Koha's [qa-test-tools](https://gitlab.com/koha-community/qa-test-tools) set up and ready to use.
 * Koha's release-tools set up and ready to use.
 
 See the [open issues](https://github.com/digibib/kohadevbox/issues) for more to come.
