@@ -41,6 +41,43 @@ alias reset_all='read -p "This action will erase all your data. Are you sure? (y
                                 --instance {{ koha_instance_name }} {% if elasticsearch %} --elasticsearch {% endif %}\
                                 --userid {{ koha_admin_user }} \
                                 --password {{ koha_admin_pass }} \
+                                --marcflavour {{ koha_marc_flavour }} \
+                                --koha_dir {{ koha_dir }} \
+                                --opac-base-url http://{{ koha_opac_prefix }}{{ koha_instance_name }}{{ koha_opac_suffix }}{{ koha_domain }}:{{ koha_opac_port }} \
+                                --intranet-base-url http://{{ koha_intra_prefix }}{{ koha_instance_name }}{{ koha_intra_suffix }}{{ koha_domain }}:{{ koha_intra_port }}
+                    restart_all
+                 else
+                    echo "Aborted"
+                 fi'
+
+alias reset_all_marc21='read -p "This action will erase all your data. Are you sure? (y/N) " -n 1 -r
+                 echo    # move to a new line
+                 if [[ $REPLY =~ ^[Yy]$ ]]; then
+                    mysql -u koha_{{ koha_instance_name }} -p{{ koha_db_password }} -e"DROP DATABASE koha_{{ koha_instance_name }}"
+                    mysql -u koha_{{ koha_instance_name }} -p{{ koha_db_password }} -e"CREATE DATABASE koha_{{ koha_instance_name }}"
+                    perl {{ misc4dev_dir }}/do_all_you_can_do.pl \
+                                --instance {{ koha_instance_name }} {% if elasticsearch %} --elasticsearch {% endif %}\
+                                --userid {{ koha_admin_user }} \
+                                --password {{ koha_admin_pass }} \
+                                --marcflavour marc21 \
+                                --koha_dir {{ koha_dir }} \
+                                --opac-base-url http://{{ koha_opac_prefix }}{{ koha_instance_name }}{{ koha_opac_suffix }}{{ koha_domain }}:{{ koha_opac_port }} \
+                                --intranet-base-url http://{{ koha_intra_prefix }}{{ koha_instance_name }}{{ koha_intra_suffix }}{{ koha_domain }}:{{ koha_intra_port }}
+                    restart_all
+                 else
+                    echo "Aborted"
+                 fi'
+
+alias reset_all_unimarc='read -p "This action will erase all your data. Are you sure? (y/N) " -n 1 -r
+                 echo    # move to a new line
+                 if [[ $REPLY =~ ^[Yy]$ ]]; then
+                    mysql -u koha_{{ koha_instance_name }} -p{{ koha_db_password }} -e"DROP DATABASE koha_{{ koha_instance_name }}"
+                    mysql -u koha_{{ koha_instance_name }} -p{{ koha_db_password }} -e"CREATE DATABASE koha_{{ koha_instance_name }}"
+                    perl {{ misc4dev_dir }}/do_all_you_can_do.pl \
+                                --instance {{ koha_instance_name }} {% if elasticsearch %} --elasticsearch {% endif %}\
+                                --userid {{ koha_admin_user }} \
+                                --password {{ koha_admin_pass }} \
+                                --marcflavour unimarc \
                                 --koha_dir {{ koha_dir }} \
                                 --opac-base-url http://{{ koha_opac_prefix }}{{ koha_instance_name }}{{ koha_opac_suffix }}{{ koha_domain }}:{{ koha_opac_port }} \
                                 --intranet-base-url http://{{ koha_intra_prefix }}{{ koha_instance_name }}{{ koha_intra_suffix }}{{ koha_domain }}:{{ koha_intra_port }}

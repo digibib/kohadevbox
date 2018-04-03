@@ -167,6 +167,8 @@ order to be used. This is done like this:
 * **less-opac**:         regenerates opac.css from opac.less
 * **restart_all**:       restarts memcached, apache and plack
 * **reset_all**:         Drop and recreate the koha database [*]
+* **reset_all_marc21**:  Same as **reset_all**, but forcing MARC21
+* **reset_all_unimarc**: Same as **reset_all**, but forcing UNIMARC
 * **start_plack_debug**: Start Plack in debug mode, trying to connect to a remote debugger if set.
 * **start_selenium**:    Start Selenium (requires **selenium: true** in _vars/user.yml_)
 * **updatedatabase**:    Run the updatedatabase.pl script in the right context (instance user)
@@ -177,7 +179,7 @@ because it doesn't free the prompt until the process is stopped.
 [*] **reset_all** actually:
 * Drops the instance's database, and creates an empty one.
 * Calls the misc4dev/do_all_you_can_do.pl script.
-* Populates the DB with the sample data.
+* Populates the DB with the sample data, using the configured MARC flavour.
 * Create a superlibrarian user.
 * Updates the debian files in the VM (overwrites the ones shipped by the koha-common package).
 * Updates the plack configuration file for the instance.
