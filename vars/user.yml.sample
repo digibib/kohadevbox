@@ -51,7 +51,7 @@
 # koha_git_repo: http://git.koha-community.org/koha.git
 # koha_git_branch: master
 
-# kohadocs_git_repo: https://gitlab.com/koha-community-devs-users/kohadocs.git
+# kohadocs_git_repo: https://gitlab.com/koha-community/koha-manual.git
 # kohadocs_git_branch: master
 # kohadocs_dir: "{{ home_dir }}/kohadocs"
 
